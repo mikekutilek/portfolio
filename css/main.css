@@ -1,0 +1,70 @@
+.navbar-inverse .navbar-header > a:hover, 
+.navbar-inverse .nav > li > a:hover,
+.navbar-inverse .navbar-header > a:active,
+.navbar-inverse .nav > li > a:active,
+.dropdown-menu > li > a:hover {
+	background-color: #494E6B;
+	color: white;
+}
+
+.my-dropdown, .my-dropdown > li > a {
+	background-color: #192231;
+	color: white;
+}
+
+.nav-caret{
+	color: white;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand>img {
+  height: 100%;
+  padding: 0px 10px 0px 3px; /* firefox bug fix */
+  width: auto;
+}
+
+.span-select{
+	font-size: 1.4em;
+	padding-left: 4px;
+	padding-right: 4px;
+	color: rgba(0,0,0,0.8);
+}
+
+.mybtn {
+	border: 1px solid transparent;
+    padding: .75rem 3rem;
+    font-size: 2rem;
+    line-height: 1.5;
+    border-radius: .50rem;
+	background-color: #6c757d;
+	color: #fff;
+	
+}
+
+.mybtn:hover {
+	background-color: #616970;
+	color: #fff;
+	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.mybtn:active {
+	color: #fff;
+}
+
+body{
+	background-color: #DDD !important;
+	background-image: "/img/me/logo.png";
+	height: 1500px;
+}
+
+.center{
+	text-align: center;
+}
+
+a:hover {
+	text-decoration: none;
+}

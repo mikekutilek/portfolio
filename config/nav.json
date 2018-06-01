@@ -1,0 +1,42 @@
+[
+	{
+		"title": "PERSONAL",
+		"type": "type",
+		"links": [
+			{
+				"title": "PHOTOGRAPHY",
+				"url": "photography"
+			},
+			{
+				"title": "TIME LAPSE",
+				"url": "timelapse"
+			},
+			{
+				"title": "VIDEOGRAPHY",
+				"url": "videography"
+			},
+			{
+				"title": "ABOUT",
+				"url": "about"
+			}
+		]
+	},
+	{
+		"title": "PROFESSINAL",
+		"type": "professional",
+		"links": [
+			{
+				"title": "RESUME",
+				"url": "resume"
+			},
+			{
+				"title": "PROJECTS",
+				"url": "projects"
+			},
+			{
+				"title": "CONTACT",
+				"url": "contact"
+			}
+		]
+	}
+]
