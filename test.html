@@ -1,0 +1,50 @@
+<script type="text/javascript" src="//www.google.com/jsapi"></script>
+<script type="text/javascript">
+google.load('visualization', '1', { packages : ['controls'] } );
+google.setOnLoadCallback(createTable);
+
+function createTable() {
+  // Create the dataset (DataTable)
+  var myData = new google.visualization.DataTable();
+  myData.addColumn('string', 'Date');
+  myData.addColumn('number', 'Hours Worked');
+  myData.addRows([
+    ['Jul 12, 2014', 9],    
+    ['Jul 13, 2014', 8],    
+    ['Jul 14, 2014', 10],    
+    ['Jul 15, 2014', 8],    
+    ['Jul 16, 2014', 0]
+  ]);
+
+  // Create a dashboard.
+  var dash_container = document.getElementById('dashboard_div'),
+    myDashboard = new google.visualization.Dashboard(dash_container);
+
+  // Create a date range slider
+  var myDateSlider = new google.visualization.ControlWrapper({
+    'controlType': 'ChartRangeFilter',
+    'containerId': 'control_div',
+    'options': {
+      'filterColumnLabel': 'Date'
+    }
+  });
+
+
+  // Line chart visualization
+  var myLine = new google.visualization.ChartWrapper({
+    'chartType' : 'LineChart',
+    'containerId' : 'line_div',
+  });
+  
+  // Bind myLine to the dashboard, and to the controls
+  // this will make sure our line chart is update when our date changes
+  myDashboard.bind(myDateSlider, myLine );
+
+  myDashboard.draw(myData);
+}
+</script>
+
+<div id="dashboard_div">
+  <div id="control_div"></div>
+  <div id="line_div"></div>
+</div>

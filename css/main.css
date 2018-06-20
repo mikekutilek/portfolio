@@ -5,6 +5,7 @@
 .dropdown-menu > li > a:hover {
 	background-color: #494E6B;
 	color: white;
+	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
 .my-dropdown, .my-dropdown > li > a {
@@ -25,6 +26,12 @@
   height: 100%;
   padding: 0px 10px 0px 3px; /* firefox bug fix */
   width: auto;
+}
+
+.back-img {
+	background: url("/img/me/logo.png");
+	opacity: 0.5;
+	filter: alpha(opacity=50);
 }
 
 .span-select{
@@ -56,9 +63,7 @@
 }
 
 body{
-	background-color: #DDD !important;
-	background-image: "/img/me/logo.png";
-	height: 1500px;
+	background-color: #DDD;
 }
 
 .center{
@@ -67,4 +72,53 @@ body{
 
 a:hover {
 	text-decoration: none;
+}
+
+footer.page-footer {
+  bottom: 0;
+  color: #fff; }
+  footer.page-footer .container-fluid {
+    width: auto; }
+  footer.page-footer .footer-copyright {
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: rgba(255, 255, 255, 0.6); }
+  footer.page-footer a {
+    color: #fff; }
+
+.stylish-color-dark {
+  background-color: #3e4551 !important; }
+
+.fa {
+  padding: 20px;
+  font-size: 30px !important;
+  width: auto;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+  border-radius: 50%;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+
+.fa-youtube {
+  background: #bb0000;
+  color: white;
 }

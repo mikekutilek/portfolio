@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Language" content="en"/>
+    <meta charset="UTF-8"/>
+    <meta name="google" content="notranslate"/>
+    <meta name="author" content="MKutilek"/>
+    <base href="/"/>
+    <title>YARN Memory Plot</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+</head>
+<body>
+    <nav ng-app="devops-nav" ng-controller="devops-nav-ctrl" ng-include="'/html/devops-nav.html'" class="no-shadow"></nav>
+    <div id="memory-app" class="app-content" ng-app="memory-app" ng-controller="memory-ctrl">
+        <div class="app-title-wrapper">
+            <h1 class="app-title">YARN Memory</h1>
+        </div>
+        <div class="app-section">
+            <h2 class="chart-title">Airavata Memory Usage</h2>
+            <span class="chart-span">Duration: </span>
+            <select id="duration-select" class="styled-select" ng-model="dselected" ng-change="redraw()">
+                <option ng-repeat="duration in durations">{{duration.value}}</option>
+            </select>
+            <span class="chart-span">Frequency: </span>
+            <select id="frequency-select" class="styled-select" ng-model="fselected" ng-change="redraw()">
+                <option ng-repeat="frequency in frequencies">{{frequency.value}}</option>
+            </select>
+            <div id="dashboard">
+                <div id="airavata-chart" class="chart"></div>
+                <div id="control"></div>
+            </div>
+
+        </div>
+        <div class="app-section">
+            <h2 class="chart-title">Bandoola Memory Usage</h2>
+            <span class="chart-span">Duration: </span>
+            <select id="duration-select" class="styled-select" ng-model="dselected" ng-change="redraw()">
+                <option ng-repeat="duration in durations">{{duration.value}}</option>
+            </select>
+            <span class="chart-span">Frequency: </span>
+            <select id="frequency-select" class="styled-select" ng-model="fselected" ng-change="redraw()">
+                <option ng-repeat="frequency in frequencies">{{frequency.value}}</option>
+            </select>
+            <div id="bandoola-chart" class="chart"></div>
+        </div>
+        <div class="app-section">
+            <h2 class="chart-title">Cornelius Memory Usage</h2>
+            <span class="chart-span">Duration: </span>
+            <select id="duration-select" class="styled-select" ng-model="dselected" ng-change="redraw()">
+                <option ng-repeat="duration in durations">{{duration.value}}</option>
+            </select>
+            <span class="chart-span">Frequency: </span>
+            <select id="frequency-select" class="styled-select" ng-model="fselected" ng-change="redraw()">
+                <option ng-repeat="frequency in frequencies">{{frequency.value}}</option>
+            </select>
+            <div id="cornelius-chart" class="chart"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/js/charts.js"></script>
+</body>
+</html>
