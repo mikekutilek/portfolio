@@ -25,10 +25,16 @@
 	</div>
 </nav>
 -->
-<nav id='nav-app' ng-app='nav-app' ng-controller='nav-ctrl' style="background-color: #192231">
-	<div ng-repeat='nav in navData'>
-		<ul>
-			<li><a href='/{{nav.url}}'>{{nav.title}}</a></li>
-		</ul>
-	</div>
-</nav>
+<div class="nav-container">
+	<ul class="nav-left">
+		<li><a class="navbar-brand" href="/"><img class="nav-logo" src="/img/me/logo.png">MIKE KUTILEK</a></li>
+	</ul>
+	<ul class="nav-right">
+		<li class="dropdown" ng-repeat='nav in navData'>
+			<a href='/{{nav.url}}' class='dropbtn'>{{nav.title}}</a>
+			<div class='dropdown-content'>
+				<a href='/{{link.url}}' ng-repeat='link in nav.links'>{{link.title}}</a>
+			</div>
+		</li>
+	</ul>
+</div>

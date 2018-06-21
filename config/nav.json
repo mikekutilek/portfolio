@@ -2,6 +2,7 @@
 	{
 		"title": "PERSONAL",
 		"type": "type",
+		"url": "#",
 		"links": [
 			{
 				"title": "PHOTOGRAPHY",
@@ -22,8 +23,9 @@
 		]
 	},
 	{
-		"title": "PROFESSINAL",
+		"title": "PROFESSIONAL",
 		"type": "professional",
+		"url": "#",
 		"links": [
 			{
 				"title": "RESUME",
@@ -38,5 +40,10 @@
 				"url": "contact"
 			}
 		]
+	},
+	{
+		"title": "OTHER",
+		"type": "other",
+		"url": "other"
 	}
 ]
