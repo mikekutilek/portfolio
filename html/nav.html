@@ -1,3 +1,4 @@
+<!--
 <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #192231">
 	<div class="container-fluid" style="width:88%">
 		<div class="navbar-header">
@@ -20,6 +21,14 @@
 				</ul>
 			</li>
 			<li><a style="color: white" href="/other">OTHER</a></li>
+		</ul>
+	</div>
+</nav>
+-->
+<nav id='nav-app' ng-app='nav-app' ng-controller='nav-ctrl' style="background-color: #192231">
+	<div ng-repeat='nav in navData'>
+		<ul>
+			<li><a href='/{{nav.url}}'>{{nav.title}}</a></li>
 		</ul>
 	</div>
 </nav>

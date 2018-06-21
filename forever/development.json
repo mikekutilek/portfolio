@@ -1,0 +1,8 @@
+{
+	"uid": "portfolio",
+	"append": true,
+	"watch": true,
+	"script": "index.js",
+	"sourceDir": "c:/Users/makut/Documents/Node/portfolio/",
+	"logFile": "c:/Users/makut/Documents/Node/portfolio/logs/app.log"
+}
