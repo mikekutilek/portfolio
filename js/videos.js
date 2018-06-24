@@ -14,6 +14,9 @@
 
 	videoApp.controller('video-ctrl', ['$scope', '$http', '$sce', function($scope, $http, $sce){
 		$http.get('/config/videos.json').then(function(rawData){
+			$scope.$watch(function() {
+			    $('.selectpicker').selectpicker('refresh');
+			});
 			var arr = rawData.data;
 			var urls = [];
 			var links = [];

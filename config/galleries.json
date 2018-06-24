@@ -3,13 +3,13 @@
 		"gallery": "Sunrise",
 		"id": "p42031841",
 		"category": "pittsburgh",
-		"img": "Duquesne Incline Cloudy Sunrise (2 of 2).jpg"
+		"img": "DICloudSunrise.jpg"
 	},
 	{
 		"gallery": "North Shore",
 		"id": "p643775603",
 		"category": "pittsburgh",
-		"img": "Dawn - North Shore (6 of 6).jpg"
+		"img": "DawnNS.jpg"
 	},
 	{
 		"gallery": "Downtown",
@@ -21,31 +21,31 @@
 		"gallery": "Fall",
 		"id": "p1006289073",
 		"category": "pittsburgh",
-		"img": "Monongahela Incline Fall (1 of 1).jpg"
+		"img": "MIFall.jpg"
 	},
 	{
 		"gallery": "Winter",
 		"id": "p1021149870",
 		"category": "pittsburgh",
-		"img": "North Shore Snow (8 of 16).jpg"
+		"img": "NSSnow.jpg"
 	},
 	{
 		"gallery": "Spring",
 		"id": "p42031841",
 		"category": "pittsburgh",
-		"img": "Cathedral Spring Flowers (1 of 1).jpg"
+		"img": "Cathedral Spring.jpg"
 	},
 	{
 		"gallery": "Disney",
 		"id": "f210088368",
 		"category": "disney",
-		"img": "Happily Ever After (33 of 34).jpg"
+		"img": "Disney.jpg"
 	},
 	{
 		"gallery": "Block Island",
 		"id": "p108897104",
 		"category": "bi",
-		"img": "Block Island House.jpg"
+		"img": "BIHouse.jpg"
 	},
 	{
 		"gallery": "Fog",

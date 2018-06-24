@@ -9,5 +9,3 @@
 
 	angular.bootstrap(document.getElementById("nav-app"), ['nav-app']);
 })();
-
-
