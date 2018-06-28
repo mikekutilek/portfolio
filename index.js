@@ -25,11 +25,19 @@ app.get('/', (req, res) => {
 });
 
 app.get('/photography', (req, res) => {
-	res.sendFile("photography.html", {root: __dirname });
+	res.sendFile("personal/photography.html", {root: __dirname });
 });
 
 app.get('/videography', (req, res) => {
-	res.sendFile("videography.html", {root: __dirname });
+	res.sendFile("personal/videography.html", {root: __dirname });
+});
+
+app.get('/time-lapse', (req, res) => {
+	res.sendFile("personal/time-lapse.html", {root: __dirname });
+});
+
+app.get('/matchup', (req, res) => {
+	res.sendFile("professional/projects/matchup_tool.html", {root: __dirname });
 });
 
 app.get('/galleries', (req, res) => {

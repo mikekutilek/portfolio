@@ -364,6 +364,26 @@ fieldset[disabled] .btn-default.active {
   max-width: 100%;
   height: auto;
 }
+
+.img-thumbnail-link {
+  padding: 4px;
+  line-height: 1.42857143;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+}
+
+.img-thumbnail-link:hover {
+  background-color: #428bca;
+  color: white;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
 .img-circle {
   border-radius: 50%;
 }
