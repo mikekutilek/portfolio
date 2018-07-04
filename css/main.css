@@ -152,6 +152,18 @@ li.nav-dropdown {
 	color: rgba(0,0,0,0.8);
 }
 
+.rounded-li{
+  border-radius: 10px;
+  width: 250px;
+  height: 250px;
+  background-color: #778899;
+}
+
+.rounded-li:hover {
+  background-color: #C0C0C0;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
 .mybtn {
 	border: 1px solid transparent;
   padding: .25rem 1rem;
