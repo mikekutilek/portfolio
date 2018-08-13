@@ -94,6 +94,10 @@ li.nav-li {
   float: left;
 }
 
+#dashboard {
+  z-index: -10;
+}
+
 li a, .dropbtn {
   display: inline-block;
   color: white;
@@ -156,11 +160,14 @@ li.nav-dropdown {
   border-radius: 10px;
   width: 250px;
   height: 250px;
-  background-color: #778899;
+  background-color: #1240AB;
+  color: #FFAA00;
+  font-size: 1.3em;
 }
 
 .rounded-li:hover {
-  background-color: #C0C0C0;
+  background-color: #0D3184;
+  color: #FFD508;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 

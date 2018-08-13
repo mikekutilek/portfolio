@@ -21,6 +21,12 @@ var scopes = 'user-read-private user-read-email';
 //App
 const app = express();
 
+
+
+app.listen(PORT, HOST, () => {
+    console.log(`Running on http://${HOST}:${PORT}`);
+});
+
 app.use(express.static(__dirname + '/'));
 
 app.get('/', (req, res) => {
@@ -43,6 +49,10 @@ app.get('/projects', (req, res) => {
 	res.sendFile("professional/projects.html", {root: __dirname });
 });
 
+app.get('/pitch-type', (req, res) => {
+    res.sendFile("professional/pitch-type.html", {root: __dirname });
+});
+
 app.get('/matchup', (req, res) => {
 	res.sendFile("professional/projects/matchup_tool.html", {root: __dirname });
 });
@@ -51,45 +61,32 @@ app.get('/galleries', (req, res) => {
 	res.sendFile("config/galleries.json", {root: __dirname });
 });
 
-app.get('/api/v1/fangraphs/pitching/pitch-type', call_pitchtype);
+
 
 function call_pitchtype(req, res){
+    var pid = req.params.pid;
     var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./pitch_type.py"]);
+    var process = spawn('python', ["./pitch_type.py", pid]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
+        res.end();
     })
-}
+};
 
-
-
-app.get('/api/v1/fangraphs/batting/standard/', (req, res) => {
-	var options = {
-        delimiter : ',',
-        quote : '"'
-    };
-    var filename = "c:/Users/makut/Documents/Data/Fangraphs/Batting/2018/Standard Batting Data.csv";
-    //var team = req.params.team;
-    var contents = fs.readFileSync(filename);
-    csv()
-    .fromFile(filename)
-    .then((jsonObj) => {
-    	return new Promise((resolve, reject)=> {
-    		res.send(jsonObj.length);
-    	})
-    	
+function call_pitchers(req, res){
+    //res.send("hi");
+    //var pid = req.params.pid;
+    
+    var spawn = require("child_process").spawn;
+    var process = spawn('python', ["./get_std_data.py"]);
+    process.stdout.on('data', function (data){
+        res.send(data.toString());
+        res.end();
     })
-});
+};
 
+app.get('/api/v1/fangraphs/pitching', call_pitchers);
 
+app.get('/api/v1/fangraphs/pitching/pitch-type/:pid', call_pitchtype);
 
-http.createServer(function(request, response){
-	response.writeHead(200, {"Content-Type": "text/plain"});
-	response.write("Hello World");
-	response.end();
-})
-
-app.listen(PORT, HOST, () => {
-	console.log(`Running on http://${HOST}:${PORT}`);
-});
