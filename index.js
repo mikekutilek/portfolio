@@ -10,13 +10,11 @@ const csv = require('csvtojson');
 
 //Constants
 const PORT = process.env.OPENSHIFT_NODEJS_PORT || 8080;
-const HOST = 'http://portfolio-mikekutilek-portfolio.a3c1.starter-us-west-1.openshiftapps.com' || '127.0.0.1'
+const HOST = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0'
 var client_id = '23b9b00767a84fa7aecfdd41a118d2df';
 var client_secret = '7651a04c818b469ab40c9782e962be68';
 var redirect_uri = 'http://localhost:' + PORT;
 var scopes = 'user-read-private user-read-email';
-
-
 
 //App
 const app = express();
