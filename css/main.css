@@ -1,6 +1,7 @@
 body{
   background-color: #DDD;
   margin: 0;
+  height: 100%;
   font-family: Noto Sans;
 }
 
@@ -26,6 +27,15 @@ a:hover {
   text-decoration: none;
   color: #2a6496;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.wrapper {
+  min-height: 100%;
+  position: relative;
+}
+
+#content {
+  padding-bottom: 150px;
 }
 
 #video-app {
@@ -201,7 +211,9 @@ li.nav-dropdown {
 }
 
 footer.page-footer {
+  position: absolute;
   bottom: 0;
+  margin: 0 auto;
   width: 100%;
   font-family: 'Oswald', sans-serif;
   background-color: #192231;

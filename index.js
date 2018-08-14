@@ -19,8 +19,6 @@ var scopes = 'user-read-private user-read-email';
 //App
 const app = express();
 
-
-
 app.listen(PORT, HOST, () => {
     console.log(`Running on http://${HOST}:${PORT}`);
 });
@@ -41,6 +39,10 @@ app.get('/videography', (req, res) => {
 
 app.get('/time-lapse', (req, res) => {
 	res.sendFile("personal/time-lapse.html", {root: __dirname });
+});
+
+app.get('/resume', (req, res) => {
+    res.sendFile("professional/resume.html", {root: __dirname });
 });
 
 app.get('/projects', (req, res) => {
@@ -64,7 +66,7 @@ app.get('/galleries', (req, res) => {
 function call_pitchtype(req, res){
     var pid = req.params.pid;
     var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./pitch_type.py", pid]);
+    var process = spawn('python', ["./professional/SABR/pitch_type.py", pid]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -75,9 +77,11 @@ function call_pitchtype(req, res){
 function call_pitchers(req, res){
     //res.send("hi");
     //var pid = req.params.pid;
-    
+    //var nwDir = path.dirname(process.execPath);
     var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./get_std_data.py"]);
+    
+    var process = spawn('python', ['./professional/SABR/get_std_data.py']);
+    //console.log(process.execPath)
     process.stdout.on('data', function (data){
         res.send(data.toString());
         res.end();
