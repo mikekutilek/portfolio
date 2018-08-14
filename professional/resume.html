@@ -13,28 +13,24 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-	<div class="wrapper">
-		<div id="content">
-			<div class="row">
-				<div id='nav-app' ng-app="nav-app" ng-controller='nav-ctrl' ng-include="'html/nav.html'"></div>
-			</div>
+	<div class="row">
+		<div id='nav-app' ng-app="nav-app" ng-controller='nav-ctrl' ng-include="'html/nav.html'"></div>
+	</div>
 
-			<div class="row">
-				<div class="container">
-					<div class="col-sm-2"></div>
-					<div class="col-sm-8">
-						<div class="center">
-							<h2>Resume</h2>
-							<embed src="files/Resume.pdf#zoom=scale&view=fit" type="application/pdf" width="100%" height="810px" />
-						</div>
-					</div>
+	<div class="row" id="content">
+		<div class="container">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8">
+				<div class="center">
+					<h2>Resume</h2>
+					<embed src="files/Resume.pdf#zoom=scale&view=fit" type="application/pdf" width="100%" height="810px" />
 				</div>
 			</div>
-
-			<div class="row">
-				<div id='foot-app' ng-app="foot-app" ng-include="'html/footer.html'"></div>
-			</div>
 		</div>
+	</div>
+
+	<div class="row">
+		<div id='foot-app' ng-app="foot-app" ng-include="'html/footer.html'"></div>
 	</div>
 
 	<script type="text/javascript" src="js/nav.js"></script>

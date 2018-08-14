@@ -18,34 +18,35 @@
 	<div class="row">
 		<div id='nav-app' ng-app="nav-app" ng-controller='nav-ctrl' ng-include="'html/nav.html'" ng-cloak></div>
 	</div>
-	
-	<div class="row">
-		<div class="container">
-			<div class="col-sm-1"></div>
-			<div class="col-sm-4">
-				<h2>Photography</h2>
-				<p>Whenver I have the energy, I like to wake up early and shoot sunrise. I also enjoy <a href="/time-lapse">Time Lapse</a> photography. I shoot with a Sony a6000. My primary lenses are a Sony 16-50mm, Sony 70-200mm, and Sigma 30mm f1.4. You can view all of my photography <a href="http://mikekutilek.zenfolio.com/">here</a>.</p>
-				<div class="img-thumbnail">
-					<img src="/img/me/photog.jpg" style="width: 93%; padding: 10px;">
+	<div id="content">
+		<div class="row">
+			<div class="container">
+				<div class="col-sm-1"></div>
+				<div class="col-sm-4">
+					<h2>Photography</h2>
+					<p>Whenver I have the energy, I like to wake up early and shoot sunrise. I also enjoy <a href="/time-lapse">Time Lapse</a> photography. I shoot with a Sony a6000. My primary lenses are a Sony 16-50mm, Sony 70-200mm, and Sigma 30mm f1.4. You can view all of my photography <a href="http://mikekutilek.zenfolio.com/">here</a>.</p>
+					<div class="img-thumbnail">
+						<img src="/img/me/photog.jpg" style="width: 93%; padding: 10px;">
+					</div>
 				</div>
-			</div>
-			<div class="col-sm-6">
-				<div id="gallery-app" class="gallery-app" ng-app="gallery-app" ng-controller="gallery-ctrl" style="margin-top:60px">
-					<div ng-repeat="rows in galleries" class="row">
-						<div ng-repeat="gal in rows" class="col-sm-4">
-							<a href="http://mikekutilek.zenfolio.com/{{gal.id}}">
-								<div class="img-thumbnail-link">
-									<img src="/img/{{gal.category}}/{{gal.img}}" style="width: 100%">
-									<div class="caption">
-										<p class="center" style="font-size: 20px">{{gal.gallery}}</p>
+				<div class="col-sm-6">
+					<div id="gallery-app" class="gallery-app" ng-app="gallery-app" ng-controller="gallery-ctrl" style="margin-top:60px">
+						<div ng-repeat="rows in galleries" class="row">
+							<div ng-repeat="gal in rows" class="col-sm-4">
+								<a href="http://mikekutilek.zenfolio.com/{{gal.id}}">
+									<div class="img-thumbnail-link">
+										<img src="/img/{{gal.category}}/{{gal.img}}" style="width: 100%">
+										<div class="caption">
+											<p class="center" style="font-size: 20px">{{gal.gallery}}</p>
+										</div>
 									</div>
-								</div>
-							</a>
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>
+				<div class="col-sm-1"></div>
 			</div>
-			<div class="col-sm-1"></div>
 		</div>
 	</div>
 	<div class="row">
