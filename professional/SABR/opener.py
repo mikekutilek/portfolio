@@ -3,17 +3,37 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import requests
 import sys
+import json
 import fangraphs as fg
 import savant as sa
 import argparse
 
 def get_all_pitchers():
-	p1 = fg.get_all_pitchers_page()
-	df = fg.get_table(p1)
-	for index, row in df.iterrows():
+	"""
+	This method takes the full active pitcher list from fangraphs
+	"""
+	#p1 = fg.get_all_pitchers_page()
+	p2 = fg.get_all_active_pitchers_page()
+	#df = fg.get_table(p1)
+	active_df = fg.get_table(p2)
+	#print(active_df)
+	active_df['fullname'] = ''
+	for index, row in active_df.iterrows():
+		#print(row)
+		"""
 		if row['Team'] != '- - -':
 			row['Team'] = sa.get_team(row['Team'])
-	return df
+		elif row['Team'] == '- - -':
+			player = active_df.loc[active_df['Name'] == row['Name']]
+			row['Team'] = sa.get_team(player['Team'].to_string(index=False))
+		else:
+			row['Team'] = sa.get_team('NA')
+		print(row['Name'], row['Team'])
+		"""
+		active_df.loc[index, 'fullname'] = row['Name'].replace(' ', '').strip().lower()
+		row['Team'] = sa.get_team(row['Team'])
+		#print(row['Team'])
+	return active_df
 
 def get_TTO_slash(data):
 	s = "wOBA slash: "
@@ -67,23 +87,56 @@ def get_rps_wOBA_vs(batter_stands):
 	data['wOBA'] = data['wOBA'].astype('float64')
 	return data.sort_values(by=['wOBA'], ascending=True).loc[data['wOBA'] < 0.250]
 
-def get_team_candidate_rps(team, batter_stands):
+def get_all_candidate_rps(batter_stands):
 	df = get_all_pitchers()
 	data = get_rps_wOBA_vs(batter_stands)
 	data['Team'] = ''
-	#print(len(data), len(df))
 	for index, row in data.iterrows():
-		if not df.loc[df['Name'] == row['Player']].empty:
-			t = df.loc[df['Name'] == row['Player']].Team.item()
+		playername = row['Player'].replace(' ', '').strip().lower()
+		if not df.loc[df['fullname'] == playername].empty:
+			t = df.loc[df['fullname'] == playername].Team.item()
 			data.loc[index, 'Team'] = t
 	return data
 
+def get_team_candidate_rps(team, batter_stands):
+	df = get_all_candidate_rps(batter_stands)
+	candidates = df.loc[df['Team'] == team]
+
+	return candidates
+
+	"""
+	if len(righties) > 0:
+		print(righties['Player'])
+	else:
+		print("The " + team + " don't have a great opener candidate against a righty heavy lineup.")
+
+	if len(lefties) > 0:
+		print(lefties['Player'])
+	else:
+		print("The " + team + " don't have a great opener candidate against a lefty heavy lineup.")
+	"""
+
 def main():
 	parser = argparse.ArgumentParser()
-	parser.add_argument("pid", help="playerid of the pitcher")
+	parser.add_argument("team", help="team of candidates you want to find")
 	args = parser.parse_args()
 
-	print(get_team_candidate_rps('PIT', 'R'))
+	rdf = get_team_candidate_rps(args.team, 'R')#.to_json(orient='records')
+	ldf = get_team_candidate_rps(args.team, 'L')#.to_json(orient='records')
+	candidate_data = {"righties": [], "lefties": []}
+
+	for index, r in rdf.iterrows():
+		candidate_data['righties'].append(r.to_json())
+
+	for index, l in ldf.iterrows():
+		candidate_data['lefties'].append(l.to_json())
+
+	#candidate_data['righties'] = rdf
+	#candidate_data['lefties'] = ldf
+	print(json.dumps(candidate_data))
+	#print(rdf)
+	#print(ldf.to_json(orient='records'))
+	sys.stdout.flush()
 	#print(get_rps_good_vs('R'))
 	"""
 	page = fg.get_splits_page(args.pid)

@@ -53,6 +53,10 @@ app.get('/pitch-type', (req, res) => {
     res.sendFile("professional/pitch-type.html", {root: __dirname });
 });
 
+app.get('/opener', (req, res) => {
+    res.sendFile("professional/opener.html", {root: __dirname });
+});
+
 app.get('/matchup', (req, res) => {
 	res.sendFile("professional/projects/matchup_tool.html", {root: __dirname });
 });
@@ -75,13 +79,21 @@ function call_pitchtype(req, res){
 };
 
 function call_pitchers(req, res){
-    //res.send("hi");
-    //var pid = req.params.pid;
-    //var nwDir = path.dirname(process.execPath);
     var spawn = require("child_process").spawn;
     
     var process = spawn('python', ['./professional/SABR/get_std_data.py']);
-    //console.log(process.execPath)
+
+    process.stdout.on('data', function (data){
+        res.send(data.toString());
+        res.end();
+    })
+};
+
+function call_rp_candidates(req, res){
+    var team = req.params.team;
+    var spawn = require("child_process").spawn;
+    var process = spawn('python', ["./professional/SABR/opener.py", team]);
+
     process.stdout.on('data', function (data){
         res.send(data.toString());
         res.end();
@@ -92,3 +104,15 @@ app.get('/api/v1/fangraphs/pitching', call_pitchers);
 
 app.get('/api/v1/fangraphs/pitching/pitch-type/:pid', call_pitchtype);
 
+app.get('/api/v1/sabr/opener/teams', (req, res) => {
+    data = {'Orioles': 'BAL', 'Red Sox': 'BOS', 'Yankees': 'NYY', 'Rays': 'TB', 'Blue Jays': 'TOR', 
+'Indians': 'CLE', 'White Sox': 'CWS', 'Tigers': 'DET', 'Royals': 'KC', 'Twins': 'MIN',
+'Astros': 'HOU', 'Angels': 'LAA', 'Athletics': 'OAK', 'Mariners': 'SEA', 'Rangers': 'TEX',
+'Braves': 'ATL', 'Marlins': 'MIA', 'Mets': 'NYM', 'Phillies': 'PHI', 'Nationals': 'WSH', 
+'Cubs': 'CHC', 'Reds': 'CIN', 'Brewers': 'MIL', 'Pirates': 'PIT', 'Cardinals': 'STL', 
+'Diamondbacks': 'ARI', 'Rockies': 'COL', 'Dodgers': 'LAD', 'Padres': 'SD', 'Giants': 'SF'};
+
+    res.send(data);
+});
+
+app.get('/api/v1/sabr/opener/:team', call_rp_candidates)

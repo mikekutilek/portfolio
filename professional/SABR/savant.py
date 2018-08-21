@@ -50,7 +50,7 @@ def get_page(batter_stands='', position='', group_by='name', sort_col=''):
 	metric_1=&
 	hfInn=&
 	min_pitches=0&
-	min_results=50&
+	min_results=75&
 	group_by={}&
 	sort_col={}&
 	player_event_sort=h_launch_speed&

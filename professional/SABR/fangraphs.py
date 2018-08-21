@@ -21,6 +21,11 @@ def get_all_pitchers_page(season='2018'):
 	r = requests.get(url)
 	return BeautifulSoup(r.content, "html.parser")
 
+def get_all_active_pitchers_page(season='2018'):
+	url = "https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=0&type=8&season={}&month=0&season1={}&ind=0&team=0&rost=1&age=0&filter=&players=0&page=1_1000".format(season, season)
+	r = requests.get(url)
+	return BeautifulSoup(r.content, "html.parser")
+
 def get_table(page):
 	table = page.find('table',{'class':'rgMasterTable'})
 	ths = table.find_all('th')

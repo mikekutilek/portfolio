@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-	<title>Projects | Mike Kutilek</title>
+	<title>The Opener Tool | Mike Kutilek</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" type="image/png" href="/img/me/logo.png"/>
 	<link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<link rel="stylesheet" type="text/css" href="/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap-select.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 </head>
 <body>
 	<div class="row">
@@ -21,10 +25,14 @@
 		<div class="container">
 			<div class="col-sm-2"></div>
 			<div class="col-sm-8">
-				<div class="center">
-					<h2>Projects</h2>
-					<a href="/pitch-type"><div class='rounded-li'>Pitch Type Trends</div></a>
-					<a href="/opener"><div class='rounded-li'>Opener Tool</div></a>
+				<div id="team-app" ng-controller="ctrl" style="margin-top:60px">
+					<div class="center">
+						<h2>The Opener Tool</h2>
+						<span class="span-select">Find the best opener candidates for your team:</span><br/>
+						<select id="player-select" ng-options="team for team in teams" ng-model="data.selectedOption" ng-change="getCandidates(data.selectedOption)"></select><br/>
+						Righties: <div ng-repeat="rplayer in rplayers">{{rplayer}}<br/></div><br/>
+						Lefties: <div ng-repeat="lplayer in lplayers">{{lplayer}}<br/></div>
+					</div>
 				</div>
 			</div>
 			<div class="col-sm-2"></div>
@@ -35,6 +43,7 @@
 		<div id='foot-app' ng-app="foot-app" ng-include="'html/footer.html'"></div>
 	</div>
 
+	<script type="text/javascript" src="js/opener.js"></script>
 	<script type="text/javascript" src="js/nav.js"></script>
 	<script type="text/javascript" src="js/bootstrap.js"></script>
 	<script type="text/javascript" src="js/footer.js"></script>
