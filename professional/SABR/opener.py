@@ -100,7 +100,10 @@ def get_all_candidate_rps(batter_stands):
 
 def get_team_candidate_rps(team, batter_stands):
 	df = get_all_candidate_rps(batter_stands)
-	candidates = df.loc[df['Team'] == team]
+	if team == 'ANY':
+		candidates = df
+	else:
+		candidates = df.loc[df['Team'] == team]
 
 	return candidates
 

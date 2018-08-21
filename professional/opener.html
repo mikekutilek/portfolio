@@ -23,19 +23,37 @@
 
 	<div class="row" id="content">
 		<div class="container">
-			<div class="col-sm-2"></div>
-			<div class="col-sm-8">
-				<div id="team-app" ng-controller="ctrl" style="margin-top:60px">
-					<div class="center">
-						<h2>The Opener Tool</h2>
-						<span class="span-select">Find the best opener candidates for your team:</span><br/>
+			<div class="center">
+				<h2>The Opener Tool</h2>
+				
+				<div class="col-sm-6">
+					<div id="opener-app" ng-controller="ctrl">
+						<span class="span-select">Find the top opener candidates for your team:</span><br/>
 						<select id="player-select" ng-options="team for team in teams" ng-model="data.selectedOption" ng-change="getCandidates(data.selectedOption)"></select><br/>
-						Righties: <div ng-repeat="rplayer in rplayers">{{rplayer}}<br/></div><br/>
-						Lefties: <div ng-repeat="lplayer in lplayers">{{lplayer}}<br/></div>
+						<div class="col-sm-5">
+							<h4>VS. RH-Heavy Lineups</h4>
+							<table class='center'>
+								<tr><td>Name</td><td>wOBA</td></tr>
+								<tr ng-repeat="rplayer in rplayers">
+									<td>{{rplayer.name}}</td><td>{{rplayer.wOBA}}</td>
+								</tr>
+							</table>
+						</div>
+						<div class="col-sm-5">
+							<h4>VS. LH-Heavy Lineups</h4>
+							<table>
+								<tr><td>Name</td><td>wOBA</td></tr>
+								<tr ng-repeat="lplayer in lplayers">
+									<td>{{lplayer.name}}</td><td>{{lplayer.wOBA}}</td>
+								</tr>
+							</table>
+						</div>
 					</div>
 				</div>
+				<div class="col-sm-6">
+				</div>
+				
 			</div>
-			<div class="col-sm-2"></div>
 		</div>
 	</div>
 

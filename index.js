@@ -110,7 +110,7 @@ app.get('/api/v1/sabr/opener/teams', (req, res) => {
 'Astros': 'HOU', 'Angels': 'LAA', 'Athletics': 'OAK', 'Mariners': 'SEA', 'Rangers': 'TEX',
 'Braves': 'ATL', 'Marlins': 'MIA', 'Mets': 'NYM', 'Phillies': 'PHI', 'Nationals': 'WSH', 
 'Cubs': 'CHC', 'Reds': 'CIN', 'Brewers': 'MIL', 'Pirates': 'PIT', 'Cardinals': 'STL', 
-'Diamondbacks': 'ARI', 'Rockies': 'COL', 'Dodgers': 'LAD', 'Padres': 'SD', 'Giants': 'SF'};
+'Diamondbacks': 'ARI', 'Rockies': 'COL', 'Dodgers': 'LAD', 'Padres': 'SD', 'Giants': 'SF', 'All': 'ANY'};
 
     res.send(data);
 });
