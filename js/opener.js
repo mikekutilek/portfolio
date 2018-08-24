@@ -2,6 +2,8 @@
 	var app = angular.module('opener-app', []);
 
 	app.controller('ctrl', ['$http', '$scope', function($http, $scope){
+		$scope.tbl = false;
+		
 		$http.get('http://localhost:8080/api/v1/sabr/opener/teams').then(function(data){
 			$scope.teamData = data.data;
             $scope.teams = Object.keys(data.data);
@@ -13,6 +15,7 @@
 	        $http.get('http://localhost:8080/api/v1/sabr/opener/' + team_abbr).then(function(data){
 	        	var rightyData = data.data['righties']
 	        	var leftyData = data.data['lefties']
+	        	var chunkData = data.data['chunk']
 	        	var rplayers = [];
 	        	var lplayers = [];
 	        	if (rightyData.length == 0){
@@ -31,6 +34,8 @@
 	        	}
 	            $scope.rplayers = rplayers;
 	            $scope.lplayers = lplayers;
+	            $scope.chunk = chunkData;
+	            $scope.tbl = true;
 	        });
 	    }
 	}]);

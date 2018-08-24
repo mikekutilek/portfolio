@@ -21,38 +21,40 @@
 		<div id='nav-app' ng-app="nav-app" ng-controller='nav-ctrl' ng-include="'html/nav.html'"></div>
 	</div>
 
-	<div class="row" id="content">
-		<div class="container">
-			<div class="center">
+	<div class="container center" id="content">
+		<div id="opener-app" ng-controller="ctrl">
+			<div class="row span-padded">
 				<h2>The Opener Tool</h2>
-				
-				<div class="col-sm-6">
-					<div id="opener-app" ng-controller="ctrl">
-						<span class="span-select">Find the top opener candidates for your team:</span><br/>
-						<select id="player-select" ng-options="team for team in teams" ng-model="data.selectedOption" ng-change="getCandidates(data.selectedOption)"></select><br/>
-						<div class="col-sm-5">
-							<h4>VS. RH-Heavy Lineups</h4>
-							<table class='center'>
-								<tr><td>Name</td><td>wOBA</td></tr>
-								<tr ng-repeat="rplayer in rplayers">
-									<td>{{rplayer.name}}</td><td>{{rplayer.wOBA}}</td>
-								</tr>
-							</table>
-						</div>
-						<div class="col-sm-5">
-							<h4>VS. LH-Heavy Lineups</h4>
-							<table>
-								<tr><td>Name</td><td>wOBA</td></tr>
-								<tr ng-repeat="lplayer in lplayers">
-									<td>{{lplayer.name}}</td><td>{{lplayer.wOBA}}</td>
-								</tr>
-							</table>
-						</div>
+				<span class="span-select">Team:</span><select id="player-select" ng-options="team for team in teams" ng-model="data.selectedOption" ng-change="getCandidates(data.selectedOption)"></select>
+				<span ng-if="tbl">The {{data.selectedOption}} {{chunk}}</span>
+			</div>
+			<div class="row">
+				<div class="col-sm-5">
+					<span style="font-size: 1.5em">Top RP Candidates</span><br/>
+					<div class="col-sm-6">
+						<br/><span style="font-size:1.1em">vs. RH-Heavy Lineups</span><br/><br/>
+						<table class='center' ng-if="tbl">
+							<tr><th>Name</th><th>wOBA</th></tr>
+							<tr ng-repeat="rplayer in rplayers">
+								<td>{{rplayer.name}}</td><td>{{rplayer.wOBA}}</td>
+							</tr>
+						</table>
+					</div>
+					<div class="col-sm-6">
+						<br/><span style="font-size:1.1em">vs. LH-Heavy Lineups</span><br/><br/>
+						<table ng-if="tbl">
+							<tr><th>Name</th><th>wOBA</th></tr>
+							<tr ng-repeat="lplayer in lplayers">
+								<td>{{lplayer.name}}</td><td>{{lplayer.wOBA}}</td>
+							</tr>
+						</table>
 					</div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-md-1">
 				</div>
-				
+				<div class="col-sm-5 col-md-offset-1">
+					<span style="font-size: 1.5em">Top SP Candidates</span><br/>
+				</div>
 			</div>
 		</div>
 	</div>

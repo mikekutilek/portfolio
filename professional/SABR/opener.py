@@ -69,15 +69,15 @@ def get_team_wOBA_chunk(team):
 	data = get_team_rotation_wOBA()
 	chunk_data = np.array_split(data, 5)
 	if (chunk_data[0]['Player'] == team).any():
-		return "Your teams starting rotation is in the upper echelon of MLB in wOBA. You probably don't need an opener, but you can still take a look at potential options."
+		return "starting rotation is in the upper echelon of MLB in wOBA. They probably don't need an opener, but you can still take a look at potential options."
 	elif (chunk_data[1]['Player'] == team).any():
-		return "Your teams starting rotation is in one of the higher tiers of MLB in wOBA. You may or may not need an opener to fill a void, but you can still take a look at potential options."
+		return "starting rotation is in one of the higher tiers of MLB in wOBA. They may or may not need an opener to fill a void, but you can still take a look at potential options."
 	elif (chunk_data[2]['Player'] == team).any():
-		return "Your teams starting rotation is in the middle of MLB in wOBA. You might need an opener to fill a void. Check out your options below!"
+		return "starting rotation is in the middle of MLB in wOBA. They might need an opener to fill a void. Check out their options below!"
 	elif (chunk_data[3]['Player'] == team).any():
-		return "Your teams starting rotation is in one of the lower tiers of MLB in wOBA. You could probably use an opener to fill a void. See options below!"
+		return "starting rotation is in one of the lower tiers of MLB in wOBA. They could probably use an opener to fill a void. See options below!"
 	elif (chunk_data[4]['Player'] == team).any():
-		return "Your teams starting rotation is at the very bottom of MLB in wOBA. You definitely have a rotation spot that could be better utilized. See options below!"
+		return "starting rotation is at the very bottom of MLB in wOBA. They definitely have a rotation spot that could be better utilized. See options below!"
 	else:
 		return "Invalid team. Please try again."
 
@@ -107,36 +107,25 @@ def get_team_candidate_rps(team, batter_stands):
 
 	return candidates
 
-	"""
-	if len(righties) > 0:
-		print(righties['Player'])
-	else:
-		print("The " + team + " don't have a great opener candidate against a righty heavy lineup.")
-
-	if len(lefties) > 0:
-		print(lefties['Player'])
-	else:
-		print("The " + team + " don't have a great opener candidate against a lefty heavy lineup.")
-	"""
-
 def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument("team", help="team of candidates you want to find")
 	args = parser.parse_args()
 
-	rdf = get_team_candidate_rps(args.team, 'R')#.to_json(orient='records')
-	ldf = get_team_candidate_rps(args.team, 'L')#.to_json(orient='records')
-	candidate_data = {"righties": [], "lefties": []}
+	rdf = get_team_candidate_rps(args.team, 'R')
+	ldf = get_team_candidate_rps(args.team, 'L')
+	chunk = get_team_wOBA_chunk(args.team)
+	opener_data = {"chunk": "", "righties": [], "lefties": []}
 
 	for index, r in rdf.iterrows():
-		candidate_data['righties'].append(r.to_json())
+		opener_data['righties'].append(r.to_json())
 
 	for index, l in ldf.iterrows():
-		candidate_data['lefties'].append(l.to_json())
+		opener_data['lefties'].append(l.to_json())
 
-	#candidate_data['righties'] = rdf
-	#candidate_data['lefties'] = ldf
-	print(json.dumps(candidate_data))
+	opener_data['chunk'] = chunk
+
+	print(json.dumps(opener_data))
 	#print(rdf)
 	#print(ldf.to_json(orient='records'))
 	sys.stdout.flush()
