@@ -34,16 +34,7 @@
 			{
 				"title": "PROJECTS",
 				"url": "projects"
-			},
-			{
-				"title": "CONTACT",
-				"url": "contact"
 			}
 		]
-	},
-	{
-		"title": "OTHER",
-		"type": "other",
-		"url": "other"
 	}
 ]
