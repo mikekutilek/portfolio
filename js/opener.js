@@ -6,12 +6,15 @@
 		
 		$http.get('http://localhost:8080/api/v1/sabr/opener/teams').then(function(data){
 			$scope.teamData = data.data;
-            $scope.teams = Object.keys(data.data);
+            $scope.teams = Object.keys(data.data).slice(1);
+            //console.log($scope.teams.slice(1));
         });
 
 	    $scope.getCandidates = function(selection){
 	    	data = $scope.teamData;
-	    	team_abbr = data[selection]
+	    	console.log(selection);
+	    	team_abbr = data[selection];
+	    	
 	        $http.get('http://localhost:8080/api/v1/sabr/opener/' + team_abbr).then(function(data){
 	        	var rightyData = data.data['righties']
 	        	var leftyData = data.data['lefties']
@@ -36,6 +39,12 @@
 	            $scope.lplayers = lplayers;
 	            $scope.chunk = chunkData;
 	            $scope.tbl = true;
+	            if (team_abbr == 'ANY'){
+		        	$scope.desc = false;
+		        }
+		        else{
+		        	$scope.desc = true;
+		        }
 	        });
 	    }
 	}]);

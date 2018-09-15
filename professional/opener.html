@@ -25,15 +25,15 @@
 		<div id="opener-app" ng-controller="ctrl">
 			<div class="row span-padded">
 				<h2>The Opener Tool</h2>
-				<span class="span-select">Team:</span><select id="player-select" ng-options="team for team in teams" ng-model="data.selectedOption" ng-change="getCandidates(data.selectedOption)"></select>
-				<span ng-if="tbl">The {{data.selectedOption}} {{chunk}}</span>
+				<span class="span-select">Team:</span><select class="selectpicker" ng-options="team for team in teams" ng-model="data.selectedOption" ng-change="getCandidates(data.selectedOption)"><option value="" selected="selected">All</option></select><br/>
+				<span ng-if="desc">The {{data.selectedOption}} {{chunk}}</span>
 			</div>
 			<div class="row">
-				<div class="col-sm-5">
+				<div class="col-sm-5 black-box">
 					<span style="font-size: 1.5em">Top RP Candidates</span><br/>
 					<div class="col-sm-6">
 						<br/><span style="font-size:1.1em">vs. RH-Heavy Lineups</span><br/><br/>
-						<table class='center' ng-if="tbl">
+						<table class='center o-table' ng-if="tbl">
 							<tr><th>Name</th><th>wOBA</th></tr>
 							<tr ng-repeat="rplayer in rplayers">
 								<td>{{rplayer.name}}</td><td>{{rplayer.wOBA}}</td>
@@ -42,7 +42,7 @@
 					</div>
 					<div class="col-sm-6">
 						<br/><span style="font-size:1.1em">vs. LH-Heavy Lineups</span><br/><br/>
-						<table ng-if="tbl">
+						<table class='center o-table' ng-if="tbl">
 							<tr><th>Name</th><th>wOBA</th></tr>
 							<tr ng-repeat="lplayer in lplayers">
 								<td>{{lplayer.name}}</td><td>{{lplayer.wOBA}}</td>
@@ -50,10 +50,17 @@
 						</table>
 					</div>
 				</div>
-				<div class="col-md-1">
-				</div>
-				<div class="col-sm-5 col-md-offset-1">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-5 black-box">
 					<span style="font-size: 1.5em">Top SP Candidates</span><br/>
+					<div class="col-sm-6">
+						<br/><span style="font-size:1.1em">vs. RH-Heavy Lineups</span><br/><br/>
+						
+					</div>
+					<div class="col-sm-6">
+						<br/><span style="font-size:1.1em">vs. LH-Heavy Lineups</span><br/><br/>
+						
+					</div>
 				</div>
 			</div>
 		</div>
@@ -68,4 +75,5 @@
 	<script type="text/javascript" src="js/bootstrap.js"></script>
 	<script type="text/javascript" src="js/footer.js"></script>
 </body>
+
 </html>

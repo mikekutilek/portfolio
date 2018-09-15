@@ -21,7 +21,7 @@ html{
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  background-image: url("/img/me/logo.png");
+  background-image: url("/img/me/logo_g_o.png");
   background-position: center center;
   background-color: #DDD;
   background-attachment: fixed;
@@ -56,13 +56,37 @@ a:hover {
 }
 
 .black-box {
-  background-color: rgba(0,0,0,0.3);
-  min-height: 400px;
+  background-color: rgba(66, 139, 202, 0.8);
+  color: #ffffff;
+  border-radius: 25px;
+  min-height: 1000px;
+  padding-bottom: 20px;
+  z-index: -100;
+}
+
+.o-table{
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.o-table td, .o-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+
+
+.o-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    color: white;
 }
 
 .container {
   margin-bottom: -100px;
-
+  padding-bottom: 200px;
 }
 
 .center{
@@ -192,15 +216,20 @@ li.nav-dropdown {
   border-radius: 10px;
   width: 250px;
   height: 250px;
-  background-color: #1240AB;
-  color: #FFAA00;
+  background-color: #ffffff;
+  color: #428bca;
   font-size: 1.3em;
 }
 
 .rounded-li:hover {
-  background-color: #0D3184;
-  color: #FFD508;
+  background-color: #428bca;
+  color: #ffffff;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.tl-bg {
+  padding: 10px;
+  background-color: #ffffff;
 }
 
 .mybtn {

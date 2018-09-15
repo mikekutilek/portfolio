@@ -8,6 +8,7 @@ import fangraphs as fg
 import savant as sa
 import argparse
 
+
 def get_all_pitchers():
 	"""
 	This method takes the full active pitcher list from fangraphs
@@ -82,10 +83,14 @@ def get_team_wOBA_chunk(team):
 		return "Invalid team. Please try again."
 
 def get_rps_wOBA_vs(batter_stands):
+	pd.options.display.float_format = '${:,.3f}'.format
 	page = sa.get_page(batter_stands=batter_stands, position='RP', sort_col='woba')
 	data = sa.get_table(page)
-	data['wOBA'] = data['wOBA'].astype('float64')
-	return data.sort_values(by=['wOBA'], ascending=True).loc[data['wOBA'] < 0.250]
+	#data['wOBA'] = data['wOBA'].astype('str')
+	data['wOBA'] = data['wOBA'].astype('float64').apply(lambda x: '{0:.3f}'.format(x))
+	#data['wOBA'] = pd.Series([format(val, '.3f') for val in data['wOBA']], index = data.index)
+	
+	return data.sort_values(by=['wOBA'], ascending=True).loc[data['wOBA'].astype('float64') < 0.250]
 
 def get_all_candidate_rps(batter_stands):
 	df = get_all_pitchers()

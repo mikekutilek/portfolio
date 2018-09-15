@@ -38,7 +38,7 @@
 						</select>
 						<pre>{{PlayerData|json}}</pre>
 						-->
-						<select id="player-select" ng-options="player.Name for player in players" ng-model="data.selectedOption" ng-change="getPlayerData(data.selectedOption)"></select>
+						<select ng-options="player.Name for player in players" ng-model="data.selectedOption" ng-change="getPlayerData(data.selectedOption)"></select>
 						<div class="chart" id="dashboard">
 							<div class="chart" id="chart"></div>
 							<div class="chart" id="control"></div>
