@@ -36,6 +36,7 @@ def get_all_pitchers():
 		#print(row['Team'])
 	return active_df
 
+"""
 def get_TTO_slash(data):
 	s = "wOBA slash: "
 	for i in range(len(data)):
@@ -59,6 +60,7 @@ def determine_sp_candidate(diff):
 	else:
 		s = "don't"
 	return "You %s need an opener" % s
+"""
 
 def get_team_rotation_wOBA():
 	page = sa.get_page(position='SP', group_by='team', sort_col='woba')
@@ -84,17 +86,24 @@ def get_team_wOBA_chunk(team):
 
 def get_rps_wOBA_vs(batter_stands):
 	pd.options.display.float_format = '${:,.3f}'.format
-	page = sa.get_page(batter_stands=batter_stands, position='RP', sort_col='woba')
+	page = sa.get_page(batter_stands=batter_stands, position='RP', min_results='75', sort_col='woba')
 	data = sa.get_table(page)
-	#data['wOBA'] = data['wOBA'].astype('str')
 	data['wOBA'] = data['wOBA'].astype('float64').apply(lambda x: '{0:.3f}'.format(x))
-	#data['wOBA'] = pd.Series([format(val, '.3f') for val in data['wOBA']], index = data.index)
 	
 	return data.sort_values(by=['wOBA'], ascending=True).loc[data['wOBA'].astype('float64') < 0.250]
 
-def get_all_candidate_rps(batter_stands):
+def get_sps_wOBA_vs(batter_stands):
+	page = sa.get_page(batter_stands=batter_stands, position='SP', hfInn='1%7C', min_results='30', sort_col='woba')
+	data = sa.get_table(page)
+	data['wOBA'] = data['wOBA'].astype('float64').apply(lambda x: '{0:.3f}'.format(x))
+	return data.sort_values(by=['wOBA'], ascending=False).loc[data['wOBA'].astype('float64') > 0.350]
+
+def get_all_candidates(batter_stands, position):
 	df = get_all_pitchers()
-	data = get_rps_wOBA_vs(batter_stands)
+	if position == 'RP':
+		data = get_rps_wOBA_vs(batter_stands)
+	else:
+		data = get_sps_wOBA_vs(batter_stands)
 	data['Team'] = ''
 	for index, row in data.iterrows():
 		playername = row['Player'].replace(' ', '').strip().lower()
@@ -103,8 +112,8 @@ def get_all_candidate_rps(batter_stands):
 			data.loc[index, 'Team'] = t
 	return data
 
-def get_team_candidate_rps(team, batter_stands):
-	df = get_all_candidate_rps(batter_stands)
+def get_team_candidates(team, batter_stands, position):
+	df = get_all_candidates(batter_stands, position)
 	if team == 'ANY':
 		candidates = df
 	else:
@@ -117,16 +126,24 @@ def main():
 	parser.add_argument("team", help="team of candidates you want to find")
 	args = parser.parse_args()
 
-	rdf = get_team_candidate_rps(args.team, 'R')
-	ldf = get_team_candidate_rps(args.team, 'L')
+	rp_rdf = get_team_candidates(args.team, 'R', 'RP')
+	rp_ldf = get_team_candidates(args.team, 'L', 'RP')
+	sp_rdf = get_team_candidates(args.team, 'R', 'SP')
+	sp_ldf = get_team_candidates(args.team, 'L', 'SP')
 	chunk = get_team_wOBA_chunk(args.team)
-	opener_data = {"chunk": "", "righties": [], "lefties": []}
+	opener_data = {"chunk": "", "rp_righties": [], "rp_lefties": [], "sp_righties": [], "sp_lefties": []}
 
-	for index, r in rdf.iterrows():
-		opener_data['righties'].append(r.to_json())
+	for index, r in rp_rdf.iterrows():
+		opener_data['rp_righties'].append(r.to_json())
 
-	for index, l in ldf.iterrows():
-		opener_data['lefties'].append(l.to_json())
+	for index, l in rp_ldf.iterrows():
+		opener_data['rp_lefties'].append(l.to_json())
+
+	for index, r in sp_rdf.iterrows():
+		opener_data['sp_righties'].append(r.to_json())
+
+	for index, l in sp_ldf.iterrows():
+		opener_data['sp_lefties'].append(l.to_json())
 
 	opener_data['chunk'] = chunk
 

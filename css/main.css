@@ -59,9 +59,10 @@ a:hover {
   background-color: rgba(66, 139, 202, 0.8);
   color: #ffffff;
   border-radius: 25px;
-  min-height: 1000px;
-  padding-bottom: 20px;
-  z-index: -100;
+  padding: 20px;
+
+  text-align: center;
+  margin-bottom: 15px;
 }
 
 .o-table{
@@ -75,14 +76,17 @@ a:hover {
     padding: 8px;
 }
 
-
-
 .o-table th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: center;
     color: white;
+    background-color: #c97e40;
 }
+
+.o-table tr:nth-child(even){background-color: #18334B;}
+
+.o-table tr{background-color: #214565;}
 
 .container {
   margin-bottom: -100px;
@@ -175,7 +179,7 @@ li.nav-dropdown {
   background-color: #192231;
   min-width: 140px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 2;
+  z-index: 10;
 }
 
 .nav-dropdown-content a {
@@ -236,6 +240,23 @@ li.nav-dropdown {
   background-image: url('/img/icons/coins.svg')
 }
 
+.loading {
+  height: 25px;
+  padding-left: 10px;
+  padding-top: 2px;
+  vertical-align: center;
+}
+
+.teams-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 50px;
+  position: relative;
+  z-index: 5;
+}
+
 .rounded-li{
   border-radius: 10px;
   width: 250px;
@@ -250,7 +271,6 @@ li.nav-dropdown {
 
 .rounded-li:hover {
   background-color: #428bca;
-  
   color: #ffffff;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }

@@ -33,12 +33,11 @@
 						<select class="selectpicker" id="playerselect" ng-model="player" ng-change="getPlayerData(player)">
 
 							<option value="" selected="selected">All</option>
-							<option value="">Jameson Taillon</option>
-							<option ng-repeat="player in players" data-tokens="{{player}}" value="{{player}}">{{player}}</option>
+							<option ng-repeat="player in players" data-tokens="{{player.Name}}" value="{{player.Name}}">{{player.Name}}</option>
 						</select>
-						<pre>{{PlayerData|json}}</pre>
 						-->
-						<select ng-options="player.Name for player in players" ng-model="data.selectedOption" ng-change="getPlayerData(data.selectedOption)"></select>
+						<select ng-options="player.Name for player in players" ng-model="playerSelect" ng-change="getPlayerData(playerSelect)"></select>
+						<span ng-if="loading"><img class="loading" src="/img/icons/loading.gif" ></span>
 						<div class="chart" id="dashboard">
 							<div class="chart" id="chart"></div>
 							<div class="chart" id="control"></div>

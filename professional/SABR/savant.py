@@ -16,7 +16,7 @@ team_key = {'Orioles': 'BAL', 'Red Sox': 'BOS', 'Yankees': 'NYY', 'Rays': 'TB', 
 def get_team(team):
 	return team_key[team]
 
-def get_page(batter_stands='', position='', group_by='name', sort_col=''):
+def get_page(batter_stands='', position='', hfInn='', min_results='', group_by='name', sort_col=''):
 	url = '''
 	https://baseballsavant.mlb.com/statcast_search?
 	hfPT=&
@@ -48,15 +48,15 @@ def get_page(batter_stands='', position='', group_by='name', sort_col=''):
 	hfFlag=&
 	hfPull=&
 	metric_1=&
-	hfInn=&
+	hfInn={}&
 	min_pitches=0&
-	min_results=75&
+	min_results={}&
 	group_by={}&
 	sort_col={}&
 	player_event_sort=h_launch_speed&
 	sort_order=desc&
 	min_pas=0#results
-	'''.replace('\t', '').replace('\n', '').strip().format(batter_stands, position, group_by, sort_col)
+	'''.replace('\t', '').replace('\n', '').strip().format(batter_stands, position, hfInn, min_results, group_by, sort_col)
 	r = requests.get(url)
 	return BeautifulSoup(r.content, "html.parser")
 
