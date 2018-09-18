@@ -16,10 +16,19 @@ def get_all_goalies_page(season='2018'):
 def get_table(page):
 	table = page.find('table',{'class':'stats_table'})
 	thead = table.find('thead')
-	ths = thead.find_all('th')
+	trs = thead.find_all('tr')[1]
+	ths = trs.find_all('th')
 	headings = []
-	for th in ths[16:]:
+	for th in ths:
 		headings.append(th.text.strip())
+	if headings[13] == 'PP':
+		headings[13] = 'PPG'
+	if headings[14] == 'SH':
+		headings[14] = 'SHG'
+	if headings[17] == 'PP':
+		headings[17] = 'PPA'
+	if headings[18] == 'SH':
+		headings[18] = 'SHA'
 	tbody = table.find('tbody')
 	rows = tbody.find_all('tr')
 	data = []
@@ -32,6 +41,10 @@ def get_table(page):
 
 	df = pd.DataFrame(data=data, columns=headings)
 	return df
+
+def main():
+	page = get_all_skaters_page()
+	print(get_table(page))
 
 if __name__ == '__main__':
 	main()
