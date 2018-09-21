@@ -23,7 +23,7 @@ def get_all_skater_fps():
 	blocks = skaters['BLK'].fillna(0).astype('float64')
 	hits = skaters['HIT'].astype('float64')
 
-	fps = (goals * 5) + (assists * 3) + (plus_minus * 1) + (ppg * 2) + (ppa * 2) + (gwg * 2) + (shg * 2) + (sha * 2) + (shots * 0.9) + (blocks * 0.05) + (hits * 0.1)
+	fps = (goals * 5) + (assists * 3) + (plus_minus * 1) + (ppg * 2) + (ppa * 2) + (gwg * 1) + (shg * 2) + (sha * 2) + (shots * 0.1) + (blocks * 0.025) + (hits * 0.025)
 	fps_g = fps / games
 
 	df = build_fp_table(players, fps, fps_g)
@@ -44,7 +44,7 @@ def get_all_goalie_fps():
 	saves = goalies['SV'].astype('float64')
 	shutouts = goalies['SO'].astype('float64')
 
-	fps = (wins * 5) - (losses * 3) - (ga * 1) + (saves * 0.2) + (shutouts * 8)
+	fps = (wins * 5) - (losses * 2) - (ga * 1) + (saves * 0.2) + (shutouts * 3)
 	fps_g = fps / games
 
 	df = build_fp_table(players, fps, fps_g)
