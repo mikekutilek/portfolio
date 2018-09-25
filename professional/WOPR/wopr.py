@@ -2,11 +2,15 @@ import numpy as np
 import pandas as pd
 import airyards as ay
 
-def get_leaderboards(position):
+def get_totals():
 	df = ay.get_ay_data()
-	totals = df[df['position'] == position].groupby(['full_name', 'position'])['air_yards', 'racr', 'rec', 'rec_yards', 'rush_td', 'rush_yards', 'tar', 'td', 'team_air', 'tm_att', 'wopr', 'yac'].sum()
-	averages = df[df['position'] == position].groupby(['full_name', 'position'])['air_yards', 'aypt', 'racr', 'rec', 'rec_yards', 'rush_td', 'rush_yards', 'tar', 'target_share', 'td', 'team_air', 'tm_att', 'wopr', 'yac'].mean().round(2)
-	return averages.sort_values(by=['wopr'], ascending=False)
+	totals = df.groupby(['full_name', 'position'])['air_yards', 'racr', 'rec', 'rec_yards', 'rush_td', 'rush_yards', 'tar', 'td', 'team_air', 'tm_att', 'wopr', 'yac'].sum()
+	return totals.reset_index(level=['full_name', 'position']).sort_values(by=['wopr'], ascending=False)
+
+def get_averages():
+	df = ay.get_ay_data()
+	averages = df.groupby(['full_name', 'position'])['air_yards', 'aypt', 'racr', 'rec', 'rec_yards', 'rush_td', 'rush_yards', 'tar', 'target_share', 'td', 'team_air', 'tm_att', 'wopr', 'yac'].mean().round(2)
+	return averages.reset_index(level=['full_name', 'position']).sort_values(by=['wopr'], ascending=False)
 
 def get_week_by_week(name):
 	df = ay.get_ay_data()
@@ -25,7 +29,7 @@ def get_wo():
 	return df.sort_values(by=['WO/G'], ascending=False)
 
 def main():
-	print(get_wo())
+	print(get_totals())
 
 if __name__ == '__main__':
 	main()
