@@ -18,10 +18,10 @@ def get_week_by_week(name):
 	return player.sort_values(by=['week'])
 
 def get_wo():
-	page = ay.get_pfr_rushing()
+	page = ay.get_pfr_fantasy()
 	df = ay.get_table(page)
 	df = df.replace('', 0)
-	attempts = df['Att'].astype('float64')
+	attempts = df['RushAtt'].astype('float64')
 	targets = df['Tgt'].astype('float64')
 	games = df['G'].astype('float')
 	df['WO'] = (attempts * 0.58) + (targets * 1.19)

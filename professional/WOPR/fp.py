@@ -20,13 +20,14 @@ def get_fp(position):
 	wo_df = wopr.get_wo()
 	wopr_df = wopr.get_totals()
 	wopr_g_df = wopr.get_averages()
+	wo_df.rename(columns={'FantPos':'Pos'}, inplace=True)
 	wopr_df.rename(columns={'full_name':'Player', 'position':'Pos'}, inplace=True)
 	wopr_g_df.rename(columns={'full_name':'Player', 'position':'Pos'}, inplace=True)
 
 	#Combine data to get full fp dataset
 	df2 = pd.merge(f_df,r_df[['Fmb', 'Player']],on='Player', how='left')
 	df3 = pd.merge(df2,s_df[['AllTD', 'Player']],on='Player', how='left').fillna(0)
-	print(f_df)
+	#print(df3)
 
 	#Calculate fantasy points
 	passyds = df3['PassYds'].astype('float64')
@@ -44,22 +45,29 @@ def get_fp(position):
 	fp = (passyds / 30.0) + (passtds * 4.0) - (ints * 2.0) + (rushyds / 10.0) + (receptions * 0.5) + (recyds / 10.0) + (tds * 6.0) + (twoptmd * 2.0) + (twoptcp * 2.0) - (fumbles * 2.0)
 
 	#Combine data to get full opportunity dataset
-	df4 = pd.merge(f_df,wo_df[['WO', 'WO/G', 'Player']],on=['Player', 'Pos'], how='left').fillna(0)
-	df5 = pd.merge(df4,wopr_g_df[['wopr', 'Player']],on=['Player', 'Pos'], how='left').fillna(0)
+	df4 = pd.merge(f_df,wo_df[['WO', 'WO/G', 'Player', 'Pos']],on=['Player', 'Pos'], how='left').fillna(0)
+	df5 = pd.merge(df4,wopr_g_df[['wopr', 'Player', 'Pos']],on=['Player', 'Pos'], how='left').fillna(0)
 	df5.rename(columns={'wopr':'WOPR/G'}, inplace=True)
-	df6 = pd.merge(df5,wopr_df[['wopr', 'Player']],on=['Player', 'Pos'], how='left').fillna(0)
+	df6 = pd.merge(df5,wopr_df[['wopr', 'Player', 'Pos']],on=['Player', 'Pos'], how='left').fillna(0)
 
 	#Combine opportunity with fantasy points and return dataset filtered on position
 	df = pd.DataFrame()
 	df['Player'] = df6['Player']
-	df['Pos'] = df6['FantPos']
+	df['Pos'] = df6['Pos']
 	df['FP'] = fp.round(2)
 	df['WO'] = df6['WO']
 	df['FP/G'] = (fp / games).round(2)
 	df['WO/G'] = df6['WO/G']
 	df['WOPR/G'] = df6['WOPR/G']
 	df['WOPR'] = df6['wopr']
-	return df[df['Pos'] == position].sort_values(by=['WOPR/G'], ascending=False)
+
+	#flex handling
+	if position == 'flex':
+		final_df = df[(df['Pos'] == 'WR') | (df['Pos'] == 'RB') | (df['Pos'] == 'TE')]
+	else:
+		final_df = df[(df['Pos'] == position)]
+
+	return final_df.sort_values(by=['WO/G'], ascending=False)
 
 def main():
 	parser = argparse.ArgumentParser()
