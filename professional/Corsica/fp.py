@@ -83,7 +83,7 @@ def main():
 	else:
 		exit(1)
 
-	print(json.dumps(data))
+	print(data.to_json(orient='records'))
 	sys.stdout.flush()
 
 if __name__ == '__main__':

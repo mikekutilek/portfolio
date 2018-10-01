@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>Fantasy Points Tool | Mike Kutilek</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="image/png" href="/img/me/logo.png"/>
+	<link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<link rel="stylesheet" type="text/css" href="/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap-select.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+</head>
+<body>
+	<div class="row">
+		<div id='nav-app' ng-app="nav-app" ng-controller='nav-ctrl' ng-include="'html/nav.html'"></div>
+	</div>
+
+	<div class="container" id="content">
+		<div id="fp-app" ng-controller="ctrl">
+			<div class="row span-padded">
+				<div class="col-sm-4">
+					<h2>Fantasy Points Tool</h2>
+					<p>Gaining popularity by the day, fantasy sports have become a staple of the sports gambling industry. In some respect, they are becoming more popular than sports themselves. The NFL RedZone channel exists purely to satisfy fans being able to watch their fantasy teams score points. Whether it is season long leagues or daily fantasy games, nearly every sports fan has some kind of lineup they are cheering for when they watch the games. This tool is designed to give fantasy players a better way to manage their teams. The tool looks at the most important underlying statistics for each league and compares it to the fantasy points for that player. The idea is to project future performance and identify buy low and sell high candidates. <br/><br/>All data provided by <a href="https://baseballsavant.mlb.com/">Baseball Savant</a> and <a href="https://www.fangraphs.com/">Fangraphs</a></p>
+				</div>
+				<div class="center col-sm-8">
+					<div class="row">
+						Skaters Goalies
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+	</div>
+
+	<div class="row">
+		<div id='foot-app' ng-app="foot-app" ng-include="'html/footer.html'"></div>
+	</div>
+
+	<script type="text/javascript" src="js/fp.js"></script>
+	<script type="text/javascript" src="js/nav.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/footer.js"></script>
+</body>
+
+</html>

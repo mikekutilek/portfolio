@@ -57,6 +57,10 @@ app.get('/opener', (req, res) => {
     res.sendFile("professional/opener.html", {root: __dirname });
 });
 
+app.get('/fp', (req, res) => {
+    res.sendFile("professional/fp.html", {root: __dirname });
+});
+
 app.get('/matchup', (req, res) => {
 	res.sendFile("professional/projects/matchup_tool.html", {root: __dirname });
 });
@@ -100,6 +104,19 @@ function call_rp_candidates(req, res){
     })
 };
 
+function call_nhl_fp(req, res){
+    var ptype = req.params.ptype;
+    var spawn = require("child_process").spawn;
+    var process = spawn('python', ["./professional/Corsica/fp.py", ptype]);
+
+    process.stdout.on('data', function (data){
+        res.send(data.toString());
+        res.end();
+    })
+};
+
+app.get('/api/v1/corsica/fp/:ptype', call_nhl_fp);
+
 app.get('/api/v1/fangraphs/pitching', call_pitchers);
 
 app.get('/api/v1/fangraphs/pitching/pitch-type/:pid', call_pitchtype);
@@ -115,4 +132,4 @@ app.get('/api/v1/sabr/opener/teams', (req, res) => {
     res.send(data);
 });
 
-app.get('/api/v1/sabr/opener/:team', call_rp_candidates)
+app.get('/api/v1/sabr/opener/:team', call_rp_candidates);
