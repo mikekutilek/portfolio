@@ -10,17 +10,17 @@ const csv = require('csvtojson');
 
 //Constants
 const PORT = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
-const HOST = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1' || '0.0.0.0'
+//const HOST = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1' || '0.0.0.0'
 var client_id = '23b9b00767a84fa7aecfdd41a118d2df';
 var client_secret = '7651a04c818b469ab40c9782e962be68';
-var redirect_uri = 'http://localhost:' + PORT;
+//var redirect_uri = 'http://localhost:' + PORT;
 var scopes = 'user-read-private user-read-email';
 
 //App
 const app = express();
 
-app.listen(PORT, HOST, () => {
-    console.log(`Running on http://${HOST}:${PORT}`);
+app.listen(PORT, () => {
+    console.log(`Running on ${PORT}`);
 });
 
 app.use(express.static(__dirname + '/'));
