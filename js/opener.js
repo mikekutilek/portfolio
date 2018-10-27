@@ -4,7 +4,7 @@
 	app.controller('ctrl', ['$http', '$scope', function($http, $scope){
 		$scope.tbl = false;
 		
-		$http.get('http://www.mikekutilek.com/api/v1/sabr/opener/teams').then(function(data){
+		$http.get('https://www.mikekutilek.com/api/v1/sabr/opener/teams').then(function(data){
 			$scope.teamData = data.data;
             $scope.teams = Object.keys(data.data).slice(1);
             //console.log($scope.teams.slice(1));
@@ -20,7 +20,7 @@
 	    	team_abbr = data[selection];
 	    	$scope.loading = true;
 	    	
-	        $http.get('http://localhost:8080/api/v1/sabr/opener/' + team_abbr).then(function(data){
+	        $http.get('https://www.mikekutilek.com/api/v1/sabr/opener/' + team_abbr).then(function(data){
 	        	$scope.loading = false;
 	        	$scope.teamName = selection
 	        	var rightyRPData = data.data['rp_righties']
