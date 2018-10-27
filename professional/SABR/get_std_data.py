@@ -4,10 +4,12 @@ from bs4 import BeautifulSoup
 import requests
 import sys
 import json
+import fangraphs as fg
 
 #pt_data = pd.read_csv('c:/Users/makut/Documents/Data/Fangraphs/Pitching/2018/Pitch Type Pitching Data.csv')
 
 def main():
+	p2 = fg.get_all_active_pitchers_page()
 	df = pd.DataFrame(columns=['Name', 'playerid'])
 	#df['Name'] = pt_data['Name']
 	df['Name'] = ['Clayton Kershaw']

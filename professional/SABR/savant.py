@@ -3,8 +3,6 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import requests
 import sys
-import datetime as dt
-import argparse
 
 team_key = {'Orioles': 'BAL', 'Red Sox': 'BOS', 'Yankees': 'NYY', 'Rays': 'TB', 'Blue Jays': 'TOR', 
 'Indians': 'CLE', 'White Sox': 'CWS', 'Tigers': 'DET', 'Royals': 'KC', 'Twins': 'MIN',
