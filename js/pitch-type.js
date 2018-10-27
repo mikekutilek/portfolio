@@ -8,7 +8,7 @@
 
 	app.controller('ctrl', ['$http', '$scope', function($http, $scope){
 		$scope.loading = true;
-		$http.get('http://localhost:8080/api/v1/fangraphs/pitching').then(function(data){
+		$http.get('/api/v1/fangraphs/pitching').then(function(data){
 			$scope.loading = false;
             $scope.players = data.data;
         });
@@ -17,7 +17,7 @@
 	    $scope.getPlayerData = function(selection){
 	        console.log(selection.playerid);
 	        $scope.loading = true;
-	        $http.get('http://localhost:8080/api/v1/fangraphs/pitching/pitch-type/' + selection.playerid).then(function(data){
+	        $http.get('/api/v1/fangraphs/pitching/pitch-type/' + selection.playerid).then(function(data){
 	            console.log(selection.playerid);
 	            $scope.loading = false;
 	            $scope.playerData = data.data;
