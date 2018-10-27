@@ -4,7 +4,7 @@
 	app.controller('ctrl', ['$http', '$scope', function($http, $scope){
 		$scope.tbl = false;
 		
-		$http.get('http://localhost:8080/api/v1/sabr/opener/teams').then(function(data){
+		$http.get('http://www.mikekutilek.com/api/v1/sabr/opener/teams').then(function(data){
 			$scope.teamData = data.data;
             $scope.teams = Object.keys(data.data).slice(1);
             //console.log($scope.teams.slice(1));
