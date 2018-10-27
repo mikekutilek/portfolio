@@ -9,7 +9,7 @@ const http = require('http');
 const csv = require('csvtojson');
 
 //Constants
-const PORT = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+const PORT = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
 const HOST = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1' || '0.0.0.0'
 var client_id = '23b9b00767a84fa7aecfdd41a118d2df';
 var client_secret = '7651a04c818b469ab40c9782e962be68';
