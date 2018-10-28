@@ -127,25 +127,25 @@ def main():
 	args = parser.parse_args()
 
 	rp_rdf = get_team_candidates(args.team, 'R', 'RP')
-	rp_ldf = get_team_candidates(args.team, 'L', 'RP')
-	sp_rdf = get_team_candidates(args.team, 'R', 'SP')
-	sp_ldf = get_team_candidates(args.team, 'L', 'SP')
-	chunk = get_team_wOBA_chunk(args.team)
+	#rp_ldf = get_team_candidates(args.team, 'L', 'RP')
+	#sp_rdf = get_team_candidates(args.team, 'R', 'SP')
+	#sp_ldf = get_team_candidates(args.team, 'L', 'SP')
+	#chunk = get_team_wOBA_chunk(args.team)
 	opener_data = {"chunk": "", "rp_righties": [], "rp_lefties": [], "sp_righties": [], "sp_lefties": []}
 
 	for index, r in rp_rdf.iterrows():
 		opener_data['rp_righties'].append(r.to_json())
 
-	for index, l in rp_ldf.iterrows():
-		opener_data['rp_lefties'].append(l.to_json())
+	#for index, l in rp_ldf.iterrows():
+	#	opener_data['rp_lefties'].append(l.to_json())
 
-	for index, r in sp_rdf.iterrows():
-		opener_data['sp_righties'].append(r.to_json())
+	#for index, r in sp_rdf.iterrows():
+	#	opener_data['sp_righties'].append(r.to_json())
 
-	for index, l in sp_ldf.iterrows():
-		opener_data['sp_lefties'].append(l.to_json())
+	#for index, l in sp_ldf.iterrows():
+	#	opener_data['sp_lefties'].append(l.to_json())
 
-	opener_data['chunk'] = chunk
+	#opener_data['chunk'] = chunk
 
 	print(json.dumps(opener_data))
 	#print(rdf)
