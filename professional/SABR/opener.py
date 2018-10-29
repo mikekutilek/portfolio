@@ -65,29 +65,7 @@ def determine_sp_candidate(diff):
 	return "You %s need an opener" % s
 """
 
-def get_team_rotation_wOBA():
-	page = sa.get_page(position='SP', group_by='team', sort_col='woba')
-	data = sa.get_table(page)
-	new_data = pd.DataFrame()
-	new_data['Player'] = data['Player']
-	new_data['wOBA'] = data['wOBA'].astype('float64')
-	return new_data
 
-def get_team_wOBA_chunk(team):
-	data = get_team_rotation_wOBA()
-	chunk_data = np.array_split(data, 5)
-	if (chunk_data[4]['Player'] == team).any():
-		return "starting rotation is in the upper echelon of MLB in wOBA. They probably don't need an opener, but you can still take a look at potential options."
-	elif (chunk_data[3]['Player'] == team).any():
-		return "starting rotation is in one of the higher tiers of MLB in wOBA. They may or may not need an opener to fill a void, but you can still take a look at potential options."
-	elif (chunk_data[2]['Player'] == team).any():
-		return "starting rotation is in the middle of MLB in wOBA. They might need an opener to fill a void. Check out their options below!"
-	elif (chunk_data[1]['Player'] == team).any():
-		return "starting rotation is in one of the lower tiers of MLB in wOBA. They could probably use an opener to fill a void. See options below!"
-	elif (chunk_data[0]['Player'] == team).any():
-		return "starting rotation is at the very bottom of MLB in wOBA. They definitely have a rotation spot that could be better utilized. See options below!"
-	else:
-		return "Invalid team. Please try again."
 
 def get_rps_wOBA_vs(batter_stands):
 	#pd.options.display.float_format = '${:,.3f}'.format
@@ -143,7 +121,7 @@ def main():
 	#sp_rdf = get_team_candidates(args.team, 'R', 'SP')
 	#sp_ldf = get_team_candidates(args.team, 'L', 'SP')
 	#chunk = get_team_wOBA_chunk(args.team)
-	opener_data = {"chunk": "", "candidates": []}
+	opener_data = {"candidates": []}
 
 	for index, r in df.iterrows():
 		opener_data['candidates'].append(r.to_json())

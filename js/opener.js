@@ -20,7 +20,75 @@
 	    	team_abbr = data[selection];
 	    	$scope.loading = true;
 	    	
-	        $http.get('/api/v1/sabr/opener/' + team_abbr).then(function(data){
+	    	$http.get('/api/v1/sabr/opener/' + team_abbr + '/RP/L').then(function(data){
+	    		var p_data = data.data['candidates']
+	    		var pitchers = [];
+	    		if (p_data.length == 0){
+	    			pitchers.push({"name": "N/A", "wOBA": "N/A"});
+	    		}
+	    		for (var i = 0; i < p_data.length; i++){
+	    			var player = JSON.parse(p_data[i]);
+	    			pitchers.push({"name": player['Player'], "wOBA": player['wOBA']});
+	    		}
+	    		$scope.lrps = pitchers;
+	    		
+	    	});
+
+	    	$http.get('/api/v1/sabr/opener/' + team_abbr + '/RP/R').then(function(data){
+	    		var p_data = data.data['candidates']
+	    		var pitchers = [];
+	    		if (p_data.length == 0){
+	    			pitchers.push({"name": "N/A", "wOBA": "N/A"});
+	    		}
+	    		for (var i = 0; i < p_data.length; i++){
+	    			var player = JSON.parse(p_data[i]);
+	    			pitchers.push({"name": player['Player'], "wOBA": player['wOBA']});
+	    		}
+	    		$scope.rrps = pitchers;
+	    	});
+
+	    	$http.get('/api/v1/sabr/opener/' + team_abbr + '/SP/L').then(function(data){
+	    		var p_data = data.data['candidates']
+	    		var pitchers = [];
+	    		if (p_data.length == 0){
+	    			pitchers.push({"name": "N/A", "wOBA": "N/A"});
+	    		}
+	    		for (var i = 0; i < p_data.length; i++){
+	    			var player = JSON.parse(p_data[i]);
+	    			pitchers.push({"name": player['Player'], "wOBA": player['wOBA']});
+	    		}
+	    		$scope.lsps = pitchers;
+	    	});
+
+	    	$http.get('/api/v1/sabr/opener/' + team_abbr + '/SP/R').then(function(data){
+	    		var p_data = data.data['candidates']
+	    		var pitchers = [];
+	    		if (p_data.length == 0){
+	    			pitchers.push({"name": "N/A", "wOBA": "N/A"});
+	    		}
+	    		for (var i = 0; i < p_data.length; i++){
+	    			var player = JSON.parse(p_data[i]);
+	    			pitchers.push({"name": player['Player'], "wOBA": player['wOBA']});
+	    		}
+	    		$scope.rsps = pitchers;
+	    	});
+
+	    	$http.get('/api/v1/sabr/opener/' + team_abbr).then(function(data){
+	    		$scope.loading = false;
+	        	$scope.teamName = selection
+	    		var chunkData = data.data['chunk']
+	    		$scope.chunk = chunkData;
+	            $scope.tbl = true;
+	            if (team_abbr == 'ANY'){
+		        	$scope.desc = false;
+		        }
+		        else{
+		        	$scope.desc = true;
+		        }
+	    	});
+
+	    	/*
+	        $http.get('/api/v1/sabr/opener/' + team_abbr + '/SP/R').then(function(data){
 	        	$scope.loading = false;
 	        	$scope.teamName = selection
 	        	var rightyRPData = data.data['rp_righties']
@@ -60,16 +128,6 @@
 	        		var player = JSON.parse(leftySPData[i]);
 	        		l_sps.push({"name": player['Player'], "wOBA": player['wOBA']});
 	        	}
-	        	/*
-	        	if (selection2 == 'R'){
-	        		$scope.rps = r_rps;
-	        		$scope.sps = r_sps;
-	        	}
-	        	else if (selection2 == 'L'){
-	        		$scope.rps = l_rps;
-	        		$scope.sps = l_sps;
-	        	}
-	        	*/
 	            $scope.rrps = r_rps;
 	            $scope.lrps = l_rps;
 	            $scope.rsps = r_sps;
@@ -83,6 +141,8 @@
 		        	$scope.desc = true;
 		        }
 	        });
+	        */
+
 	    }
 	}]);
 

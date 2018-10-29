@@ -162,10 +162,10 @@ function call_candidates(req, res){
     })
 };
 
-function call_sp_candidates(req, res){
+function call_chunk(req, res){
     var team = req.params.team;
     var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./professional/SABR/opener_sp.py", team]);
+    var process = spawn('python3', ["./professional/SABR/opener_chunk.py", team]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -183,12 +183,6 @@ function call_nhl_fp(req, res){
         res.end();
     })
 };
-
-
-
-
-
-
 
 app.get('/api/v1/corsica/fp/:ptype', call_nhl_fp);
 
@@ -208,3 +202,5 @@ app.get('/api/v1/sabr/opener/teams', (req, res) => {
 });
 
 app.get('/api/v1/sabr/opener/:team/:pos/:hand', call_candidates);
+
+app.get('/api/v1/sabr/opener/:team', call_chunk);
