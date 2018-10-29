@@ -133,20 +133,20 @@ def get_team_candidates(team, batter_stands, position):
 def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument("team", help="team of candidates you want to find")
-	#parser.add_argument("pos", help="position of the player")
-	#parser.add_argument("hand", help="handedness of the hitter")
+	parser.add_argument("pos", help="position of the player")
+	parser.add_argument("hand", help="handedness of the hitter")
 
 	args = parser.parse_args()
 
-	rp_rdf = get_team_candidates(args.team, 'R', 'RP')
+	df = get_team_candidates(args.team, args.hand, args.pos)
 	#rp_ldf = get_team_candidates(args.team, 'L', 'RP')
 	#sp_rdf = get_team_candidates(args.team, 'R', 'SP')
 	#sp_ldf = get_team_candidates(args.team, 'L', 'SP')
 	#chunk = get_team_wOBA_chunk(args.team)
-	opener_data = {"chunk": "", "rp_righties": [], "rp_lefties": []}
+	opener_data = {"chunk": "", "candidates": []}
 
-	for index, r in rp_rdf.iterrows():
-		opener_data['rp_righties'].append(r.to_json())
+	for index, r in df.iterrows():
+		opener_data['candidates'].append(r.to_json())
 
 	#for index, l in rp_ldf.iterrows():
 	#	opener_data['rp_lefties'].append(l.to_json())

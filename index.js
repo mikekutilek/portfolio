@@ -149,10 +149,12 @@ function call_pitchers(req, res){
     })
 };
 
-function call_rp_candidates(req, res){
+function call_candidates(req, res){
     var team = req.params.team;
+    var pos = req.params.pos;
+    var hand = req.params.hand;
     var spawn = require("child_process").spawn;
-    var process = spawn('python3', ["./professional/SABR/opener.py", team]);
+    var process = spawn('python3', ["./professional/SABR/opener.py", team, pos, hand]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -205,6 +207,4 @@ app.get('/api/v1/sabr/opener/teams', (req, res) => {
     res.send(data);
 });
 
-app.get('/api/v1/sabr/opener/rp/:team', call_rp_candidates);
-
-app.get('/api/v1/sabr/opener/sp/:team', call_sp_candidates);
+app.get('/api/v1/sabr/opener/:team/:pos/:hand', call_candidates);
