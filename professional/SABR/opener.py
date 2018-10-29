@@ -39,34 +39,6 @@ def get_all_pitchers():
 		#print(row['Team'])
 	return active_df
 
-"""
-def get_TTO_slash(data):
-	s = "wOBA slash: "
-	for i in range(len(data)):
-		s += data['wOBA'][i]
-		if i != len(data) - 1:
-			s += "/"
-	return s
-
-def get_first_second_diff(data):
-	wOBA = data['wOBA'].astype('float64')
-	first = wOBA[0]
-	second = wOBA[1]
-	diff = round(first - second, 3)
-	return diff
-
-def determine_sp_candidate(diff):
-	if diff >= 0.025 and diff < 0.05:
-		s = "might"
-	elif diff >= 0.05:
-		s ="probably"
-	else:
-		s = "don't"
-	return "You %s need an opener" % s
-"""
-
-
-
 def get_rps_wOBA_vs(batter_stands):
 	#pd.options.display.float_format = '${:,.3f}'.format
 	page = sa.get_page(batter_stands=batter_stands, position='RP', min_results='75', sort_col='woba')
@@ -117,36 +89,13 @@ def main():
 	args = parser.parse_args()
 
 	df = get_team_candidates(args.team, args.hand, args.pos)
-	#rp_ldf = get_team_candidates(args.team, 'L', 'RP')
-	#sp_rdf = get_team_candidates(args.team, 'R', 'SP')
-	#sp_ldf = get_team_candidates(args.team, 'L', 'SP')
-	#chunk = get_team_wOBA_chunk(args.team)
 	opener_data = {"candidates": []}
 
 	for index, r in df.iterrows():
 		opener_data['candidates'].append(r.to_json())
 
-	#for index, l in rp_ldf.iterrows():
-	#	opener_data['rp_lefties'].append(l.to_json())
-
-	#for index, r in sp_rdf.iterrows():
-	#	opener_data['sp_righties'].append(r.to_json())
-
-	#for index, l in sp_ldf.iterrows():
-	#	opener_data['sp_lefties'].append(l.to_json())
-
-	#opener_data['chunk'] = chunk
-
 	print(json.dumps(opener_data))
-	#print(rdf)
-	#print(ldf.to_json(orient='records'))
 	sys.stdout.flush()
-	#print(get_rps_good_vs('R'))
-	"""
-	page = fg.get_splits_page(args.pid)
-	data = fg.get_split_data(page, "tto")
-	print(get_TTO_slash(data))
-	"""
 
 if __name__ == '__main__':
 	main()
