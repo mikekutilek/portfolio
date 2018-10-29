@@ -16,7 +16,10 @@ def get_all_pitchers():
 	#p1 = fg.get_all_pitchers_page()
 	p2 = fg.get_all_active_pitchers_page()
 	#df = fg.get_table(p1)
-	active_df = fg.get_table(p2)
+	df = fg.get_table(p2)
+	active_df = pd.DataFrame()
+	active_df['Name'] = df['Name']
+	active_df['Team'] = df['Team']
 	#print(active_df)
 	active_df['fullname'] = ''
 	for index, row in active_df.iterrows():
@@ -65,8 +68,10 @@ def determine_sp_candidate(diff):
 def get_team_rotation_wOBA():
 	page = sa.get_page(position='SP', group_by='team', sort_col='woba')
 	data = sa.get_table(page)
-	data['wOBA'] = data['wOBA'].astype('float64')
-	return data
+	new_data = pd.DataFrame()
+	new_data['Player'] = data['Player']
+	new_data['wOBA'] = data['wOBA'].astype('float64')
+	return new_data
 
 def get_team_wOBA_chunk(team):
 	data = get_team_rotation_wOBA()
