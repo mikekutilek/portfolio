@@ -23,6 +23,7 @@ app.listen(PORT, () => {
     console.log(`Running on ${PORT}`);
 });
 
+/*
 const extendTimeoutMiddleware = (req, res, next) => {
   const space = ' ';
   let isFinished = false;
@@ -76,6 +77,7 @@ const extendTimeoutMiddleware = (req, res, next) => {
 };
 
 app.use(extendTimeoutMiddleware);
+*/
 
 app.use(express.static(__dirname + '/'));
 
@@ -150,7 +152,7 @@ function call_pitchers(req, res){
 function call_rp_candidates(req, res){
     var team = req.params.team;
     var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./professional/SABR/opener.py", team]);
+    var process = spawn('python3', ["./professional/SABR/opener.py", team]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
