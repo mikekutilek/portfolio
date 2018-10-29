@@ -96,7 +96,7 @@ function call_pitchers(req, res){
 function call_rp_candidates(req, res){
     var team = req.params.team;
     var spawn = require("child_process").spawn;
-    var process = spawn('python3', ["./professional/SABR/opener.py", team]);
+    var process = spawn('python', ["./professional/SABR/opener.py", team]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -107,7 +107,7 @@ function call_rp_candidates(req, res){
 function call_sp_candidates(req, res){
     var team = req.params.team;
     var spawn = require("child_process").spawn;
-    var process = spawn('python3', ["./professional/SABR/opener_sp.py", team]);
+    var process = spawn('python', ["./professional/SABR/opener_sp.py", team]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
