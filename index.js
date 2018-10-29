@@ -96,7 +96,7 @@ function call_pitchers(req, res){
 function call_rp_candidates(req, res){
     var team = req.params.team;
     var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./professional/SABR/opener.py", team]);
+    var process = spawn('python3', ["./professional/SABR/opener.py", team]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -107,7 +107,7 @@ function call_rp_candidates(req, res){
 function call_sp_candidates(req, res){
     var team = req.params.team;
     var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./professional/SABR/opener_sp.py", team]);
+    var process = spawn('python3', ["./professional/SABR/opener_sp.py", team]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -125,6 +125,64 @@ function call_nhl_fp(req, res){
         res.end();
     })
 };
+
+
+
+const extendTimeoutMiddleware = (req, res, next) => {
+  const space = ' ';
+  let isFinished = false;
+  let isDataSent = false;
+
+  // Only extend the timeout for API requests
+  if (!req.url.includes('/api')) {
+    next();
+    return;
+  }
+
+  res.once('finish', () => {
+    isFinished = true;
+  });
+
+  res.once('end', () => {
+    isFinished = true;
+  });
+
+  res.once('close', () => {
+    isFinished = true;
+  });
+
+  res.on('data', (data) => {
+    // Look for something other than our blank space to indicate that real
+    // data is now being sent back to the client.
+    if (data !== space) {
+      isDataSent = true;
+    }
+  });
+
+  const waitAndSend = () => {
+    setTimeout(() => {
+      // If the response hasn't finished and hasn't sent any data back....
+      if (!isFinished && !isDataSent) {
+        // Need to write the status code/headers if they haven't been sent yet.
+        if (!res.headersSent) {
+          res.writeHead(202);
+        }
+
+        res.write(space);
+
+        // Wait another 15 seconds
+        waitAndSend();
+      }
+    }, 15000);
+  };
+
+  waitAndSend();
+  next();
+};
+
+app.use(extendTimeoutMiddleware);
+
+
 
 app.get('/api/v1/corsica/fp/:ptype', call_nhl_fp);
 
