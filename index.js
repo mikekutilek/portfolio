@@ -154,7 +154,7 @@ function call_candidates(req, res){
     var pos = req.params.pos;
     var hand = req.params.hand;
     var spawn = require("child_process").spawn;
-    var process = spawn('python3', ["./professional/SABR/opener.py", team, pos, hand]);
+    var process = spawn('python', ["./professional/SABR/opener.py", team, pos, hand]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -165,7 +165,7 @@ function call_candidates(req, res){
 function call_chunk(req, res){
     var team = req.params.team;
     var spawn = require("child_process").spawn;
-    var process = spawn('python3', ["./professional/SABR/opener_chunk.py", team]);
+    var process = spawn('python', ["./professional/SABR/opener_chunk.py", team]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
