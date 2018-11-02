@@ -12,11 +12,14 @@
 	<script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
 	<link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/main2.css">
-	<!--
+	
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap-select.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+	<!--
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
 </head>
-<body style="background-image: url('/img/me/me.jpg'); background-repeat: no-repeat; background-size: cover">
+<body style="background-image: url('/img/me/me.jpg'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed">
 	<div class="inline-nav-container">
 		<ul class="inline-nav">
 			<li class="about menu-item">About</li>
@@ -81,7 +84,7 @@
 				<section class="content">
 					<div class="block-content">
 						<h3 class="block-title">About Me</h3>
-						<p><i>The goal is not to live forever, but to create something that will</i><br><span style="padding-left:10em"> - Andy Warhol</span></p>
+						<p class="center"><i>The goal is not to live forever, but to create something that will</i><br><span style="padding-left:10em"> - Andy Warhol</span></p>
 						<p>
 							The above quote is one of my favorites and should tell you a good deal about me. With each opportunity in life, I strive to create something lasting. 
 							<br><br>
@@ -93,8 +96,85 @@
 				</section>
 			</div>
 			<div class="content-blocks projects"></div>
-			<div class="content-blocks photography"></div>
-			<div class="content-blocks videography"></div>
+			<div class="content-blocks photography">
+				<section class="content">
+					<div class="block-content">
+						<div class="col-sm-4">
+							<h3 class="block-title">Photography</h3>
+							<p>Whenver I have the energy, I like to wake up early and shoot sunrise. I also enjoy <a href="/time-lapse">Time Lapse</a> photography. I shoot with a Sony a6000. My primary lenses are a Sony 16-50mm, Sony 70-200mm, and Sigma 30mm f1.4. You can view all of my photography <a href="http://mikekutilek.zenfolio.com/">here</a>.</p>
+							<div class="img-thumbnail">
+								<img class="img-rounded" src="/img/me/photog.JPG">
+							</div>
+						</div>
+						<div class="col-sm-8" style="padding-top: 50px">
+							<div id="gallery-app" class="gallery-app" ng-app="gallery-app" ng-controller="gallery-ctrl">
+								<div ng-repeat="rows in galleries" class="row">
+									<div ng-repeat="gal in rows" class="col-sm-4">
+										<a href="http://mikekutilek.zenfolio.com/{{gal.id}}">
+											<div class="img-thumbnail-link">
+												<img class="img-rounded" src="/img/{{gal.category}}/{{gal.img}}">
+												<div class="caption">
+													<p class="center" style="font-size: 15px">{{gal.gallery}}</p>
+												</div>
+											</div>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div class="content-blocks videography">
+				<section class="content">
+					<div class="block-content">
+						<div class="col-sm-4">
+							<h3 class="block-title">Videography</h3>
+							<p>Since college, one of my emerging passions has been videography. It spawned from watching the short openings Hockey Night in Canada would air before each playoff game. Each opening was a montage of clips and highlight reels surrounding the participating teams set to some song track. I decided I wanted to start making my own "opening montages", so I started up a local spin-off called <a href="https://twitter.com/hnipittsburgh">Hockey Night in Pittsburgh</a> and began recording all the Penguins games to accumulate footage. <br><br>After a year or so of middling popularity, the viewership really took off during the Penguins' 2016 Stanley Cup run. The following year, I received an offer from local multimedia juggernaut <a href="http://www.benstonium.com/">Benstonium</a> to start a partnership and display my videos on their site and social media pages. Of course I was thrilled to receive this offer. The exposure I was able to get was phenomenal. Today, I still contribute my work to the Benstonium team each playoff year. You can find all of my work on the <a href="http://youtube.com/hnipittsburgh">HNIP YouTube channel</a>, or embedded on this very page.</p>
+							<div>
+								<img src="/img/me/hnip.png" style="width: 100%; padding: 10px;">
+							</div>
+						</div>
+						<div class="col-sm-8" style="padding-top: 50px">
+							<div id="video-app" ng-app="video-app" ng-controller="video-ctrl">
+								<div class="center">
+									<span class="span-select">Year:</span>
+									<select class="selectpicker" ng-model="cc.year" ng-change="resetLimit()">
+										<option value="" selected="selected">All</option>
+										<option ng-repeat="year in years" value="{{year}}">{{year}}</option>
+									</select>
+									<span class="span-select">Team:</span>
+									<select class="selectpicker" ng-model="cc.team" ng-change="resetLimit()">
+										<option value="" selected="selected">All</option>
+										<option ng-repeat="team in teams" value="{{team}}">{{team}}</option>
+									</select>
+									<div data-ng-repeat="vid in filteredvideos = (videos | filter:cc) | limitTo : limit as filtered" class="row">
+										
+										<a ng-href="{{links[videos.indexOf(vid)]}}">
+											<div class="caption">
+												<h3 class="center">{{vid.title}}</h3>
+											</div>
+											<div class="iframe-container">
+												<iframe frameborder="0" allowfullscreen ng-src="{{urls[videos.indexOf(vid)] | trustAsResourceUrl}}"></iframe>
+											</div>
+										</a>
+										
+									</div>
+									<div class="btn-wrap" ng-if="limit < filteredvideos.length">
+										<br />
+										<button type="button" class="btn btn-download" ng-click="loadMore()">Load More</button>
+										<br />
+									</div>
+									<div ng-if="limit >= filteredvideos.length">
+										<hr style="width: 75%">
+										<h2 style="color: rgba(0,0,0,0.3)">THAT'S ALL FOLKS!</h2>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
 			<div class="content-blocks resume"></div>
 			<div class="content-blocks pop">
 				<div id="close-pop" class="close-pop">
@@ -106,8 +186,10 @@
 	<!--<div id='foot-app' ng-app="foot-app" ng-include="'html/footer.html'"></div>-->
 	
 	<script type="text/javascript" src="js/main.js"></script>
-	<script type="text/javascript" src="js/nav.js"></script>
+	<!--<script type="text/javascript" src="js/nav.js"></script>-->
+	<script type="text/javascript" src="/js/galleries.js"></script>
+	<script type="text/javascript" src="/js/videos.js"></script>
 	<script type="text/javascript" src="js/bootstrap.js"></script>
-	<script type="text/javascript" src="js/footer.js"></script>
+	<!--<script type="text/javascript" src="js/footer.js"></script>-->
 </body>
 </html>

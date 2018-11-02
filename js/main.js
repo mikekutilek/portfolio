@@ -3,8 +3,8 @@
 
 	//On Click Open Menu Items
 	$('.menu-block, .menu-item').on('click', function() {
-	    $('.name-block').addClass('reverse');
-	    $('.name-block-container').addClass('reverse');
+	    $('.name').addClass('reverse');
+	    $('.name-container').addClass('reverse');
 	    $('.menu-blocks').addClass('hidex');
 	    $('.inline-nav-container').addClass('showx');
 	    $('.inline-nav-container.style2').addClass('dark');
@@ -16,11 +16,31 @@
 	    $('.menu-item').removeClass('active');
 	    $('.menu-item.about').addClass('active');
 	});
-
+	//On Click Open Projects Block
+	$('.projects-block, .menu-item.projects').on('click', function() {
+	    $('.content-blocks').removeClass('showx');
+	    $('.content-blocks.projects').addClass('showx');
+	    $('.menu-item').removeClass('active');
+	    $('.menu-item.projects').addClass('active');
+	});
+	//On Click Open Photography Block
+	$('.photography-block, .menu-item.photography').on('click', function() {
+	    $('.content-blocks').removeClass('showx');
+	    $('.content-blocks.photography').addClass('showx');
+	    $('.menu-item').removeClass('active');
+	    $('.menu-item.photography').addClass('active');
+	});
+	//On Click Open Videography Block
+	$('.videography-block, .menu-item.videography').on('click', function() {
+	    $('.content-blocks').removeClass('showx');
+	    $('.content-blocks.videography').addClass('showx');
+	    $('.menu-item').removeClass('active');
+	    $('.menu-item.videography').addClass('active');
+	});
 	//On Click Close Blocks
 	$('#close').on('click', function() {
-	    $('.name-block').removeClass('reverse');
-	    $('.name-block-container').removeClass('reverse');
+	    $('.name').removeClass('reverse');
+	    $('.name-container').removeClass('reverse');
 	    $('.content-blocks').removeClass('showx');
 	    $('.menu-blocks').removeClass('hidex');
 	    $('.inline-nav-container').removeClass('showx');
