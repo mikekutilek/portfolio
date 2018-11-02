@@ -6,21 +6,106 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" type="image/png" href="/img/me/logo.png"/>
 	<link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
+	<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
+	<link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/main2.css">
+	<!--
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
 </head>
 <body style="background-image: url('/img/me/me.jpg'); background-repeat: no-repeat; background-size: cover">
-	<div id="content">
-		<div class="row">
-			<div id='nav-app' ng-app="nav-app" ng-controller='nav-ctrl' ng-include="'html/nav.html'"></div>
-		</div>
+	<div class="inline-nav-container">
+		<ul class="inline-nav">
+			<li class="about menu-item">About</li>
+			<li class="projects menu-item">Projects</li>
+			<li class="photography menu-item">Photography</li>
+			<li class="videography menu-item">Videography</li>
+			<li id="close" class="menu-item">
+				<i class="ion-ios-close-empty"></i>
+			</li>
+		</ul>
 	</div>
-	<div id='foot-app' style="margin-top: 2em" ng-app="foot-app" ng-include="'html/footer.html'"></div>
+	<section class="home">
+		<div class="home-container">
+			<!--
+			<div class="row">
+				<div id='nav-app' ng-app="nav-app" ng-controller='nav-ctrl' ng-include="'html/nav.html'"></div>
+			</div>
+		-->
+			<div class="name">
+				<div class="name-container">
+					<h1>
+						<span>Hi, I'm</span>
+						Mike Kutilek
+					</h1>
+					<h2>Software Developer</h2>
+					<a target="_blank" href="/files/Resume.pdf#zoom=scale&view=fit" class="btn btn-download">
+						Download Resume
+					</a>
+				</div>
+			</div>
+			<div class="menu-blocks">
+				<div class="about-block menu-block">
+					<div class="about-container">
+						<h2 class="about menu-item">
+							About
+						</h2>
+					</div>
+				</div>
+				<div class="projects-block menu-block">
+					<div class="projects-container">
+						<h2 class="projects menu-item">
+							Projects
+						</h2>
+					</div>
+				</div>
+				<div class="photography-block menu-block">
+					<div class="photography-container">
+						<h2 class="photography menu-item">
+							Photography
+						</h2>
+					</div>
+				</div>
+				<div class="videography-block menu-block">
+					<div class="videography-container">
+						<h2 class="videography menu-item">
+							Videography
+						</h2>
+					</div>
+				</div>
+			</div>
+			<div class="content-blocks about">
+				<section class="content">
+					<div class="block-content">
+						<h3 class="block-title">About Me</h3>
+						<p><i>The goal is not to live forever, but to create something that will</i><br><span style="padding-left:10em"> - Andy Warhol</span></p>
+						<p>
+							The above quote is one of my favorites and should tell you a good deal about me. With each opportunity in life, I strive to create something lasting. 
+							<br><br>
+							For a living, I am a software developer with a keen interest in data science and analytics. For fun, I am a photographer, videographer, runner, piano novice, and baseball fan. I'm a nerd; I watch sports with my mind bent on statistics. I'm a geek; I catch every Marvel flick before it leaves the theater. I'm a novice musician and can always appreciate a good concert. My favorite vacations involve hiking, sightseeing, and adventure. I live in the wonderful city of Pittsburgh with my girlfriend and our dog, Toby. I like to refer to myself as a jack-of-all-trades, master of some. 
+							<br><br>
+							The reason I made this site is because pointing someone at a single profile or github page doesn't do my personality justice. It doesn't tell my full story. Each section of this site is dedicated to work I have done, whether personally or professionally, that I am proud of and passionate about. Whether you are an employer, co-worker, friend, family, or colleague, I hope this site offers you a look inside my life. 
+						</p>
+					</div>
+				</section>
+			</div>
+			<div class="content-blocks projects"></div>
+			<div class="content-blocks photography"></div>
+			<div class="content-blocks videography"></div>
+			<div class="content-blocks resume"></div>
+			<div class="content-blocks pop">
+				<div id="close-pop" class="close-pop">
+					Close <i class="ion-ios-close-empty"></i>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--<div id='foot-app' ng-app="foot-app" ng-include="'html/footer.html'"></div>-->
 	
-
+	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/nav.js"></script>
 	<script type="text/javascript" src="js/bootstrap.js"></script>
 	<script type="text/javascript" src="js/footer.js"></script>
