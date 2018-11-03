@@ -49,6 +49,27 @@
 					<a target="_blank" href="/files/Resume.pdf#zoom=scale&view=fit" class="btn btn-download">
 						Download Resume
 					</a>
+					<ul class="social center">
+						<li>
+							<a target="_blank" href="https://github.com/mikekutilek">
+								<i class="ion-social-github"></i>
+							</a>
+						</li>
+						<li>
+							<a target="_blank" href="https://www.twitter.com/mike_kutilek">
+								<i class="ion-social-twitter"></i>
+							</a>
+						</li>
+						<li>
+							<a target="_blank" href="https://www.instagram.com/mikekutilek">
+								<i class="ion-social-instagram"></i>
+							</a>
+						</li>
+						<li>
+							<a target="_blank" href="https://www.youtube.com/user/HNIPittsburgh">
+								<i class="ion-social-youtube"></i>
+							</a>
+						</li>
 				</div>
 			</div>
 			<div class="menu-blocks">
@@ -85,14 +106,18 @@
 				<section class="content">
 					<div class="block-content">
 						<h3 class="block-title">About Me</h3>
-						<p class="center"><i>The goal is not to live forever, but to create something that will</i><br><span style="padding-left:10em"> - Andy Warhol</span></p>
+						<p class="center"><i>The goal is not to live forever, but to create something that will</i><br><span> - Andy Warhol</span></p>
 						<p>
 							The above quote is one of my favorites and should tell you a good deal about me. With each opportunity in life, I strive to create something lasting. 
 							<br><br>
 							For a living, I am a software developer with a keen interest in data science and analytics. For fun, I am a photographer, videographer, runner, piano novice, and baseball fan. I'm a nerd; I watch sports with my mind bent on statistics. I'm a geek; I catch every Marvel flick before it leaves the theater. I'm a novice musician and can always appreciate a good concert. My favorite vacations involve hiking, sightseeing, and adventure. I live in the wonderful city of Pittsburgh with my girlfriend and our dog, Toby. I like to refer to myself as a jack-of-all-trades, master of some. 
 							<br><br>
-							The reason I made this site is because pointing someone at a single profile or github page doesn't do my personality justice. It doesn't tell my full story. Each section of this site is dedicated to work I have done, whether personally or professionally, that I am proud of and passionate about. Whether you are an employer, co-worker, friend, family, or colleague, I hope this site offers you a look inside my life. 
+							The reason I made this site is because pointing someone at a single profile or github page doesn't tell my full story. Each section of this site is dedicated to work I have done, whether personally or professionally, that I am proud of and passionate about. Whether you are an employer, co-worker, friend, family, or colleague, I hope this site offers you a look inside my life. 
 						</p>
+						<h3 class="block-title">Contact</h3>
+						<p><i class="ion-ios-telephone"></i> (412) 638-9880
+						<p><i class="ion-ios-email"></i> makutilek@gmail.com</p>
+
 					</div>
 				</section>
 			</div>
@@ -100,26 +125,48 @@
 			<div class="content-blocks photography">
 				<section class="content">
 					<div class="block-content">
-						<div class="col-sm-4">
+						<div class="row">
 							<h3 class="block-title">Photography</h3>
-							<p>Whenver I have the energy, I like to wake up early and shoot sunrise. I also enjoy <a href="/time-lapse">Time Lapse</a> photography. I shoot with a Sony a6000. My primary lenses are a Sony 16-50mm, Sony 70-200mm, and Sigma 30mm f1.4. You can view all of my photography <a href="http://mikekutilek.zenfolio.com/">here</a>.</p>
-							<div class="img-thumbnail">
-								<img class="img-rounded" src="/img/me/photog.JPG">
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<p>Whenver I have the energy, I like to wake up early and shoot sunrise. I shoot with a Sony a6000. My primary lenses are a Sony 16-50mm, Sony 70-200mm, and Sigma 30mm f1.4. You can view all of my photography <a target="_blank" href="http://mikekutilek.zenfolio.com/">here</a>.</p>
+								<div class="img-thumbnail">
+									<img class="img-rounded" src="/img/me/photog.JPG">
+								</div>
+							</div>
+							<div class="col-sm-8">
+								<div id="gallery-app" class="gallery-app" ng-app="gallery-app" ng-controller="gallery-ctrl">
+									<div ng-repeat="rows in galleries" class="row">
+										<div ng-repeat="gal in rows" class="col-sm-4">
+											<a target="_blank" href="http://mikekutilek.zenfolio.com/{{gal.id}}">
+												<div class="img-thumbnail-link">
+													<img class="img-rounded" src="/img/{{gal.category}}/{{gal.img}}">
+													<div class="caption">
+														<p class="center" style="font-size: 15px">{{gal.gallery}}</p>
+													</div>
+												</div>
+											</a>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="col-sm-8" style="padding-top: 50px">
-							<div id="gallery-app" class="gallery-app" ng-app="gallery-app" ng-controller="gallery-ctrl">
-								<div ng-repeat="rows in galleries" class="row">
-									<div ng-repeat="gal in rows" class="col-sm-4">
-										<a href="http://mikekutilek.zenfolio.com/{{gal.id}}">
-											<div class="img-thumbnail-link">
-												<img class="img-rounded" src="/img/{{gal.category}}/{{gal.img}}">
-												<div class="caption">
-													<p class="center" style="font-size: 15px">{{gal.gallery}}</p>
-												</div>
-											</div>
-										</a>
+						<div class="row">
+							<h3 class="block-title">Time Lapse</h3>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<p>Time lapse is a form of photography that has been close to my heart since I first picked up a camera. I found it to be the perfect median between photography and videography, satisfying both hobbies at once. All time lapse videos are taken shot by shot with my Sony A6000, edited with Adobe Lightroom and assembled into video using Adobe Premiere. </p>
+							</div>
+							<div class="col-sm-8">
+								<div class="center">
+									<h3><a target="_blank" href="https://vimeo.com/277540135">The Wolf - A Pittsburgh Time Lapse Project</a></h3>
+									<div class="iframe-container">
+										<iframe frameborder="0" allowfullscreen src="https://player.vimeo.com/video/277540135"></iframe>
 									</div>
+									<h3><a target="_blank" href="https://vimeo.com/277540135">Pittsburgh Architecture</a></h3>
+									<p>Coming soon...</p>
 								</div>
 							</div>
 						</div>
@@ -129,14 +176,16 @@
 			<div class="content-blocks videography">
 				<section class="content">
 					<div class="block-content">
-						<div class="col-sm-4">
+						<div class="row">
 							<h3 class="block-title">Videography</h3>
-							<p>Since college, one of my emerging passions has been videography. It spawned from watching the short openings Hockey Night in Canada would air before each playoff game. Each opening was a montage of clips and highlight reels surrounding the participating teams set to some song track. I decided I wanted to start making my own "opening montages", so I started up a local spin-off called <a href="https://twitter.com/hnipittsburgh">Hockey Night in Pittsburgh</a> and began recording all the Penguins games to accumulate footage. <br><br>After a year or so of middling popularity, the viewership really took off during the Penguins' 2016 Stanley Cup run. The following year, I received an offer from local multimedia juggernaut <a href="http://www.benstonium.com/">Benstonium</a> to start a partnership and display my videos on their site and social media pages. Of course I was thrilled to receive this offer. The exposure I was able to get was phenomenal. Today, I still contribute my work to the Benstonium team each playoff year. You can find all of my work on the <a href="http://youtube.com/hnipittsburgh">HNIP YouTube channel</a>, or embedded on this very page.</p>
+						</div>
+						<div class="col-sm-4">
+							<p>Since college, one of my emerging passions has been videography. It spawned from watching the short openings Hockey Night in Canada would air before each playoff game. Each opening was a montage of clips and highlight reels surrounding the participating teams set to some song track. I decided I wanted to start making my own "opening montages", so I started up a local spin-off called <a target="_blank" href="https://twitter.com/hnipittsburgh">Hockey Night in Pittsburgh</a> and began recording all the Penguins games to accumulate footage. <br><br>After a year or so of middling popularity, the viewership really took off during the Penguins' 2016 Stanley Cup run. The following year, I received an offer from local multimedia juggernaut <a target="_blank" href="http://www.benstonium.com/">Benstonium</a> to start a partnership and display my videos on their site and social media pages. Of course I was thrilled to receive this offer. The exposure I was able to get was phenomenal. Today, I still contribute my work to the Benstonium team each playoff year. You can find all of my work on the <a target="_blank" href="http://youtube.com/hnipittsburgh">HNIP YouTube channel</a>, or embedded on this very page.</p>
 							<div>
 								<img src="/img/me/hnip.png" style="width: 100%; padding: 10px;">
 							</div>
 						</div>
-						<div class="col-sm-8" style="padding-top: 50px">
+						<div class="col-sm-8">
 							<div id="video-app" ng-app="video-app" ng-controller="video-ctrl">
 								<div class="center">
 									<span class="span-select">Year:</span>
@@ -151,7 +200,7 @@
 									</select>
 									<div data-ng-repeat="vid in filteredvideos = (videos | filter:cc) | limitTo : limit as filtered" class="row">
 										
-										<a ng-href="{{links[videos.indexOf(vid)]}}">
+										<a target="_blank" ng-href="{{links[videos.indexOf(vid)]}}">
 											<div class="caption">
 												<h3 class="center">{{vid.title}}</h3>
 											</div>
@@ -161,7 +210,7 @@
 										</a>
 										
 									</div>
-									<div class="btn-wrap" ng-if="limit < filteredvideos.length">
+									<div ng-if="limit < filteredvideos.length">
 										<br />
 										<button type="button" class="btn btn-download" ng-click="loadMore()">Load More</button>
 										<br />

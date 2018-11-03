@@ -8,21 +8,24 @@
 select.bs-select-hidden,
 select.selectpicker {
   display: none !important;
+  z-index: 10;
 }
 .bootstrap-select {
   width: 160px \0;
+  z-index: 10;
   /*IE9 and below*/
 }
 .bootstrap-select > .dropdown-toggle {
   width: 100%;
   padding-right: 25px;
-  z-index: 1;
+  z-index: 10;
 }
 .bootstrap-select > .dropdown-toggle.bs-placeholder,
 .bootstrap-select > .dropdown-toggle.bs-placeholder:hover,
 .bootstrap-select > .dropdown-toggle.bs-placeholder:focus,
 .bootstrap-select > .dropdown-toggle.bs-placeholder:active {
   color: #999;
+  z-index: 10;
 }
 .bootstrap-select > select {
   position: absolute !important;
@@ -34,6 +37,7 @@ select.selectpicker {
   padding: 0 !important;
   opacity: 0 !important;
   border: none;
+  z-index: 10;
 }
 .bootstrap-select > select.mobile-device {
   top: 0;
