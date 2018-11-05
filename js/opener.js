@@ -1,7 +1,7 @@
 (function(){
 	var app = angular.module('opener-app', []);
 
-	app.controller('ctrl', ['$http', '$scope', function($http, $scope){
+	app.controller('opener-ctrl', ['$http', '$scope', function($http, $scope){
 		$scope.tbl = false;
 		
 		$http.get('/api/v1/sabr/opener/teams').then(function(data){

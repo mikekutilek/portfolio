@@ -522,6 +522,7 @@ h2.menu-item:after{
   right: 13px;
   top: -60px;
   transition: all 0.7s;
+  z-index: 1;
 }
 
 .close-pop:hover {
@@ -618,8 +619,110 @@ h2.menu-item:after{
    position: absolute;
    top: 0;
    width: 100%;
-
 }
+
+.rounded-li{
+  border-radius: 10px;
+  width: 200px;
+  height: 200px;
+  background-color: #ffffff;
+  color: #428bca;
+  font-size: 1.2em;
+  background-size: 88%;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+}
+
+.rounded-li:hover {
+  background-color: #428bca;
+  color: #ffffff;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.pt {
+  background-image: url('/img/icons/ball_bw.svg');
+}
+
+.pt:hover {
+  background-image: url('/img/icons/ball.svg');
+}
+
+.opener {
+  background-image: url('/img/icons/key_bw.svg'); 
+}
+
+.opener:hover {
+  background-image: url('/img/icons/key.svg');
+}
+
+.fp {
+  background-image: url('/img/icons/coins_bw.svg');
+}
+
+.fp:hover {
+  background-image: url('/img/icons/coins.svg')
+}
+
+.loading {
+  height: 25px;
+  padding-left: 10px;
+  padding-top: 2px;
+  vertical-align: center;
+}
+
+.teams-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 50px;
+  position: relative;
+  z-index: 5;
+}
+
+.black-box {
+  background-color: rgba(66, 139, 202, 0.8);
+  color: #ffffff;
+  border-radius: 25px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.span-select{
+  font-size: 1em;
+  padding: 4px;
+  color: rgba(0,0,0,0.8);
+}
+
+.span-padded{
+  padding: 15px;
+  width: 100%;
+}
+
+.o-table{
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-size: 0.8em;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.o-table td, .o-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.o-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    color: white;
+    background-color: #c97e40;
+}
+
+.o-table tr:nth-child(even){background-color: #18334B;}
+
+.o-table tr{background-color: #214565;}
 
 @media (min-width:1920px) {
     .name {

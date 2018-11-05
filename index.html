@@ -121,7 +121,38 @@
 					</div>
 				</section>
 			</div>
-			<div class="content-blocks projects"></div>
+			<div class="content-blocks projects">
+				<section class="content">
+					<div class="block-content">
+						<div class="row">
+							<h3 class="block-title">Projects</h3>
+						</div>
+						<div class="row center">
+							<div class="col-sm-4">
+								<a class="open-project" href="/pitch-type">
+									<div class='rounded-li pt'>
+										Pitch Type Trends
+									</div>
+								</a>
+							</div>
+							<div class="col-sm-4">
+								<a class="open-project" href="/opener">
+									<div class='rounded-li opener'>
+										Opener Tool
+									</div>
+								</a>
+							</div>
+							<div class="col-sm-4">
+								<a class="open-project" href="/fp">
+									<div class='rounded-li fp'>
+										Fantasy Points Tool
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
 			<div class="content-blocks photography">
 				<section class="content">
 					<div class="block-content">
@@ -136,7 +167,8 @@
 								</div>
 							</div>
 							<div class="col-sm-8">
-								<div id="gallery-app" class="gallery-app" ng-app="gallery-app" ng-controller="gallery-ctrl">
+								<!-- ng-app="gallery-app"-->
+								<div id="gallery-app" class="gallery-app" ng-controller="gallery-ctrl">
 									<div ng-repeat="rows in galleries" class="row">
 										<div ng-repeat="gal in rows" class="col-sm-4">
 											<a target="_blank" href="http://mikekutilek.zenfolio.com/{{gal.id}}">
@@ -186,7 +218,8 @@
 							</div>
 						</div>
 						<div class="col-sm-8">
-							<div id="video-app" ng-app="video-app" ng-controller="video-ctrl">
+							<!--ng-app="video-app" -->
+							<div id="video-app" ng-controller="video-ctrl">
 								<div class="center">
 									<span class="span-select">Year:</span>
 									<select class="selectpicker" ng-model="cc.year" ng-change="resetLimit()">
@@ -230,6 +263,8 @@
 				<div id="close-pop" class="close-pop">
 					Close <i class="ion-ios-close-empty"></i>
 				</div>
+				<section class="content">
+				</section>
 			</div>
 		</div>
 	</section>

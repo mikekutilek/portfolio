@@ -53,4 +53,20 @@
 	    $('.inline-nav-container').addClass('showx');
 	    $('.content-blocks.pop section').empty();
 	});
+
+	$('.menu-block, .menu-item, #close').on('click', function() {
+	    $('.content-blocks').animate({ scrollTop: 0 }, 800);
+	});	
+
+	//Portfolio Modal
+	$(document).on('click', '.open-project', function() {
+	    var projectUrl = $(this).attr("href");
+	    $('.inline-nav-container').removeClass('showx');
+	    $('.sidebar-menu').addClass('hidex');
+	    $('.content-blocks.pop').addClass('showx');
+	    $('.content-blocks.pop section').load(projectUrl);
+	    //+' .load-data > *'
+	    return false;
+	});
+
 })(jQuery);
