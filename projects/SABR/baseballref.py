@@ -3,32 +3,19 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import requests
 
-def get_all_skaters_page(season='2019'):
-	url = "https://www.hockey-reference.com/leagues/NHL_{}_skaters.html".format(season)
-	r = requests.get(url)
-	return BeautifulSoup(r.content, "html.parser")
-
-def get_all_goalies_page(season='2019'):
-	url = "https://www.hockey-reference.com/leagues/NHL_{}_goalies.html".format(season)
+def get_team_sp_page(season='2018'):
+	url = "https://www.baseball-reference.com/leagues/MLB/{}-starter-pitching.shtml".format(season)
 	r = requests.get(url)
 	return BeautifulSoup(r.content, "html.parser")
 
 def get_table(page):
 	table = page.find('table',{'class':'stats_table'})
 	thead = table.find('thead')
-	trs = thead.find_all('tr')[1]
-	ths = trs.find_all('th')
+	#trs = thead.find_all('tr')[1]
+	ths = thead.find_all('th')
 	headings = []
 	for th in ths:
 		headings.append(th.text.strip())
-	if headings[13] == 'PP':
-		headings[13] = 'PPG'
-	if headings[14] == 'SH':
-		headings[14] = 'SHG'
-	if headings[17] == 'PP':
-		headings[17] = 'PPA'
-	if headings[18] == 'SH':
-		headings[18] = 'SHA'
 	tbody = table.find('tbody')
 	rows = tbody.find_all('tr')
 	data = []
@@ -40,10 +27,10 @@ def get_table(page):
 		data.append([cell for cell in cells])
 
 	df = pd.DataFrame(data=data, columns=headings)
-	return df
+	return df.sort_values(by=['RA/G'])
 
 def main():
-	page = get_all_skaters_page()
+	page = get_team_sp_page()
 	print(get_table(page))
 
 if __name__ == '__main__':
