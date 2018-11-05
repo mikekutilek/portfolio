@@ -30,43 +30,31 @@ app.get('/', (req, res) => {
 });
 
 app.get('/photography', (req, res) => {
-	res.sendFile("personal/photography.html", {root: __dirname });
+	res.sendFile("html/photography.html", {root: __dirname });
 });
 
 app.get('/videography', (req, res) => {
-	res.sendFile("personal/videography.html", {root: __dirname });
-});
-
-app.get('/time-lapse', (req, res) => {
-	res.sendFile("personal/time-lapse.html", {root: __dirname });
+	res.sendFile("html/videography.html", {root: __dirname });
 });
 
 app.get('/about', (req, res) => {
-  res.sendFile("personal/about.html", {root: __dirname });
-});
-
-app.get('/resume', (req, res) => {
-    res.sendFile("professional/resume.html", {root: __dirname });
+  res.sendFile("html/about.html", {root: __dirname });
 });
 
 app.get('/projects', (req, res) => {
-	res.sendFile("professional/projects.html", {root: __dirname });
+	res.sendFile("html/projects.html", {root: __dirname });
 });
 
 app.get('/pitch-type', (req, res) => {
-    res.sendFile("professional/pitch-type.html", {root: __dirname });
+    res.sendFile("html/pitch-type.html", {root: __dirname });
 });
 
 app.get('/opener', (req, res) => {
-    res.sendFile("professional/opener.html", {root: __dirname });
+    res.sendFile("html/opener.html", {root: __dirname });
 });
 
 app.get('/fp', (req, res) => {
-    res.sendFile("professional/fp.html", {root: __dirname });
-});
-
-app.get('/matchup', (req, res) => {
-	res.sendFile("professional/projects/matchup_tool.html", {root: __dirname });
+    res.sendFile("html/fp.html", {root: __dirname });
 });
 
 app.get('/galleries', (req, res) => {
@@ -76,7 +64,7 @@ app.get('/galleries', (req, res) => {
 function call_pitchtype(req, res){
     var pid = req.params.pid;
     var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./professional/SABR/pitch_type.py", pid]);
+    var process = spawn('python', ["./projects/SABR/pitch_type.py", pid]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -87,7 +75,7 @@ function call_pitchtype(req, res){
 function call_pitchers(req, res){
     var spawn = require("child_process").spawn;
     
-    var process = spawn('python', ['./professional/SABR/get_std_data.py']);
+    var process = spawn('python', ['./projects/SABR/get_std_data.py']);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -100,7 +88,7 @@ function call_candidates(req, res){
     var pos = req.params.pos;
     var hand = req.params.hand;
     var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./professional/SABR/opener.py", team, pos, hand]);
+    var process = spawn('python', ["./projects/SABR/opener.py", team, pos, hand]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -111,7 +99,7 @@ function call_candidates(req, res){
 function call_chunk(req, res){
     var team = req.params.team;
     var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./professional/SABR/opener_chunk.py", team]);
+    var process = spawn('python', ["./projects/SABR/opener_chunk.py", team]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -122,7 +110,7 @@ function call_chunk(req, res){
 function call_nhl_fp(req, res){
     var ptype = req.params.ptype;
     var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./professional/Corsica/fp.py", ptype]);
+    var process = spawn('python', ["./projects/Corsica/fp.py", ptype]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());

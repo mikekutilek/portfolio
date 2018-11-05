@@ -1,0 +1,48 @@
+<div class="row">
+	<h3 class="block-title">Videography</h3>
+</div>
+<div class="col-sm-4">
+	<p>Since college, one of my emerging passions has been videography. It spawned from watching the short openings Hockey Night in Canada would air before each playoff game. Each opening was a montage of clips and highlight reels surrounding the participating teams set to some song track. I decided I wanted to start making my own "opening montages", so I started up a local spin-off called <a target="_blank" href="https://twitter.com/hnipittsburgh">Hockey Night in Pittsburgh</a> and began recording all the Penguins games to accumulate footage. <br><br>After a year or so of middling popularity, the viewership really took off during the Penguins' 2016 Stanley Cup run. The following year, I received an offer from local multimedia juggernaut <a target="_blank" href="http://www.benstonium.com/">Benstonium</a> to start a partnership and display my videos on their site and social media pages. Of course I was thrilled to receive this offer. The exposure I was able to get was phenomenal. Today, I still contribute my work to the Benstonium team each playoff year. You can find all of my work on the <a target="_blank" href="http://youtube.com/hnipittsburgh">HNIP YouTube channel</a>, or embedded on this very page.</p>
+	<div>
+		<img src="/img/me/hnip.png" style="width: 100%; padding: 10px;">
+	</div>
+</div>
+<div class="col-sm-8">
+	<!--ng-app="video-app" -->
+	<div id="video-app" ng-controller="video-ctrl">
+		<div class="center">
+			<span class="span-select">Year:</span>
+			<select class="selectpicker" ng-model="cc.year" ng-change="resetLimit()">
+				<option value="" selected="selected">All</option>
+				<option ng-repeat="year in years" value="{{year}}">{{year}}</option>
+			</select>
+			<span class="span-select">Team:</span>
+			<select class="selectpicker" ng-model="cc.team" ng-change="resetLimit()">
+				<option value="" selected="selected">All</option>
+				<option ng-repeat="team in teams" value="{{team}}">{{team}}</option>
+			</select>
+			<div data-ng-repeat="vid in filteredvideos = (videos | filter:cc) | limitTo : limit as filtered" class="row">
+				
+				<a target="_blank" ng-href="{{links[videos.indexOf(vid)]}}">
+					<div class="caption">
+						<h3 class="center">{{vid.title}}</h3>
+					</div>
+					<div class="iframe-container">
+						<iframe frameborder="0" allowfullscreen ng-src="{{urls[videos.indexOf(vid)] | trustAsResourceUrl}}"></iframe>
+					</div>
+				</a>
+				
+			</div>
+			<div ng-if="limit < filteredvideos.length">
+				<br />
+				<button type="button" class="btn btn-download" ng-click="loadMore()">Load More</button>
+				<br />
+			</div>
+			<div ng-if="limit >= filteredvideos.length">
+				<hr style="width: 75%">
+				<h2 style="color: rgba(0,0,0,0.3)">THAT'S ALL FOLKS!</h2>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="/js/videos.js"></script>
