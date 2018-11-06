@@ -88,7 +88,7 @@ function call_candidates(req, res){
     var pos = req.params.pos;
     var hand = req.params.hand;
     var spawn = require("child_process").spawn;
-    var process = spawn('python3', ["./projects/SABR/opener.py", team, pos, hand]);
+    var process = spawn('python', ["./projects/SABR/opener.py", team, pos, hand]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -99,7 +99,7 @@ function call_candidates(req, res){
 function call_chunk(req, res){
     var team = req.params.team;
     var spawn = require("child_process").spawn;
-    var process = spawn('python3', ["./projects/SABR/opener_chunk.py", team]);
+    var process = spawn('python', ["./projects/SABR/opener_chunk.py", team]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -110,7 +110,7 @@ function call_chunk(req, res){
 function call_nhl_fp(req, res){
     var ptype = req.params.ptype;
     var spawn = require("child_process").spawn;
-    var process = spawn('python3', ["./projects/Corsica/fp.py", ptype]);
+    var process = spawn('python', ["./projects/Corsica/fp.py", ptype]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -118,11 +118,16 @@ function call_nhl_fp(req, res){
     })
 };
 
-app.get('/api/v1/corsica/fp/:ptype', call_nhl_fp);
+function call_nfl_fp(req, res){
+    var pos = req.params.pos;
+    var spawn = require("child_process").spawn;
+    var process = spawn('python', ["./projects/WOPR/fp.py", pos]);
 
-app.get('/api/v1/fangraphs/pitching', call_pitchers);
-
-app.get('/api/v1/fangraphs/pitching/pitch-type/:pid', call_pitchtype);
+    process.stdout.on('data', function (data){
+        res.send(data.toString());
+        res.end();
+    })
+};
 
 app.get('/api/v1/sabr/opener/teams', (req, res) => {
     data = {'null': 'ANY', 'Orioles': 'BAL', 'Red Sox': 'BOS', 'Yankees': 'NYY', 'Rays': 'TB', 'Blue Jays': 'TOR', 
@@ -138,3 +143,11 @@ app.get('/api/v1/sabr/opener/teams', (req, res) => {
 app.get('/api/v1/sabr/opener/:team/:pos/:hand', call_candidates);
 
 app.get('/api/v1/sabr/opener/:team', call_chunk);
+
+app.get('/api/v1/fangraphs/pitching', call_pitchers);
+
+app.get('/api/v1/fangraphs/pitching/pitch-type/:pid', call_pitchtype);
+
+app.get('/api/v1/corsica/fp/:ptype', call_nhl_fp);
+
+app.get('/api/v1/wopr/fp/:pos', call_nfl_fp);

@@ -39,7 +39,7 @@ def get_fp(position):
 	tds = df3['AllTD'].astype('float64')
 	twoptmd = df3['2PM'].astype('float64')
 	twoptcp = df3['2PP'].astype('float64')
-	fumbles = df3['Fmb'].astype('float64')
+	fumbles = df3['Fmb_y'].astype('float64')
 	games = df3['G'].astype('float64')
 
 	fp = (passyds / 30.0) + (passtds * 4.0) - (ints * 2.0) + (rushyds / 10.0) + (receptions * 0.5) + (recyds / 10.0) + (tds * 6.0) + (twoptmd * 2.0) + (twoptcp * 2.0) - (fumbles * 2.0)
@@ -71,10 +71,12 @@ def get_fp(position):
 
 def main():
 	parser = argparse.ArgumentParser()
-	parser.add_argument("position", help="position of player (qb, rb, wr, te, flex)")
+	parser.add_argument("pos", help="position of player (qb, rb, wr, te, flex)")
 	args = parser.parse_args()
 
-	print(get_fp(args.position))
+	data = get_fp(args.pos)
+	print(data.to_json(orient='records'))
+	sys.stdout.flush()
 
 if __name__ == '__main__':
 	main()

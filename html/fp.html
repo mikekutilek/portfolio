@@ -34,10 +34,16 @@
 				</ul>
 			</div>
 			<span ng-if="loading"><img class="loading" src="/img/icons/loading.gif" ></span>
-			<table class='center o-table nhl-stats'>
+			<table class='center o-table fp-table nhl-stats'>
 				<tr><th>Name</th><th>FP</th><th>FP/G</th></tr>
 				<tr ng-repeat="player in players">
 					<td>{{player.Player}}</td><td>{{player.FP}}</td><td>{{player['FP/G']}}</td>
+				</tr>
+			</table>
+			<table class='center o-table fp-table nfl-stats hidex'>
+				<tr><th>Name</th><th>FP</th><th>FP/G</th><th>WO</th><th>WO/G</th><th>WOPR</th><th>WOPR/G</th></tr>
+				<tr ng-repeat="player in players">
+					<td>{{player.Player}}</td><td>{{player.FP}}</td><td>{{player['FP/G']}}</td><td>{{player.WO}}</td><td>{{player['WO/G']}}</td><td>{{player.WOPR}}</td><td>{{player['WOPR/G']}}</td>
 				</tr>
 			</table>
 		</div>

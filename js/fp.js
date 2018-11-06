@@ -29,6 +29,25 @@
 				$scope.loading = false;
 			});
 	    });
+
+	    $('.nfl').on('click', function() {
+	    	$scope.loading = true;
+	    	//$('.nfl-stats').removeClass('active');
+    		//$('.goalie').removeClass('active');
+	    	$http.get('/api/v1/wopr/fp/RB').then(function(data){
+				console.log(data.data);
+				$scope.players = data.data;
+				$scope.loading = false;
+			});
+	    });
+	    $('.nhl').on('click', function() {
+	    	$scope.loading = true;
+	    	$http.get('/api/v1/corsica/fp/skater').then(function(data){
+				console.log(data.data);
+				$scope.players = data.data;
+				$scope.loading = false;
+			});
+	    })
 		//}
 	}]);
 

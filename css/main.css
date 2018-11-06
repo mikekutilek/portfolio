@@ -4,6 +4,10 @@ body{
   font-family: Noto Sans;
   overflow-x: hidden;
   overflow-y: hidden;
+  background-image: url('/img/me/me.jpg'); 
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  background-attachment: fixed
 }
 
 *, *:before, *:after {
@@ -628,9 +632,9 @@ h2.menu-item:after{
   background-color: #ffffff;
   color: #428bca;
   font-size: 1.2em;
-  background-size: 88%;
+  background-size: 85%;
   background-repeat: no-repeat;
-  background-position: center bottom;
+  background-position: center bottom 3px;
 }
 
 .rounded-li:hover {
@@ -757,6 +761,13 @@ h2.menu-item:after{
 .filters.secondary {
   position: absolute;
   top: 3em;
+  padding-bottom: 3em;
+  text-align: center;
+}
+
+.fp-table {
+  position: absolute;
+  top: 10em;
   padding-bottom: 3em;
   text-align: center;
 }
