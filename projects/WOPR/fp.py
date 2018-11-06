@@ -62,20 +62,34 @@ def get_fp(position):
 	df['WOPR'] = df6['wopr']
 
 	#flex handling
-	if position == 'flex':
+	if position == 'FLEX':
 		final_df = df[(df['Pos'] == 'WR') | (df['Pos'] == 'RB') | (df['Pos'] == 'TE')]
 	else:
 		final_df = df[(df['Pos'] == position)]
 
-	return final_df.sort_values(by=['WO/G'], ascending=False)
+	return final_df
 
 def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument("pos", help="position of player (qb, rb, wr, te, flex)")
+	parser.add_argument("sort_col", help="column you want to sort by")
 	args = parser.parse_args()
 
-	data = get_fp(args.pos)
-	print(data.to_json(orient='records'))
+	if (args.sort_col == 'WO'):
+		sort = 'WO'
+	if (args.sort_col == 'WOG'):
+		sort = 'WO/G'
+	if (args.sort_col == 'FP'):
+		sort = 'FP'
+	if (args.sort_col == 'FPG'):
+		sort = 'FP/G'
+	if (args.sort_col == 'WOPR'):
+		sort = 'WOPR'
+	if (args.sort_col == 'WOPRG'):
+		sort = 'WOPR/G'
+
+	data = get_fp(args.pos.upper())
+	print(data.sort_values(by=[sort], ascending=False).to_json(orient='records'))
 	sys.stdout.flush()
 
 if __name__ == '__main__':

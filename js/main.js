@@ -96,48 +96,5 @@
         //console.log(filterValue);
         //$container.isotope({ filter: filterValue });
     });
-    $('.nhl').on('click', function() {
-    	$('.filters.nfl-options').removeClass('showx');
-    	$('.filters.nfl-options').addClass('hidex');
-    	$('.nfl-stats').removeClass('showx');
-    	$('.nfl-stats').addClass('hidex');
-    	$('.filters.mlb-options').removeClass('showx');
-    	$('.filters.mlb-options').addClass('hidex');
-    	$('.mlb-stats').removeClass('showx');
-    	$('.mlb-stats').addClass('hidex');
-    	$('.filters.nhl-options').removeClass('hidex');
-    	$('.filters.nhl-options').addClass('showx');
-    	$('.nhl-stats').removeClass('hidex');
-    	$('.nhl-stats').addClass('showx');
-    });
-    $('.nfl').on('click', function() {
-    	$('.filters.nhl-options').removeClass('showx');
-    	$('.filters.nhl-options').addClass('hidex');
-    	$('.nhl-stats').removeClass('showx');
-    	$('.nhl-stats').addClass('hidex');
-    	$('.filters.mlb-options').removeClass('showx');
-    	$('.filters.mlb-options').addClass('hidex');
-    	$('.mlb-stats').removeClass('showx');
-    	$('.mlb-stats').addClass('hidex');
-    	$('.filters.nfl-options').removeClass('hidex');
-    	$('.filters.nfl-options').addClass('showx');
-    	$('.nfl-stats').removeClass('hidex');
-    	$('.nfl-stats').addClass('showx');
-    });
-    $('.mlb').on('click', function() {
-    	$('.filters.nhl-options').removeClass('showx');
-    	$('.filters.nhl-options').addClass('hidex');
-    	$('.nhl-stats').removeClass('showx');
-    	$('.nhl-stats').addClass('hidex');
-    	$('.filters.nfl-options').removeClass('showx');
-    	$('.filters.nfl-options').addClass('hidex');
-    	$('.nfl-stats').removeClass('showx');
-    	$('.nfl-stats').addClass('hidex');
-    	$('.filters.mlb-options').removeClass('hidex');
-    	$('.filters.mlb-options').addClass('showx');
-    	$('.mlb-stats').removeClass('hidex');
-    	$('.mlb-stats').addClass('showx');
-    });
-    
 
 })(jQuery);

@@ -28,7 +28,7 @@ def get_all_skater_fps():
 
 	df = build_fp_table(players, fps, fps_g)
 
-	return df.sort_values(by=['FP/G'], ascending=False)
+	return df
 
 def get_all_goalie_fps():
 	goalie_page = hr.get_all_goalies_page()
@@ -49,7 +49,7 @@ def get_all_goalie_fps():
 
 	df = build_fp_table(players, fps, fps_g)
 
-	return df.sort_values(by=['FP/G'], ascending=False)
+	return df
 
 def get_skater_fps(pname):
 	df = get_all_skater_fps()
@@ -64,14 +64,15 @@ def get_goalie_fps(pname):
 def build_fp_table(players, fps, fps_g):
 	df = pd.DataFrame()
 	df['Player'] = players
-	df['FP'] = fps.apply(lambda x: '{0:.3f}'.format(x))
-	df['FP/G'] = fps_g.apply(lambda x: '{0:.3f}'.format(x))
+	df['FP'] = fps.apply(lambda x: '{0:.2f}'.format(x)).astype('float64')
+	df['FP/G'] = fps_g.apply(lambda x: '{0:.2f}'.format(x)).astype('float64')
 	return df
 
 
 def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument("ptype", help="type of player (skater or goalie)")
+	parser.add_argument("sort_col", help="category you want to sort by")
 	args = parser.parse_args()
 
 	data = []
@@ -83,7 +84,12 @@ def main():
 	else:
 		exit(1)
 
-	print(data.to_json(orient='records'))
+	if args.sort_col == 'FP':
+		sort = 'FP'
+	elif args.sort_col == 'FPG':
+		sort = 'FP/G'
+
+	print(data.sort_values(by=[sort], ascending=False).to_json(orient='records'))
 	sys.stdout.flush()
 
 if __name__ == '__main__':

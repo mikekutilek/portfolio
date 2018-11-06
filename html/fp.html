@@ -1,7 +1,7 @@
 <div id="fp-app" ng-controller="fp-ctrl">
 	<h3 class="block-title">Fantasy Points Tool</h3>
 	<div class="col-sm-4">
-		<p>Gaining popularity every day, fantasy sports have become a staple of the sports gambling industry. Sports betting is spreading across casinos throughout the country and DFS apps like DraftKings and FanDuel are incredibly popular. Everyone is looking for an edge in these games to earn themselves an extra buck. Fortunately, we can utilize the data at our fingertips to gain this edge.<br><br>This tool is designed to give fantasy players a better way to manage their teams. Instead of looking at flat statistics like touchdowns, goals, and wins, we should be looking at scoring rates, trends, and opportunity. Process over results, right? The tool looks at the most important underlying statistics for each league and compares it to the fantasy points for that player. The idea is to project future performance and identify buy low candidates and smart waiver wire pickups in your league. <br/><br/>All data provided by <a target="_blank" href="https://baseballsavant.mlb.com/">Baseball Savant</a> and <a target="_blank" href="https://www.fangraphs.com/">Fangraphs</a></p>
+		<p>Gaining popularity every day, fantasy sports have become a staple of the sports gambling industry. Sports betting is spreading across casinos throughout the country and DFS apps like DraftKings and FanDuel are incredibly popular. Everyone is looking for an edge in these games to earn themselves an extra buck. Fortunately, we can utilize the data at our fingertips to gain this edge.<br><br>This tool is designed to give fantasy players a better way to manage their teams. Instead of looking at flat statistics like touchdowns, goals, and wins, we should be looking at scoring rates, trends, and opportunity. Process over results, right? The tool looks at the most important underlying statistics for each league and compares it to the fantasy points for that player. The idea is to project future performance and identify buy low candidates and smart waiver wire pickups in your league. <br/><br/>All data provided by <a href="https://www.hockey-reference.com/">Hockey Reference</a>, <a href="https://www.pro-football-reference.com/">Football Reference</a>, <a target="_blank" href="https://airyards.com/">AirYards.com</a>, <a target="_blank" href="https://baseballsavant.mlb.com/">Baseball Savant</a>, <a target="_blank" href="https://www.baseball-reference.com/">Baseball Reference</a>, and <a target="_blank" href="https://www.fangraphs.com/">Fangraphs</a></p>
 	</div>
 	<div class="center col-sm-8">
 		<div class="row">
@@ -12,7 +12,7 @@
 					<li data-filter=".mlb" class="mlb">MLB</li>
 				</ul>
 			</div>
-			<div class="filters secondary nhl-options">
+			<div class="filters secondary nhl-options showx">
 				<ul id="filters">
 					<li class="skater active">Skater</li>
 					<li class="goalie">Goalie</li>
@@ -20,28 +20,28 @@
 			</div>
 			<div class="filters secondary nfl-options hidex">
 				<ul id="filters">
-					<li class="active">QB</li>
-					<li>RB</li>
-					<li>WR</li>
-					<li>TE</li>
-					<li>FLEX</li>
+					<li class="qb active">QB</li>
+					<li class="rb">RB</li>
+					<li class="wr">WR</li>
+					<li class="te">TE</li>
+					<li class="flex">FLEX</li>
 				</ul>
 			</div>
 			<div class="filters secondary mlb-options hidex">
 				<ul id="filters">
-					<li class="active">Batter</li>
-					<li>Pitcher</li>
+					<li class="batter active">Batter</li>
+					<li class="pitcher">Pitcher</li>
 				</ul>
 			</div>
 			<span ng-if="loading"><img class="loading" src="/img/icons/loading.gif" ></span>
-			<table class='center o-table fp-table nhl-stats'>
-				<tr><th>Name</th><th>FP</th><th>FP/G</th></tr>
+			<table class='center o-table fp-table nhl-stats showx'>
+				<tr><th>Name</th><th id="fp" class="sortable">FP</th><th id="fpg" class="sortable sorted">FP/G</th></tr>
 				<tr ng-repeat="player in players">
-					<td>{{player.Player}}</td><td>{{player.FP}}</td><td>{{player['FP/G']}}</td>
+					<td>{{player.Player}}</td><td>{{player.FP}}</td><td class="sorted">{{player['FP/G']}}</td>
 				</tr>
 			</table>
 			<table class='center o-table fp-table nfl-stats hidex'>
-				<tr><th>Name</th><th>FP</th><th>FP/G</th><th>WO</th><th>WO/G</th><th>WOPR</th><th>WOPR/G</th></tr>
+				<tr><th>Name</th><th id="fp" class="sortable">FP</th><th id="fpg" class="sortable sorted">FP/G</th><th id="wo" class="sortable">WO</th><th id="wog" class="sortable">WO/G</th><th id="wopr" class="sortable">WOPR</th><th id="woprg" class="sortable">WOPR/G</th></tr>
 				<tr ng-repeat="player in players">
 					<td>{{player.Player}}</td><td>{{player.FP}}</td><td>{{player['FP/G']}}</td><td>{{player.WO}}</td><td>{{player['WO/G']}}</td><td>{{player.WOPR}}</td><td>{{player['WOPR/G']}}</td>
 				</tr>

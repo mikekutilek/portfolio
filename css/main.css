@@ -772,6 +772,18 @@ h2.menu-item:after{
   text-align: center;
 }
 
+.sortable {
+  cursor: pointer;
+}
+
+.o-table th.sorted{
+  font-weight: 900;
+  background-color: #CFB53B;
+}
+.o-table td.sorted {
+  
+}
+
 @media (min-width:1920px) {
     .name {
         -ms-transform: rotate(-34deg);
