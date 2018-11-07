@@ -88,7 +88,7 @@ function call_candidates(req, res){
     var pos = req.params.pos;
     var hand = req.params.hand;
     var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./projects/SABR/opener.py", team, pos, hand]);
+    var process = spawn('python3', ["./projects/SABR/opener.py", team, pos, hand]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -99,7 +99,7 @@ function call_candidates(req, res){
 function call_chunk(req, res){
     var team = req.params.team;
     var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./projects/SABR/opener_chunk.py", team]);
+    var process = spawn('python3', ["./projects/SABR/opener_chunk.py", team]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -111,7 +111,7 @@ function call_nhl_fp(req, res){
     var ptype = req.params.ptype;
     var sort = req.params.sort;
     var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./projects/Corsica/fp.py", ptype, sort]);
+    var process = spawn('python3', ["./projects/Corsica/fp.py", ptype, sort]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -123,7 +123,7 @@ function call_nfl_fp(req, res){
     var pos = req.params.pos;
     var sort = req.params.sort;
     var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./projects/WOPR/fp.py", pos, sort]);
+    var process = spawn('python3', ["./projects/WOPR/fp.py", pos, sort]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());

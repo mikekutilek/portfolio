@@ -784,6 +784,28 @@ h2.menu-item:after{
   
 }
 
+.pagination {
+  display: inline-block;
+  position: relative;
+  margin-top: 45em;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.pagination a.active {
+  background-color: #c97e40;
+  color: white;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+
 @media (min-width:1920px) {
     .name {
         -ms-transform: rotate(-34deg);

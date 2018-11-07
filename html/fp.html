@@ -32,8 +32,11 @@
 					<li class="batter active">Batter</li>
 					<li class="pitcher">Pitcher</li>
 				</ul>
+
 			</div>
-			<span ng-if="loading"><img class="loading" src="/img/icons/loading.gif" ></span>
+			<div>
+				<span ng-if="loading"><img class="loading" src="/img/icons/loading.gif" ></span>
+			</div>
 			<table class='center o-table fp-table nhl-stats showx'>
 				<tr><th>Name</th><th id="fp" class="sortable">FP</th><th id="fpg" class="sortable sorted">FP/G</th></tr>
 				<tr ng-repeat="player in players">
@@ -46,6 +49,11 @@
 					<td>{{player.Player}}</td><td>{{player.FP}}</td><td>{{player['FP/G']}}</td><td>{{player.WO}}</td><td>{{player['WO/G']}}</td><td>{{player.WOPR}}</td><td>{{player['WOPR/G']}}</td>
 				</tr>
 			</table>
+			<div class="pagination">
+				<a href="#">&laquo;</a>
+				<a ng-repeat="page in pages" href="{{page.link}}">{{page.label}}</a>
+				<a href="#">&raquo;</a>
+			</div>
 		</div>
 	</div>
 </div>

@@ -8,8 +8,13 @@
 			//console.log(data.data);
 			var df = data.data;
 			var len = data.data.length;
+			var numPages = len / 20;
+			var pages = [];
+			for (var i = 0; i < numPages; i++){
+				pages.push({'label': i+1, 'link': '#'});
+			}
 			//console.log(len);
-			var pages = len / 20;
+			$scope.pages = pages;
 			$scope.players = df.slice(0, 20);
 			$scope.loading = false;
 		});
