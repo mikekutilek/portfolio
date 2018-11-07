@@ -6,7 +6,11 @@
 		$scope.loading = true;
 		$http.get('/api/v1/corsica/fp/skater/FPG').then(function(data){
 			//console.log(data.data);
-			$scope.players = data.data;
+			var df = data.data;
+			var len = data.data.length;
+			//console.log(len);
+			var pages = len / 20;
+			$scope.players = df.slice(0, 20);
 			$scope.loading = false;
 		});
 
