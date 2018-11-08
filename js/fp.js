@@ -2,10 +2,7 @@
 	var app = angular.module('fp-app', []);
 
 	app.controller('fp-ctrl', ['$http', '$scope', function($http, $scope){
-		//$scope.getNHL = function(selection){
-		$scope.loading = true;
-		$http.get('/api/v1/corsica/fp/skater/FPG').then(function(data){
-			//console.log(data.data);
+		$scope.getPages = function(data){
 			var df = data.data;
 			var len = data.data.length;
 			var numPages = len / 20;
@@ -13,10 +10,22 @@
 			for (var i = 0; i < numPages; i++){
 				pages.push({'label': i+1, 'link': '#'});
 			}
+			return pages;
+		};
+		//$scope.getNHL = function(selection){
+		$scope.loading = true;
+		$http.get('/api/v1/corsica/fp/skater/FPG').then(function(data){
+			//console.log(data.data);
+			var df = data.data;
+			var pages = $scope.getPages(data);
 			//console.log(len);
 			$scope.pages = pages;
 			$scope.players = df.slice(0, 20);
 			$scope.loading = false;
+		});
+
+		$('.page-num').on('click', function() {
+			console.log($(this).text());
 		});
 
 	    $('.nfl').on('click', function() {
@@ -133,7 +142,12 @@
     		$('.goalie').addClass('active');
 	    	$http.get('/api/v1/corsica/fp/goalie/FPG').then(function(data){
 				//console.log(data.data);
-				$scope.players = data.data;
+				var df = data.data;
+				var pages = $scope.getPages(data);
+				//console.log(len);
+				$scope.pages = pages;
+				$scope.players = df.slice(0, 20);
+				//$scope.players = data.data;
 				$scope.loading = false;
 				$('table.showx th.sorted').removeClass('sorted');
 	    		$('#fpg').addClass('sorted');
