@@ -16,6 +16,7 @@
 		$scope.loading = true;
 		$http.get('/api/v1/corsica/fp/skater/FPG').then(function(data){
 			//console.log(data.data);
+			$scope.df = data;
 			var df = data.data;
 			var pages = $scope.getPages(data);
 			//console.log(len);
@@ -24,9 +25,33 @@
 			$scope.loading = false;
 		});
 
-		$('.page-num').on('click', function() {
-			console.log($(this).text());
-		});
+		$scope.gotoPage = function($event, data){
+			var pageNum = parseInt($event.target.text);
+			var start = (pageNum - 1) * 20;
+			var end = (pageNum * 20);
+			console.log(pageNum, start, end);
+			console.log(data.data);
+			var df = data.data;
+			var pages = $scope.getPages(data);
+			//console.log(len);
+			$scope.pages = pages;
+			$scope.players = df.slice(start, end);
+			console.log($event.target);
+			angular.element(this).addClass("active");
+			console.log($event.target);
+			/*
+			$scope.loading = true;
+			$http.get('/api/v1/corsica/fp/skater/FPG').then(function(data){
+				//console.log(data.data);
+				var df = data.data;
+				var pages = $scope.getPages(data);
+				//console.log(len);
+				$scope.pages = pages;
+				$scope.players = df.slice(start, end);
+				$scope.loading = false;
+			});
+			*/
+		};
 
 	    $('.nfl').on('click', function() {
 	    	$scope.loading = true;
@@ -43,25 +68,35 @@
     		if (qbvalues.pop() == 'active'){
     			var pos = 'QB';
     			var sort = 'FPG';
+    			var sorted = 'FPGNFL';
     		}
     		if (rbvalues.pop() == 'active'){
     			var pos = 'RB';
     			var sort = 'WOG';
+    			var sorted = 'WOG';
     		}
     		if (wrvalues.pop() == 'active'){
     			var pos = 'WR';
     			var sort = 'WOPRG';
+    			var sorted = 'WOPRG';
     		}
     		if (tevalues.pop() == 'active'){
     			var pos = 'TE';
     			var sort = 'WOPRG';
+    			var sorted = 'WOPRG';
     		}
     		if (flexvalues.pop() == 'active'){
     			var pos = 'flex';
     			var sort = 'WOG';
+    			var sorted = 'WOG';
     		}
 	    	$http.get('/api/v1/wopr/fp/' + pos + '/' + sort).then(function(data){
-				$scope.players = data.data;
+	    		$scope.df = data;
+	    		var df = data.data;
+				var pages = $scope.getPages(data);
+				//console.log(len);
+				$scope.pages = pages;
+				$scope.players = df.slice(0, 20);
 				$('.filters.nhl-options').removeClass('showx');
 		    	$('.filters.nhl-options').addClass('hidex');
 		    	$('.nhl-stats').removeClass('showx');
@@ -75,7 +110,7 @@
 		    	$('.nfl-stats').removeClass('hidex');
 		    	$('.nfl-stats').addClass('showx');
 		    	$('table.showx th.sorted').removeClass('sorted');
-	    		$('table.showx th#'+sort.toLowerCase()).addClass('sorted');
+	    		$('table.showx th#'+sorted.toLowerCase()).addClass('sorted');
 		    	$scope.loading = false;
 			});
 
@@ -91,7 +126,12 @@
     			var pos = 'goalie';
     		}
 	    	$http.get('/api/v1/corsica/fp/' + pos + '/FPG').then(function(data){
-				$scope.players = data.data;
+	    		$scope.df = data;
+	    		var df = data.data;
+				var pages = $scope.getPages(data);
+				//console.log(len);
+				$scope.pages = pages;
+				$scope.players = df.slice(0, 20);
 				$('.filters.nfl-options').removeClass('showx');
 		    	$('.filters.nfl-options').addClass('hidex');
 		    	$('.nfl-stats').removeClass('showx');
@@ -105,7 +145,7 @@
 		    	$('.nhl-stats').removeClass('hidex');
 		    	$('.nhl-stats').addClass('showx');
 		    	$('table.showx th.sorted').removeClass('sorted');
-	    		$('#fpg').addClass('sorted');
+	    		$('#fpgnhl').addClass('sorted');
 				$scope.loading = false;
 			});
 	    });
@@ -130,10 +170,15 @@
     		$('.skater').addClass('active');
 			$http.get('/api/v1/corsica/fp/skater/FPG').then(function(data){
 				//console.log(data.data);
-				$scope.players = data.data;
+				$scope.df = data;
+				var df = data.data;
+				var pages = $scope.getPages(data);
+				//console.log(len);
+				$scope.pages = pages;
+				$scope.players = df.slice(0, 20);
 				$scope.loading = false;
 				$('table.showx th.sorted').removeClass('sorted');
-	    		$('#fpg').addClass('sorted');
+	    		$('#fpgnhl').addClass('sorted');
 			});
    		});
 	    $('.goalie').on('click', function() {
@@ -142,6 +187,7 @@
     		$('.goalie').addClass('active');
 	    	$http.get('/api/v1/corsica/fp/goalie/FPG').then(function(data){
 				//console.log(data.data);
+				$scope.df = data;
 				var df = data.data;
 				var pages = $scope.getPages(data);
 				//console.log(len);
@@ -150,7 +196,7 @@
 				//$scope.players = data.data;
 				$scope.loading = false;
 				$('table.showx th.sorted').removeClass('sorted');
-	    		$('#fpg').addClass('sorted');
+	    		$('#fpgnhl').addClass('sorted');
 			});
 	    });
 	    $('.qb').on('click', function() {
@@ -162,10 +208,15 @@
     		$('.qb').addClass('active');
 	    	$http.get('/api/v1/wopr/fp/QB/FPG').then(function(data){
 				//console.log(data.data);
-				$scope.players = data.data;
+				$scope.df = data;
+				var df = data.data;
+				var pages = $scope.getPages(data);
+				//console.log(len);
+				$scope.pages = pages;
+				$scope.players = df.slice(0, 20);
 				$scope.loading = false;
 				$('table.showx th.sorted').removeClass('sorted');
-	    		$('#fpg').addClass('sorted');
+	    		$('#fpgnfl').addClass('sorted');
 			});
 	    });
 	    $('.rb').on('click', function() {
@@ -177,7 +228,13 @@
     		$('.rb').addClass('active');
 	    	$http.get('/api/v1/wopr/fp/RB/WOG').then(function(data){
 				//console.log(data.data);
-				$scope.players = data.data;
+				$scope.df = data;
+				console.log($scope.df);
+				var df = data.data;
+				var pages = $scope.getPages(data);
+				//console.log(len);
+				$scope.pages = pages;
+				$scope.players = df.slice(0, 20);
 				$scope.loading = false;
 				$('table.showx th.sorted').removeClass('sorted');
 	    		$('#wog').addClass('sorted');
@@ -192,7 +249,12 @@
     		$('.wr').addClass('active');
 	    	$http.get('/api/v1/wopr/fp/WR/WOPRG').then(function(data){
 				//console.log(data.data);
-				$scope.players = data.data;
+				$scope.df = data;
+				var df = data.data;
+				var pages = $scope.getPages(data);
+				//console.log(len);
+				$scope.pages = pages;
+				$scope.players = df.slice(0, 20);
 				$scope.loading = false;
 				$('table.showx th.sorted').removeClass('sorted');
 	    		$('#woprg').addClass('sorted');
@@ -207,7 +269,12 @@
     		$('.te').addClass('active');
 	    	$http.get('/api/v1/wopr/fp/TE/WOPRG').then(function(data){
 				//console.log(data.data);
-				$scope.players = data.data;
+				$scope.df = data;
+				var df = data.data;
+				var pages = $scope.getPages(data);
+				//console.log(len);
+				$scope.pages = pages;
+				$scope.players = df.slice(0, 20);
 				$scope.loading = false;
 				$('table.showx th.sorted').removeClass('sorted');
 	    		$('#woprg').addClass('sorted');
@@ -223,7 +290,12 @@
     		$('.flex').addClass('active');
 	    	$http.get('/api/v1/wopr/fp/flex/WOG').then(function(data){
 				//console.log(data.data);
-				$scope.players = data.data;
+				$scope.df = data;
+				var df = data.data;
+				var pages = $scope.getPages(data);
+				//console.log(len);
+				$scope.pages = pages;
+				$scope.players = df.slice(0, 20);
 				$scope.loading = false;
 				$('table.showx th.sorted').removeClass('sorted');
 	    		$('#wog').addClass('sorted');
@@ -265,7 +337,12 @@
 	    		var sort = 'WOPRG'
 	    	}
 	    	$http.get('/api/v1/' + api + '/fp/' + pos + '/' + sort).then(function(data){
-				$scope.players = data.data;
+	    		$scope.df = data;
+				var df = data.data;
+				var pages = $scope.getPages(data);
+				//console.log(len);
+				$scope.pages = pages;
+				$scope.players = df.slice(0, 20);
 				$scope.loading = false;
 				$('table.showx th.sorted').removeClass('sorted');
 	    		//console.log($(this));

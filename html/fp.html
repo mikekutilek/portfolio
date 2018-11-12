@@ -38,20 +38,20 @@
 				<span ng-if="loading"><img class="loading" src="/img/icons/loading.gif" ></span>
 			</div>
 			<table class='center o-table fp-table nhl-stats showx'>
-				<tr><th>Name</th><th id="fp" class="sortable">FP</th><th id="fpg" class="sortable sorted">FP/G</th></tr>
+				<tr><th>Name</th><th id="fp" class="sortable">FP</th><th id="fpgnhl" class="sortable sorted">FP/G</th></tr>
 				<tr ng-repeat="player in players">
 					<td>{{player.Player}}</td><td>{{player.FP}}</td><td class="sorted">{{player['FP/G']}}</td>
 				</tr>
 			</table>
 			<table class='center o-table fp-table nfl-stats hidex'>
-				<tr><th>Name</th><th id="fp" class="sortable">FP</th><th id="fpg" class="sortable sorted">FP/G</th><th id="wo" class="sortable">WO</th><th id="wog" class="sortable">WO/G</th><th id="wopr" class="sortable">WOPR</th><th id="woprg" class="sortable">WOPR/G</th></tr>
+				<tr><th>Name</th><th id="fp" class="sortable">FP</th><th id="fpgnfl" class="sortable sorted">FP/G</th><th id="wo" class="sortable">WO</th><th id="wog" class="sortable">WO/G</th><th id="wopr" class="sortable">WOPR</th><th id="woprg" class="sortable">WOPR/G</th></tr>
 				<tr ng-repeat="player in players">
 					<td>{{player.Player}}</td><td>{{player.FP}}</td><td>{{player['FP/G']}}</td><td>{{player.WO}}</td><td>{{player['WO/G']}}</td><td>{{player.WOPR}}</td><td>{{player['WOPR/G']}}</td>
 				</tr>
 			</table>
 			<div class="pagination">
 				<a class="page-num" href="#">&laquo;</a>
-				<a class="page-num" ng-repeat="page in pages" href="{{page.link}}">{{page.label}}</a>
+				<a ng-repeat="page in pages" ng-href="{{page.link}}" ng-click="gotoPage($event, df)">{{page.label}}</a>
 				<a href="#">&raquo;</a>
 			</div>
 		</div>
