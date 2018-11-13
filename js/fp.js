@@ -1,14 +1,15 @@
 (function(){
 	var app = angular.module('fp-app', []);
 
-	app.controller('fp-ctrl', ['$http', '$scope', function($http, $scope){
+	app.controller('fp-ctrl', ['$http', '$scope', '$timeout', function($http, $scope, $timeout){
+
 		$scope.getPages = function(data){
 			var df = data.data;
 			var len = data.data.length;
 			var numPages = len / 20;
 			var pages = [];
 			for (var i = 0; i < numPages; i++){
-				pages.push({'label': i+1, 'link': '#'});
+				pages.push({'label': i+1, 'link': '', 'isActive': false});
 			}
 			return pages;
 		};
@@ -19,38 +20,86 @@
 			$scope.df = data;
 			var df = data.data;
 			var pages = $scope.getPages(data);
+			pages[0].isActive = true;
 			//console.log(len);
 			$scope.pages = pages;
 			$scope.players = df.slice(0, 20);
 			$scope.loading = false;
+			//console.log(angular.element("#fpTable")[0].offsetHeight);
+			$timeout(function () {
+		      $scope.hgt = $('#fpTable').height();
+		      console.log($scope.hgt);
+		    }); 
 		});
+
+		
 
 		$scope.gotoPage = function($event, data){
 			var pageNum = parseInt($event.target.text);
 			var start = (pageNum - 1) * 20;
 			var end = (pageNum * 20);
-			console.log(pageNum, start, end);
-			console.log(data.data);
 			var df = data.data;
 			var pages = $scope.getPages(data);
+
+			pages[pageNum - 1].isActive = true;
 			//console.log(len);
 			$scope.pages = pages;
+			
+			//console.log(inx[0].label);
 			$scope.players = df.slice(start, end);
-			console.log($event.target);
-			angular.element(this).addClass("active");
-			console.log($event.target);
-			/*
-			$scope.loading = true;
-			$http.get('/api/v1/corsica/fp/skater/FPG').then(function(data){
-				//console.log(data.data);
+			$timeout(function () {
+		      $scope.hgt = $('#fpTable').height();
+		      console.log($scope.hgt);
+		    }); 
+		};
+
+		$scope.gotoNext = function(pages, data){
+			//var pageNum = parseInt($event.target.text);
+			console.log(pages);
+			var pageArr = pages.filter(function(page){
+				return page.isActive == true;
+			});
+			var pageNum = pageArr[0].label;
+			if (pageNum < pages.length){
+				var start = (pageNum) * 20;
+				var end = (pageNum + 1) * 20;
 				var df = data.data;
-				var pages = $scope.getPages(data);
+				//var pages = $scope.getPages(data);
+				pages[pageNum - 1].isActive = false;
+				pages[pageNum].isActive = true;
 				//console.log(len);
 				$scope.pages = pages;
 				$scope.players = df.slice(start, end);
-				$scope.loading = false;
+				$timeout(function () {
+			      $scope.hgt = $('#fpTable').height();
+			      console.log($scope.hgt);
+			    }); 
+			}
+		};
+
+		$scope.gotoPrev = function(pages, data){
+			//console.log(pages);
+			var pageArr = pages.filter(function(page){
+				return page.isActive == true;
 			});
-			*/
+			var pageNum = pageArr[0].label;
+			//console.log(pageNum);
+			if (pageNum > 1){
+				var start = (pageNum - 2) * 20;
+				var end = (pageNum - 1) * 20;
+				var df = data.data;
+				//var pages = $scope.getPages(data);
+				pages[pageNum - 1].isActive = false;
+				pages[pageNum - 2].isActive = true;
+				//console.log(len);
+				$scope.pages = pages;
+				$scope.players = df.slice(start, end);
+				$timeout(function () {
+			      $scope.hgt = $('#fpTable').height();
+			      console.log($scope.hgt);
+			    }); 
+			}
+			
 		};
 
 	    $('.nfl').on('click', function() {
@@ -94,6 +143,7 @@
 	    		$scope.df = data;
 	    		var df = data.data;
 				var pages = $scope.getPages(data);
+				pages[0].isActive = true;
 				//console.log(len);
 				$scope.pages = pages;
 				$scope.players = df.slice(0, 20);
@@ -112,6 +162,10 @@
 		    	$('table.showx th.sorted').removeClass('sorted');
 	    		$('table.showx th#'+sorted.toLowerCase()).addClass('sorted');
 		    	$scope.loading = false;
+		    	$timeout(function () {
+			      $scope.hgt = $('#fpTable').height();
+			      console.log($scope.hgt);
+			    }); 
 			});
 
 	    });
@@ -129,6 +183,7 @@
 	    		$scope.df = data;
 	    		var df = data.data;
 				var pages = $scope.getPages(data);
+				pages[0].isActive = true;
 				//console.log(len);
 				$scope.pages = pages;
 				$scope.players = df.slice(0, 20);
@@ -147,6 +202,10 @@
 		    	$('table.showx th.sorted').removeClass('sorted');
 	    		$('#fpgnhl').addClass('sorted');
 				$scope.loading = false;
+				$timeout(function () {
+			      $scope.hgt = $('#fpTable').height();
+			      console.log($scope.hgt);
+			    }); 
 			});
 	    });
 	    $('.mlb').on('click', function() {
@@ -173,12 +232,17 @@
 				$scope.df = data;
 				var df = data.data;
 				var pages = $scope.getPages(data);
+				pages[0].isActive = true;
 				//console.log(len);
 				$scope.pages = pages;
 				$scope.players = df.slice(0, 20);
 				$scope.loading = false;
 				$('table.showx th.sorted').removeClass('sorted');
 	    		$('#fpgnhl').addClass('sorted');
+	    		$timeout(function () {
+			      $scope.hgt = $('#fpTable').height();
+			      console.log($scope.hgt);
+			    }); 
 			});
    		});
 	    $('.goalie').on('click', function() {
@@ -190,6 +254,7 @@
 				$scope.df = data;
 				var df = data.data;
 				var pages = $scope.getPages(data);
+				pages[0].isActive = true;
 				//console.log(len);
 				$scope.pages = pages;
 				$scope.players = df.slice(0, 20);
@@ -197,6 +262,10 @@
 				$scope.loading = false;
 				$('table.showx th.sorted').removeClass('sorted');
 	    		$('#fpgnhl').addClass('sorted');
+	    		$timeout(function () {
+			      $scope.hgt = $('#fpTable').height();
+			      console.log($scope.hgt);
+			    }); 
 			});
 	    });
 	    $('.qb').on('click', function() {
@@ -211,6 +280,7 @@
 				$scope.df = data;
 				var df = data.data;
 				var pages = $scope.getPages(data);
+				pages[0].isActive = true;
 				//console.log(len);
 				$scope.pages = pages;
 				$scope.players = df.slice(0, 20);
@@ -232,6 +302,7 @@
 				console.log($scope.df);
 				var df = data.data;
 				var pages = $scope.getPages(data);
+				pages[0].isActive = true;
 				//console.log(len);
 				$scope.pages = pages;
 				$scope.players = df.slice(0, 20);
@@ -252,6 +323,7 @@
 				$scope.df = data;
 				var df = data.data;
 				var pages = $scope.getPages(data);
+				pages[0].isActive = true;
 				//console.log(len);
 				$scope.pages = pages;
 				$scope.players = df.slice(0, 20);
@@ -272,6 +344,7 @@
 				$scope.df = data;
 				var df = data.data;
 				var pages = $scope.getPages(data);
+				pages[0].isActive = true;
 				//console.log(len);
 				$scope.pages = pages;
 				$scope.players = df.slice(0, 20);
@@ -293,6 +366,7 @@
 				$scope.df = data;
 				var df = data.data;
 				var pages = $scope.getPages(data);
+				pages[0].isActive = true;
 				//console.log(len);
 				$scope.pages = pages;
 				$scope.players = df.slice(0, 20);
@@ -340,6 +414,7 @@
 	    		$scope.df = data;
 				var df = data.data;
 				var pages = $scope.getPages(data);
+				pages[0].isActive = true;
 				//console.log(len);
 				$scope.pages = pages;
 				$scope.players = df.slice(0, 20);
