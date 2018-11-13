@@ -12,14 +12,14 @@
 			</ul>
 		</div>
 		<div class="secondary-filters">
-			<div class="secondary nhl-options showx">
+			<div class="filters secondary nhl-options showx">
 				<ul id="filters">
 					<li class="skater active">Skater</li>
 					<li class="goalie">Goalie</li>
 				</ul>
 			</div>
 			
-			<div class="secondary nfl-options hidex">
+			<div class="filters secondary nfl-options hidex">
 				<ul id="filters">
 					<li class="qb active">QB</li>
 					<li class="rb">RB</li>
@@ -28,15 +28,16 @@
 					<li class="flex">FLEX</li>
 				</ul>
 			</div>
-			<!--
-			<div class="secondary mlb-options showx">
+			<div class="filters secondary mlb-options hidex">
 				<ul id="filters">
 					<li class="batter active">Batter</li>
 					<li class="pitcher">Pitcher</li>
 				</ul>
 
 			</div>
-		-->
+		</div>
+		<div>
+			<span ng-if="loading"><img class="loading" src="/img/icons/loading.gif" ></span>
 		</div>
 		<div class="table-container" ng-style="{height: hgt+ 'px'}" ng-view>
 			<table id="fpTable" class='center o-table fp-table nhl-stats showx'>
@@ -52,14 +53,11 @@
 				</tr>
 			</table>
 		</div>
-		<div class="pagination">
+		<div class="pagination center">
 			<a ng-click="gotoPrev(pages, df)" ng-href="">&laquo;</a>
 			<a ng-repeat="page in pages" ng-href="{{page.link}}" ng-click="gotoPage($event, df)" ng-class="{active: page.isActive}">{{page.label}}</a>
 			<a ng-click="gotoNext(pages, df)" ng-href="">&raquo;</a>
 		</div>
-					<div>
-				<span ng-if="loading"><img class="loading" src="/img/icons/loading.gif" ></span>
-			</div>
 	</div>
 </div>
 <script type="text/javascript" src="js/fp.js"></script>

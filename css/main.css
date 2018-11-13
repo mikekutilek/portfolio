@@ -802,7 +802,7 @@ h2.menu-item:after{
 
 .table-container {
 
-  height: auto;
+  height: 40px;
 }
 
 .fp-table {
@@ -827,15 +827,21 @@ h2.menu-item:after{
 
 .pagination {
   text-align: center;
-
   position: relative;
 }
 
 .pagination a {
   color: black;
-  float: left;
+  /*float: left;*/
   padding: 8px 16px;
   text-decoration: none;
+  /*
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  */
+  display: inline-block;
 }
 
 .pagination a.active {

@@ -287,6 +287,10 @@
 				$scope.loading = false;
 				$('table.showx th.sorted').removeClass('sorted');
 	    		$('#fpgnfl').addClass('sorted');
+	    		$timeout(function () {
+			      $scope.hgt = $('#fpTable').height();
+			      console.log($scope.hgt);
+			    }); 
 			});
 	    });
 	    $('.rb').on('click', function() {
@@ -309,6 +313,10 @@
 				$scope.loading = false;
 				$('table.showx th.sorted').removeClass('sorted');
 	    		$('#wog').addClass('sorted');
+	    		$timeout(function () {
+			      $scope.hgt = $('#fpTable').height();
+			      console.log($scope.hgt);
+			    }); 
 			});
 	    });
 	    $('.wr').on('click', function() {
@@ -330,6 +338,10 @@
 				$scope.loading = false;
 				$('table.showx th.sorted').removeClass('sorted');
 	    		$('#woprg').addClass('sorted');
+	    		$timeout(function () {
+			      $scope.hgt = $('#fpTable').height();
+			      console.log($scope.hgt);
+			    }); 
 			});
 	    });
 	    $('.te').on('click', function() {
@@ -351,6 +363,10 @@
 				$scope.loading = false;
 				$('table.showx th.sorted').removeClass('sorted');
 	    		$('#woprg').addClass('sorted');
+	    		$timeout(function () {
+			      $scope.hgt = $('#fpTable').height();
+			      console.log($scope.hgt);
+			    }); 
 			});
 	    });
 	    $('.flex').on('click', function() {
@@ -373,6 +389,10 @@
 				$scope.loading = false;
 				$('table.showx th.sorted').removeClass('sorted');
 	    		$('#wog').addClass('sorted');
+	    		$timeout(function () {
+			      $scope.hgt = $('#fpTable').height();
+			      console.log($scope.hgt);
+			    }); 
 			});
 	    });
 
@@ -422,6 +442,10 @@
 				$('table.showx th.sorted').removeClass('sorted');
 	    		//console.log($(this));
 	    		newcol.addClass('sorted');
+	    		$timeout(function () {
+			      $scope.hgt = $('#fpTable').height();
+			      console.log($scope.hgt);
+			    }); 
 			});
 			
 	    })
