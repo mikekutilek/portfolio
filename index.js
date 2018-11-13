@@ -131,6 +131,18 @@ function call_nfl_fp(req, res){
     })
 };
 
+function call_mlb_fp(req, res){
+    var ptype = req.params.ptype;
+    var sort = req.params.sort;
+    var spawn = require("child_process").spawn;
+    var process = spawn('python3', ["./projects/SABR/fp.py", ptype, sort]);
+
+    process.stdout.on('data', function (data){
+        res.send(data.toString());
+        res.end();
+    })
+};
+
 app.get('/api/v1/sabr/opener/teams', (req, res) => {
     data = {'null': 'ANY', 'Orioles': 'BAL', 'Red Sox': 'BOS', 'Yankees': 'NYY', 'Rays': 'TB', 'Blue Jays': 'TOR', 
 'Indians': 'CLE', 'White Sox': 'CWS', 'Tigers': 'DET', 'Royals': 'KC', 'Twins': 'MIN',
@@ -153,3 +165,5 @@ app.get('/api/v1/fangraphs/pitching/pitch-type/:pid', call_pitchtype);
 app.get('/api/v1/corsica/fp/:ptype/:sort', call_nhl_fp);
 
 app.get('/api/v1/wopr/fp/:pos/:sort', call_nfl_fp);
+
+app.get('/api/v1/sabr/fp/:ptype/:sort', call_mlb_fp);
