@@ -209,18 +209,43 @@
 			});
 	    });
 	    $('.mlb').on('click', function() {
-	    	$('.filters.nhl-options').removeClass('showx');
-	    	$('.filters.nhl-options').addClass('hidex');
-	    	$('.nhl-stats').removeClass('showx');
-	    	$('.nhl-stats').addClass('hidex');
-	    	$('.filters.nfl-options').removeClass('showx');
-	    	$('.filters.nfl-options').addClass('hidex');
-	    	$('.nfl-stats').removeClass('showx');
-	    	$('.nfl-stats').addClass('hidex');
-	    	$('.filters.mlb-options').removeClass('hidex');
-	    	$('.filters.mlb-options').addClass('showx');
-	    	$('.mlb-stats').removeClass('hidex');
-	    	$('.mlb-stats').addClass('showx');
+	    	$scope.loading = true;
+	    	var batter = $('.batter').attr('class');
+    		var battersplit = batter.split(" ");
+    		if (battersplit.pop() == 'active'){
+    			var pos = 'batter';
+    		}
+    		else{
+    			var pos = 'pitcher';
+    		}
+	    	$http.get('/api/v1/sabr/fp/' + pos + '/FPG').then(function(data){
+	    		$scope.df = data;
+	    		var df = data.data;
+				var pages = $scope.getPages(data);
+				pages[0].isActive = true;
+				//console.log(len);
+				$scope.pages = pages;
+				$scope.players = df.slice(0, 20);
+		    	$('.filters.nhl-options').removeClass('showx');
+		    	$('.filters.nhl-options').addClass('hidex');
+		    	$('.nhl-stats').removeClass('showx');
+		    	$('.nhl-stats').addClass('hidex');
+		    	$('.filters.nfl-options').removeClass('showx');
+		    	$('.filters.nfl-options').addClass('hidex');
+		    	$('.nfl-stats').removeClass('showx');
+		    	$('.nfl-stats').addClass('hidex');
+		    	$('.filters.mlb-options').removeClass('hidex');
+		    	$('.filters.mlb-options').addClass('showx');
+		    	$('.mlb-stats').removeClass('hidex');
+		    	$('.mlb-stats').addClass('showx');
+		    	$('table.showx th.sorted').removeClass('sorted');
+	    		$('#fpgmlb').addClass('sorted');
+				$scope.loading = false;
+				$timeout(function () {
+			      $scope.hgt = $('#fpTable').height();
+			      console.log($scope.hgt);
+			    }); 
+			});
 	    });
 
 		$('.skater').on('click', function() {
@@ -389,6 +414,51 @@
 				$scope.loading = false;
 				$('table.showx th.sorted').removeClass('sorted');
 	    		$('#wog').addClass('sorted');
+	    		$timeout(function () {
+			      $scope.hgt = $('#fpTable').height();
+			      console.log($scope.hgt);
+			    }); 
+			});
+	    });
+	    $('.batter').on('click', function() {
+			$scope.loading = true;
+			$('.pitcher').removeClass('active');
+    		$('.batter').addClass('active');
+			$http.get('/api/v1/SABR/fp/batter/FPG').then(function(data){
+				//console.log(data.data);
+				$scope.df = data;
+				var df = data.data;
+				var pages = $scope.getPages(data);
+				pages[0].isActive = true;
+				//console.log(len);
+				$scope.pages = pages;
+				$scope.players = df.slice(0, 20);
+				$scope.loading = false;
+				$('table.showx th.sorted').removeClass('sorted');
+	    		$('#fpgmlb').addClass('sorted');
+	    		$timeout(function () {
+			      $scope.hgt = $('#fpTable').height();
+			      console.log($scope.hgt);
+			    }); 
+			});
+   		});
+	    $('.pitcher').on('click', function() {
+	    	$scope.loading = true;
+	    	$('.batter').removeClass('active');
+    		$('.pitcher').addClass('active');
+	    	$http.get('/api/v1/SABR/fp/pitcher/FPG').then(function(data){
+				//console.log(data.data);
+				$scope.df = data;
+				var df = data.data;
+				var pages = $scope.getPages(data);
+				pages[0].isActive = true;
+				//console.log(len);
+				$scope.pages = pages;
+				$scope.players = df.slice(0, 20);
+				//$scope.players = data.data;
+				$scope.loading = false;
+				$('table.showx th.sorted').removeClass('sorted');
+	    		$('#fpgmlb').addClass('sorted');
 	    		$timeout(function () {
 			      $scope.hgt = $('#fpTable').height();
 			      console.log($scope.hgt);

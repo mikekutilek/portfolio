@@ -13,28 +13,41 @@ import argparse
 pd.options.mode.chained_assignment = None
 
 def get_all_batter_fps():
+	page = br.get_std_batting_page()
+	batters = br.get_player_table(page)
+
+	field_page = br.get_std_fielding_page()
+	fielders = br.get_player_table(field_page)
+
+	of_page = br.get_of_fielding_page()
+	ofs = br.get_player_table(of_page)
+
+	df2 = pd.merge(batters, ofs[['A', 'Name']], on=['Name'], how='left').fillna(0)
+	df2.rename(columns={'A':'OFA'}, inplace=True)
+	df3 = pd.merge(df2, fielders[['A', 'E', 'Name']], on=['Name'], how='left').fillna(0)
+
 	#batting and fielding data
-	players = batters['Name'].astype('str')
-	games = batters['G'].astype('float64')
-	r = batters['R'].astype('float64')
+	players = df3['Name'].astype('str')
+	games = df3['G'].astype('float64')
+	r = df3['R'].astype('float64')
 	
-	double = batters['2B'].astype('float64')
-	triple = batters['3B'].astype('float64')
-	homer = batters['HR'].astype('float64')
-	single = batters['H'].astype('float64') - double - triple - homer
-	rbi = batters['RBI'].astype('float64')
-	sb = batters['SB'].astype('float64')
-	cs = batters['CS'].astype('float64')
-	bb = batters['BB'].astype('float64') + batters['IBB'].astype('float64')
-	hbp = batters['HBP'].astype('float64')
-	so = batters['SO'].astype('float64')
+	double = df3['2B'].astype('float64')
+	triple = df3['3B'].astype('float64')
+	homer = df3['HR'].astype('float64')
+	single = df3['H'].astype('float64') - double - triple - homer
+	rbi = df3['RBI'].astype('float64')
+	sb = df3['SB'].astype('float64')
+	cs = df3['CS'].astype('float64')
+	bb = df3['BB'].astype('float64')
+	hbp = df3['HBP'].astype('float64')
+	so = df3['SO'].astype('float64')
 
-	fielder_name = std_fielding_data['Name']
-	e = std_fielding_data['E']
-	a = std_fielding_data['A']
-	pos = std_fielding_data['Pos']
+	e = df3['E'].astype('float64')
+	ofa = df3['OFA'].astype('float64')
+	a = df3['A'].astype('float64')
+	
 
-	fps = r + single + (double * 2) + (triple * 3) + (homer * 4) + rbi + (sb * 1.75) - (cs * 0.5) + (bb * 0.75) + (hbp * 0.5) - (so * .1) - e2 + (ofa * 1.05) + (ifa * 0.05)
+	fps = r + single + (double * 2) + (triple * 3) + (homer * 4) + rbi + (sb * 1.75) - (cs * 0.5) + (bb * 0.75) + (hbp * 0.5) - (so * .1) - e + (ofa * 1) + (a * 0.05)
 	fps_g = fps / games
 
 	df = build_fp_table(players, fps, fps_g)
@@ -42,13 +55,8 @@ def get_all_batter_fps():
 	return df
 
 def get_all_pitcher_fps():
-	df = pd.DataFrame()
 	page = br.get_standard_pitching_page()
-	#table = page.find('table')
-	#print(table)
 	pitchers = br.get_player_table(page)
-	
-	#print(pitchers)
 
 	relief_page = br.get_relief_page()
 	relievers = br.get_player_table(relief_page)
@@ -56,31 +64,31 @@ def get_all_pitcher_fps():
 	qs_page = br.get_starting_page()
 	qs_table = br.get_player_table(qs_page)
 
-	players = pitchers['Name'].astype('str')
-	games = pitchers['G'].astype('float64')
-	ip = pitchers['IP'].astype('float64')
-	w = pitchers['W'].astype('float64')
-	l = pitchers['L'].astype('float64')
-	cg = pitchers['CG'].astype('float64')
-	sv = pitchers['SV'].astype('float64')
-	h = pitchers['H'].astype('float64')
-	er = pitchers['ER'].astype('float64')
-	walks = pitchers['BB'].astype('float64')
-	ibb = pitchers['IBB'].astype('float64')
-	hb = pitchers['HBP'].astype('float64')
-	k = pitchers['SO'].astype('float64')
+	sb_page = br.get_sb_pitching_page()
+	sb_table = br.get_player_table(sb_page)
 
 	df2 = pd.merge(pitchers, relievers[['Hold', 'BSv', 'Name']], on=['Name'], how='left').fillna(0)
-	print(df2['BSv'])
+	df3 = pd.merge(df2, qs_table[['QS', 'Name']], on=['Name'], how='left').fillna(0)
+	df4 = pd.merge(df3, sb_table[['SB', 'Name']], on=['Name'], how='left').fillna(0)
+	#print(list(df3))
 
-	#print(df.sort_values(by=['W']))
-	#print(qs_table)
-	
+	players = df3['Name'].astype('str')
+	games = df3['G'].astype('float64')
+	ip = df3['IP'].astype('float64')
+	w = df3['W'].astype('float64')
+	l = df3['L'].astype('float64')
+	cg = df3['CG'].astype('float64')
+	sv = df3['SV'].astype('float64')
+	h = df3['H'].astype('float64')
+	er = df3['ER'].astype('float64')
+	walks = df3['BB'].astype('float64')
+	hb = df3['HBP'].astype('float64')
+	k = df3['SO'].astype('float64')
 
-	hld = relievers['Hold'].astype('float64')
-	bsv = relievers['BSv'].astype('float64')
+	hld = df3['Hold'].astype('float64')
+	bsv = df3['BSv'].astype('float64')
 
-	#now we handle pitcher data
+	#handling half innings
 	half_ip = []
 	inns = []
 	for i in ip:
@@ -92,16 +100,15 @@ def get_all_pitcher_fps():
 	innings = pd.Series(inns)
 	rem = pd.Series(half_ip)
 
-	
+	qs = df3['QS'].astype('float64')
+	sb = df4['SB'].astype('float64')
 
-	qs = qs_table['QS'].astype('float64')
-
-	fps = (innings * 1.0) + (rem * 0.33) + (w * 9) - (l * 6) + (cg * 7) + (sv * 8) - (h * 0.25) - er - (walks * 0.5) - (ibb * 0.5) + k + (hld * 7.5) - (bsv * 3)
+	fps = (innings * 1.0) + (rem * 0.33) + (w * 9) - (l * 6) + (cg * 7) + (sv * 8) - (h * 0.25) - er - (walks * 0.5) - (hb * 0.5) + k + (hld * 7.5) - (bsv * 3) + (qs * 5) - (sb * 0.25)
 	fps_g = fps / games
 
-	#df = build_fp_table(players, fps, fps_g)
+	df = build_fp_table(players, fps, fps_g)
 
-	return pitchers
+	return df
 
 def build_fp_table(players, fps, fps_g):
 	df = pd.DataFrame()
@@ -110,44 +117,29 @@ def build_fp_table(players, fps, fps_g):
 	df['FP/G'] = fps_g.apply(lambda x: '{0:.2f}'.format(x)).astype('float64')
 	return df
 
+def main():
+	parser = argparse.ArgumentParser()
+	parser.add_argument("ptype", help="type of player (batter or pitcher)")
+	parser.add_argument("sort_col", help="category you want to sort by")
+	args = parser.parse_args()
 
-print(get_all_pitcher_fps())
-"""
-#handle batting/fielding data first
-ofers = std_fielding_data.loc[std_fielding_data['Pos'].isin(['LF','CF','RF'])]
-ifers = std_fielding_data.loc[std_fielding_data['Pos'].isin(['C','1B','2B','SS','3B'])]
-e = std_fielding_data.loc[std_fielding_data['Pos'].isin(['C','1B','2B','SS','3B','LF','CF','RF'])]
+	data = []
 
-ofers['Total'] = ofers.groupby(['Name'])['A'].transform('sum')
-ifers['Total'] = ifers.groupby(['Name'])['A'].transform('sum')
-e['Total'] = e.groupby(['Name'])['E'].transform('sum')
+	if args.ptype == 'batter':
+		data = pd.read_json('[{"Player": "Trout", "FP": 1, "FP/G": 2}, {"Player": "Betts", "FP": 3, "FP/G": 4}]')
+	elif args.ptype == 'pitcher':
+		data = get_all_pitcher_fps()
+	else:
+		exit(1)
 
-ofers_min = ofers.drop_duplicates(['Name'], keep='first')
-ifers_min = ifers.drop_duplicates(['Name'], keep='first')
-e_min = e.drop_duplicates(['Name'], keep='first')
+	if args.sort_col == 'FP':
+		sort = 'FP'
+	elif args.sort_col == 'FPG':
+		sort = 'FP/G'
 
-df_with_ofa = std_batting_data.merge(ofers_min, on='Name', how='left').fillna(0)
-df_with_ifa = std_batting_data.merge(ifers_min, on='Name', how='left').fillna(0)
-df_with_e = std_batting_data.merge(e_min, on='Name', how='left').fillna(0)
+	print(data.sort_values(by=[sort], ascending=False).to_json(orient='records'))
+	#print(json.dumps(data))
+	sys.stdout.flush()
 
-ofa = df_with_ofa['Total']
-ifa = df_with_ifa['Total']
-e2 = df_with_e['Total']
-
-
-page = br.get_team_sp_page()
-#table = soup.select_one("table#players_starter_pitching")
-tables = soup.findAll("table")
-for table in tables:
-	rows = table.find_all('tr')
-	qs_list = []
-
-	#for table in tables:
-	#rows = table.find_all('tr')
-	for row in rows:
-		#print(row.text.strip())
-		cells = row.findAll('td')
-		for cell in cells:
-			qs_list.append(cell.text.strip())
-print(qs_list)
-"""
+if __name__ == '__main__':
+	main()

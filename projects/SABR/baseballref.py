@@ -12,21 +12,42 @@ def get_team_sp_page(season='2018'):
 def get_standard_pitching_page(season='2018'):
 	url = "https://www.baseball-reference.com/leagues/MLB/{}-standard-pitching.shtml".format(season)
 	r = requests.get(url)
-	#print(type(r.content))
 	html = r.text.replace('<!--', '').replace('-->', '')
 	return BeautifulSoup(html, 'lxml')
 
 def get_relief_page(season='2018'):
 	url = "https://www.baseball-reference.com/leagues/MLB/{}-reliever-pitching.shtml".format(season)
 	r = requests.get(url)
-	#print(type(r.content))
 	html = r.text.replace('<!--', '').replace('-->', '')
 	return BeautifulSoup(html, 'lxml')
 
 def get_starting_page(season='2018'):
 	url = "https://www.baseball-reference.com/leagues/MLB/{}-starter-pitching.shtml".format(season)
 	r = requests.get(url)
-	#print(type(r.content))
+	html = r.text.replace('<!--', '').replace('-->', '')
+	return BeautifulSoup(html, 'lxml')
+
+def get_sb_pitching_page(season='2018'):
+	url = "https://www.baseball-reference.com/leagues/MLB/{}-basesituation-pitching.shtml".format(season)
+	r = requests.get(url)
+	html = r.text.replace('<!--', '').replace('-->', '')
+	return BeautifulSoup(html, 'lxml')
+
+def get_std_batting_page(season='2018'):
+	url = "https://www.baseball-reference.com/leagues/MLB/{}-standard-batting.shtml".format(season)
+	r = requests.get(url)
+	html = r.text.replace('<!--', '').replace('-->', '')
+	return BeautifulSoup(html, 'lxml')
+
+def get_std_fielding_page(season='2018'):
+	url = "https://www.baseball-reference.com/leagues/MLB/{}-standard-fielding.shtml".format(season)
+	r = requests.get(url)
+	html = r.text.replace('<!--', '').replace('-->', '')
+	return BeautifulSoup(html, 'lxml')
+
+def get_of_fielding_page(season='2018'):
+	url = "https://www.baseball-reference.com/leagues/MLB/{}-specialpos_of-fielding.shtml".format(season)
+	r = requests.get(url)
 	html = r.text.replace('<!--', '').replace('-->', '')
 	return BeautifulSoup(html, 'lxml')
 
@@ -49,7 +70,7 @@ def get_player_table(page):
 			continue
 		cells = row.find_all(['th', 'td'])
 		#print(type(cells))
-		cells = [cell.text.replace('*', '').strip() for cell in cells]
+		cells = [cell.text.replace('*', '').replace('#', '') for cell in cells]
 		#print(type(cells))
 		data.append([cell for cell in cells])
 
