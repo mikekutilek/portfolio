@@ -13,41 +13,44 @@ import argparse
 pd.options.mode.chained_assignment = None
 
 def get_all_batter_fps():
+
 	page = br.get_std_batting_page()
 	batters = br.get_player_table(page)
-
+	"""
 	field_page = br.get_std_fielding_page()
 	fielders = br.get_player_table(field_page)
 
 	of_page = br.get_of_fielding_page()
 	ofs = br.get_player_table(of_page)
-
+	
 	df2 = pd.merge(batters, ofs[['A', 'Name']], on=['Name'], how='left').fillna(0)
 	df2.rename(columns={'A':'OFA'}, inplace=True)
 	df3 = pd.merge(df2, fielders[['A', 'E', 'Name']], on=['Name'], how='left').fillna(0)
-
+	"""
 	#batting and fielding data
-	players = df3['Name'].astype('str')
-	games = df3['G'].astype('float64')
-	r = df3['R'].astype('float64')
+	players = batters['Name'].astype('str')
 	
-	double = df3['2B'].astype('float64')
-	triple = df3['3B'].astype('float64')
-	homer = df3['HR'].astype('float64')
-	single = df3['H'].astype('float64') - double - triple - homer
-	rbi = df3['RBI'].astype('float64')
-	sb = df3['SB'].astype('float64')
-	cs = df3['CS'].astype('float64')
-	bb = df3['BB'].astype('float64')
-	hbp = df3['HBP'].astype('float64')
-	so = df3['SO'].astype('float64')
-
+	games = batters['G'].astype('float64')
+	r = batters['R'].astype('float64')
+"""
+	double = batters['2B'].astype('float64')
+	triple = batters['3B'].astype('float64')
+	homer = batters['HR'].astype('float64')
+	single = batters['H'].astype('float64') - double - triple - homer
+	rbi = batters['RBI'].astype('float64')
+	sb = batters['SB'].astype('float64')
+	cs = batters['CS'].astype('float64')
+	bb = batters['BB'].astype('float64')
+	hbp = batters['HBP'].astype('float64')
+	so = batters['SO'].astype('float64')
+	"""
+	"""
 	e = df3['E'].astype('float64')
 	ofa = df3['OFA'].astype('float64')
 	a = df3['A'].astype('float64')
-	
+	"""
 
-	fps = r + single + (double * 2) + (triple * 3) + (homer * 4) + rbi + (sb * 1.75) - (cs * 0.5) + (bb * 0.75) + (hbp * 0.5) - (so * .1) - e + (ofa * 1) + (a * 0.05)
+	fps = r * 1.0#(single * 1.0) + (double * 2) + (triple * 3) + (homer * 4) + rbi + (sb * 1.75) - (cs * 0.5) + (bb * 0.75) + (hbp * 0.5) - (so * .1)# - e + (ofa * 1) + (a * 0.05)
 	fps_g = fps / games
 
 	df = build_fp_table(players, fps, fps_g)
@@ -126,7 +129,8 @@ def main():
 	data = []
 
 	if args.ptype == 'batter':
-		data = pd.read_json('[{"Player": "Trout", "FP": 1, "FP/G": 2}, {"Player": "Betts", "FP": 3, "FP/G": 4}]')
+		data = get_all_batter_fps()
+		#data = pd.read_json('[{"Player": "Trout", "FP": 1, "FP/G": 2}, {"Player": "Betts", "FP": 3, "FP/G": 4}]')
 	elif args.ptype == 'pitcher':
 		data = get_all_pitcher_fps()
 	else:
@@ -136,6 +140,8 @@ def main():
 		sort = 'FP'
 	elif args.sort_col == 'FPG':
 		sort = 'FP/G'
+	else:
+		sort = args.sort_col
 
 	print(data.sort_values(by=[sort], ascending=False).to_json(orient='records'))
 	#print(json.dumps(data))
