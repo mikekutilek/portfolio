@@ -97,10 +97,3 @@ def get_table(page):
 
 	df = pd.DataFrame(data=data, columns=headings)
 	return df.sort_values(by=['RA/G'])
-
-def main():
-	page = get_team_sp_page()
-	print(get_table(page))
-
-if __name__ == '__main__':
-	main()
