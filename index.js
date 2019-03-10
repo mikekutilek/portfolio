@@ -8,6 +8,10 @@ const fs = require('fs');
 const http = require('http');
 const csv = require('csvtojson');
 
+setInterval(function() {
+    http.get("http://mikekutilek.com");
+}, 300000); // every 5 minutes (300000)
+
 //Constants
 const PORT = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
 //const HOST = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1' || '0.0.0.0'

@@ -2,6 +2,11 @@ import numpy as np
 import pandas as pd
 import hockeyref as hr
 import sys, json, argparse
+import pymongo
+
+def conn():
+	client = pymongo.MongoClient("mongodb+srv://admin:pdometer@corsica-uwij2.mongodb.net/test?retryWrites=true")
+	return client
 
 def get_all_skater_fps():
 	skater_page = hr.get_all_skaters_page()
@@ -89,7 +94,13 @@ def main():
 	elif args.sort_col == 'FPG':
 		sort = 'FP/G'
 
-	print(data.sort_values(by=[sort], ascending=False).to_json(orient='records'))
+	data_json = data.sort_values(by=[sort], ascending=False).to_json(orient='records')
+	#client = conn()
+	#corsica = client['corsica']
+	#db_cm = corsica['fps']
+	#db_cm.insert(json.loads(data_json))
+	print(data_json)
+	
 	sys.stdout.flush()
 
 if __name__ == '__main__':
