@@ -48,12 +48,13 @@ def get_table(page):
 		headings[12] = 'RushAtt'
 	if headings[13] == 'Yds':
 		headings[13] = 'RushYds'
-	if headings[15] == 'TD':
-		headings[15] = 'RushTD'
-	if headings[18] == 'Yds':
-		headings[18] = 'RecYds'
-	if headings[20] == 'TD':
-		headings[20] = 'RecTD'
+	if len(headings) > 14:
+		if headings[15] == 'TD':
+			headings[15] = 'RushTD'
+		if headings[18] == 'Yds':
+			headings[18] = 'RecYds'
+		if headings[20] == 'TD':
+			headings[20] = 'RecTD'
 	tbody = table.find('tbody')
 	rows = tbody.find_all('tr')
 	data = []

@@ -9,7 +9,7 @@ const http = require('http');
 const csv = require('csvtojson');
 
 setInterval(function() {
-    http.get("http://mikekutilek.com");
+    http.get("http://mikekutilek.herokuapp.com");
 }, 300000); // every 5 minutes (300000)
 
 //Constants
