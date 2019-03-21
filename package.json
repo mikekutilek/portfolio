@@ -12,16 +12,16 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "bootstrap": "^4.3.1",
-    "bootstrap-select": "^1.13.8",
-    "csvtojson": "^2.0.8",
-    "express": "^4.16.4",
+    "bootstrap": "^4.1.1",
+    "bootstrap-select": "^1.13.1",
+    "csvtojson": "^2.0.4",
+    "express": "^4.16.3",
     "jquery": "^3.3.1",
-    "mongodb": "^3.1.13",
+    "mongodb": "^2.2.19",
     "path": "^0.12.7",
-    "sass": "^1.17.3"
+    "sass": "^1.3.2"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.17.4"
   }
 }

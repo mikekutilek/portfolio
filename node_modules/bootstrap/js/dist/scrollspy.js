@@ -1,75 +1,25 @@
-/*!
-  * Bootstrap scrollspy.js v4.3.1 (https://getbootstrap.com/)
-  * Copyright 2011-2019 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
-  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-  */
-(function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery'), require('./util.js')) :
-  typeof define === 'function' && define.amd ? define(['jquery', './util.js'], factory) :
-  (global = global || self, global.ScrollSpy = factory(global.jQuery, global.Util));
-}(this, function ($, Util) { 'use strict';
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
-  $ = $ && $.hasOwnProperty('default') ? $['default'] : $;
-  Util = Util && Util.hasOwnProperty('default') ? Util['default'] : Util;
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-  function _defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-  function _createClass(Constructor, protoProps, staticProps) {
-    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) _defineProperties(Constructor, staticProps);
-    return Constructor;
-  }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-  function _defineProperty(obj, key, value) {
-    if (key in obj) {
-      Object.defineProperty(obj, key, {
-        value: value,
-        enumerable: true,
-        configurable: true,
-        writable: true
-      });
-    } else {
-      obj[key] = value;
-    }
-
-    return obj;
-  }
-
-  function _objectSpread(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i] != null ? arguments[i] : {};
-      var ownKeys = Object.keys(source);
-
-      if (typeof Object.getOwnPropertySymbols === 'function') {
-        ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
-          return Object.getOwnPropertyDescriptor(source, sym).enumerable;
-        }));
-      }
-
-      ownKeys.forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      });
-    }
-
-    return target;
-  }
-
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.1.1): scrollspy.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+var ScrollSpy = function ($) {
   /**
    * ------------------------------------------------------------------------
    * Constants
    * ------------------------------------------------------------------------
    */
-
   var NAME = 'scrollspy';
-  var VERSION = '4.3.1';
+  var VERSION = '4.1.1';
   var DATA_KEY = 'bs.scrollspy';
   var EVENT_KEY = "." + DATA_KEY;
   var DATA_API_KEY = '.data-api';
@@ -151,13 +101,13 @@
       this._offsets = [];
       this._targets = [];
       this._scrollHeight = this._getScrollHeight();
-      var targets = [].slice.call(document.querySelectorAll(this._selector));
+      var targets = $.makeArray($(this._selector));
       targets.map(function (element) {
         var target;
         var targetSelector = Util.getSelectorFromElement(element);
 
         if (targetSelector) {
-          target = document.querySelector(targetSelector);
+          target = $(targetSelector)[0];
         }
 
         if (target) {
@@ -192,8 +142,8 @@
       this._targets = null;
       this._activeTarget = null;
       this._scrollHeight = null;
-    } // Private
-    ;
+    }; // Private
+
 
     _proto._getConfig = function _getConfig(config) {
       config = _objectSpread({}, Default, typeof config === 'object' && config ? config : {});
@@ -254,9 +204,7 @@
         return;
       }
 
-      var offsetLength = this._offsets.length;
-
-      for (var i = offsetLength; i--;) {
+      for (var i = this._offsets.length; i--;) {
         var isActiveTarget = this._activeTarget !== this._targets[i] && scrollTop >= this._offsets[i] && (typeof this._offsets[i + 1] === 'undefined' || scrollTop < this._offsets[i + 1]);
 
         if (isActiveTarget) {
@@ -270,11 +218,13 @@
 
       this._clear();
 
-      var queries = this._selector.split(',').map(function (selector) {
-        return selector + "[data-target=\"" + target + "\"]," + selector + "[href=\"" + target + "\"]";
-      });
+      var queries = this._selector.split(','); // eslint-disable-next-line arrow-body-style
 
-      var $link = $([].slice.call(document.querySelectorAll(queries.join(','))));
+
+      queries = queries.map(function (selector) {
+        return selector + "[data-target=\"" + target + "\"]," + (selector + "[href=\"" + target + "\"]");
+      });
+      var $link = $(queries.join(','));
 
       if ($link.hasClass(ClassName.DROPDOWN_ITEM)) {
         $link.closest(Selector.DROPDOWN).find(Selector.DROPDOWN_TOGGLE).addClass(ClassName.ACTIVE);
@@ -295,13 +245,9 @@
     };
 
     _proto._clear = function _clear() {
-      [].slice.call(document.querySelectorAll(this._selector)).filter(function (node) {
-        return node.classList.contains(ClassName.ACTIVE);
-      }).forEach(function (node) {
-        return node.classList.remove(ClassName.ACTIVE);
-      });
-    } // Static
-    ;
+      $(this._selector).filter(Selector.ACTIVE).removeClass(ClassName.ACTIVE);
+    }; // Static
+
 
     ScrollSpy._jQueryInterface = function _jQueryInterface(config) {
       return this.each(function () {
@@ -346,10 +292,9 @@
 
 
   $(window).on(Event.LOAD_DATA_API, function () {
-    var scrollSpys = [].slice.call(document.querySelectorAll(Selector.DATA_SPY));
-    var scrollSpysLength = scrollSpys.length;
+    var scrollSpys = $.makeArray($(Selector.DATA_SPY));
 
-    for (var i = scrollSpysLength; i--;) {
+    for (var i = scrollSpys.length; i--;) {
       var $spy = $(scrollSpys[i]);
 
       ScrollSpy._jQueryInterface.call($spy, $spy.data());
@@ -370,6 +315,5 @@
   };
 
   return ScrollSpy;
-
-}));
+}($);
 //# sourceMappingURL=scrollspy.js.map
