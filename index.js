@@ -20,6 +20,8 @@ var client_secret = '7651a04c818b469ab40c9782e962be68';
 //var redirect_uri = 'http://localhost:' + PORT;
 var scopes = 'user-read-private user-read-email';
 
+const uri = "mongodb+srv://admin:pdometer@mongo-uwij2.mongodb.net/test?retryWrites=true";
+
 //App
 const app = express();
 
@@ -68,7 +70,7 @@ app.get('/galleries', (req, res) => {
 function call_pitchtype(req, res){
     var pid = req.params.pid;
     var spawn = require("child_process").spawn;
-    var process = spawn('python3', ["./projects/SABR/pitch_type.py", pid]);
+    var process = spawn('python', ["./projects/SABR/pitch_type.py", pid]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -79,7 +81,7 @@ function call_pitchtype(req, res){
 function call_pitchers(req, res){
     var spawn = require("child_process").spawn;
     
-    var process = spawn('python3', ['./projects/SABR/get_std_data.py']);
+    var process = spawn('python', ['./projects/SABR/get_std_data.py']);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -92,7 +94,7 @@ function call_candidates(req, res){
     var pos = req.params.pos;
     var hand = req.params.hand;
     var spawn = require("child_process").spawn;
-    var process = spawn('python3', ["./projects/SABR/opener.py", team, pos, hand]);
+    var process = spawn('python', ["./projects/SABR/opener.py", team, pos, hand]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -103,7 +105,7 @@ function call_candidates(req, res){
 function call_chunk(req, res){
     var team = req.params.team;
     var spawn = require("child_process").spawn;
-    var process = spawn('python3', ["./projects/SABR/opener_chunk.py", team]);
+    var process = spawn('python', ["./projects/SABR/opener_chunk.py", team]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -112,6 +114,7 @@ function call_chunk(req, res){
 };
 
 function call_nhl_fp(req, res){
+    /*
     var ptype = req.params.ptype;
     var sort = req.params.sort;
     var spawn = require("child_process").spawn;
@@ -121,25 +124,44 @@ function call_nhl_fp(req, res){
         res.send(data.toString());
         //res.end();
     });
+    */
+    var table = req.params.table;
+    var sort = req.params.sort;
+    //console.log(ObjectId(sort));
+    const client = new MongoClient(uri, { useNewUrlParser: true });
+    client.connect(err => {
+        var dbo = client.db("Corsica");
+        dbo.collection(table).find().sort({ [sort] : -1 }).toArray(function(err, result){
+            if (err) {
+                console.log(err);
+            }
+            res.send(result);
+        });
+        
+    });
+    client.close();
 };
 
 function call_nfl_fp(req, res){
+    
     var pos = req.params.pos;
     var sort = req.params.sort;
     var spawn = require("child_process").spawn;
-    var process = spawn('python3', ["./projects/WOPR/fp.py", pos, sort]);
+    var process = spawn('python', ["./projects/WOPR/fp.py", pos, sort]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
         //res.end();
     });
+    
+
 };
 
 function call_mlb_fp(req, res){
     var ptype = req.params.ptype;
     var sort = req.params.sort;
     var spawn = require("child_process").spawn;
-    var process = spawn('python3', ["./projects/SABR/fp.py", ptype, sort]);
+    var process = spawn('python', ["./projects/SABR/fp.py", ptype, sort]);
 
     process.stdout.on('data', function (data){
         res.send(data.toString());
@@ -166,7 +188,7 @@ app.get('/api/v1/fangraphs/pitching', call_pitchers);
 
 app.get('/api/v1/fangraphs/pitching/pitch-type/:pid', call_pitchtype);
 
-app.get('/api/v1/corsica/fp/:ptype/:sort', call_nhl_fp);
+app.get('/api/v1/corsica/:table/:sort', call_nhl_fp);
 
 app.get('/api/v1/wopr/fp/:pos/:sort', call_nfl_fp);
 

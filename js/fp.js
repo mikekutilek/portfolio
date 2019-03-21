@@ -15,7 +15,7 @@
 		};
 		//$scope.getNHL = function(selection){
 		$scope.loading = true;
-		$http.get('/api/v1/corsica/fp/skater/FPG').then(function(data){
+		$http.get('/api/v1/corsica/skater_fp/FPG').then(function(data){
 			//console.log(data.data);
 			$scope.df = data;
 			var df = data.data;
@@ -174,10 +174,10 @@
 	    	var skater = $('.skater').attr('class');
     		var skatersplit = skater.split(" ");
     		if (skatersplit.pop() == 'active'){
-    			var pos = 'skater';
+    			var pos = 'skater_fp';
     		}
     		else{
-    			var pos = 'goalie';
+    			var pos = 'goalie_fp';
     		}
 	    	$http.get('/api/v1/corsica/fp/' + pos + '/FPG').then(function(data){
 	    		$scope.df = data;
@@ -252,7 +252,7 @@
 			$scope.loading = true;
 			$('.goalie').removeClass('active');
     		$('.skater').addClass('active');
-			$http.get('/api/v1/corsica/fp/skater/FPG').then(function(data){
+			$http.get('/api/v1/corsica/skater_fp/FPG').then(function(data){
 				//console.log(data.data);
 				$scope.df = data;
 				var df = data.data;
@@ -274,7 +274,7 @@
 	    	$scope.loading = true;
 	    	$('.skater').removeClass('active');
     		$('.goalie').addClass('active');
-	    	$http.get('/api/v1/corsica/fp/goalie/FPG').then(function(data){
+	    	$http.get('/api/v1/corsica/goalie_fp/FPG').then(function(data){
 				//console.log(data.data);
 				$scope.df = data;
 				var df = data.data;
@@ -480,7 +480,7 @@
 	    	if (sport == 'mlb'){
 	    		api = 'sabr';
 	    	}
-	    	var pos = $('div.showx > ul#filters > li.active').text().toLowerCase();
+	    	var pos = $('div.showx > ul#filters > li.active').text().toLowerCase() + '_fp';
 	    	var category = $(this).text();
 	    	if (category == 'FP'){
 	    		var sort = 'FP';
@@ -500,7 +500,7 @@
 	    	if (category == 'WOPR/G'){
 	    		var sort = 'WOPRG'
 	    	}
-	    	$http.get('/api/v1/' + api + '/fp/' + pos + '/' + sort).then(function(data){
+	    	$http.get('/api/v1/' + api + '/' + pos + '/' + sort).then(function(data){
 	    		$scope.df = data;
 				var df = data.data;
 				var pages = $scope.getPages(data);
