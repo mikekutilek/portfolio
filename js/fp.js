@@ -161,6 +161,7 @@
 		    	$('.nfl-stats').addClass('showx');
 		    	$('table.showx th.sorted').removeClass('sorted');
 	    		$('table.showx th#'+sorted.toLowerCase()).addClass('sorted');
+	    		$('#fpgnfl').addClass('sorted');
 		    	$scope.loading = false;
 		    	$timeout(function () {
 			      $scope.hgt = $('#fpTable').height();
@@ -179,7 +180,7 @@
     		else{
     			var pos = 'goalie_fp';
     		}
-	    	$http.get('/api/v1/corsica/fp/' + pos + '/FPG').then(function(data){
+	    	$http.get('/api/v1/corsica/' + pos + '/FPG').then(function(data){
 	    		$scope.df = data;
 	    		var df = data.data;
 				var pages = $scope.getPages(data);
