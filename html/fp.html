@@ -49,13 +49,13 @@
 			<table id="fpTable" class='center o-table fp-table nfl-stats hidex'>
 				<tr><th>Name</th><th id="fp" class="sortable">FP</th><th id="fpgnfl" class="sortable sorted">FP/G</th><th id="wo" class="sortable">WO</th><th id="wog" class="sortable">WO/G</th><th id="wopr" class="sortable">WOPR</th><th id="woprg" class="sortable">WOPR/G</th></tr>
 				<tr ng-repeat="player in players">
-					<td>{{player.Player}}</td><td>{{player.FP}}</td><td>{{player['FP/G']}}</td><td>{{player.WO}}</td><td>{{player['WO/G']}}</td><td>{{player.WOPR}}</td><td>{{player['WOPR/G']}}</td>
+					<td>{{player.Player}}</td><td>{{player.FP}}</td><td>{{player['FPG']}}</td><td>{{player.WO}}</td><td>{{player['WOG']}}</td><td>{{player.WOPR}}</td><td>{{player['WOPRG']}}</td>
 				</tr>
 			</table>
 			<table id="fpTable" class='center o-table fp-table mlb-stats hidex'>
 				<tr><th>Name</th><th id="fp" class="sortable">FP</th><th id="fpgmlb" class="sortable sorted">FP/G</th></tr>
 				<tr ng-repeat="player in players">
-					<td>{{player.Player}}</td><td>{{player.FP}}</td><td class="sorted">{{player['FP/G']}}</td>
+					<td>{{player.Player}}</td><td>{{player.FP}}</td><td class="sorted">{{player['FPG']}}</td>
 				</tr>
 			</table>
 		</div>

@@ -56,9 +56,9 @@ def get_fp(position):
 	df['Pos'] = df6['Pos']
 	df['FP'] = fp.round(2)
 	df['WO'] = df6['WO']
-	df['FP/G'] = (fp / games).round(2)
-	df['WO/G'] = df6['WO/G']
-	df['WOPR/G'] = df6['WOPR/G']
+	df['FPG'] = (fp / games).round(2)
+	df['WOG'] = df6['WO/G']
+	df['WOPRG'] = df6['WOPR/G']
 	df['WOPR'] = df6['wopr']
 
 	#flex handling

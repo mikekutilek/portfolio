@@ -470,36 +470,23 @@
 	    	$scope.loading = true;
 	    	var newcol = $(this);
 	    	var sport = $('ul#sport-filters > li.active').text().toLowerCase();
-	    	console.log(sport);
+	    	//console.log(sport);
+	    	var pos_base = $('div.showx > ul#filters > li.active').text().toLowerCase()
+	    	var pos = '';
 	    	if (sport == 'nhl'){
 	    		api = 'corsica';
+	    		pos = pos_base + '_fp';
 	    	}
 	    	if (sport == 'nfl'){
 	    		api = 'wopr';
+	    		pos = 'fp/' + pos_base.toUpperCase();
 	    	}
 	    	if (sport == 'mlb'){
 	    		api = 'sabr';
+	    		pos = pos_base;
 	    	}
-	    	var pos = $('div.showx > ul#filters > li.active').text().toLowerCase() + '_fp';
-	    	var category = $(this).text();
-	    	if (category == 'FP'){
-	    		var sort = 'FP';
-	    	}
-	    	if (category == 'FP/G'){
-	    		var sort = 'FPG'
-	    	}
-	    	if (category == 'WO'){
-	    		var sort = 'WO'
-	    	}
-	    	if (category == 'WO/G'){
-	    		var sort = 'WOG'
-	    	}
-	    	if (category == 'WOPR'){
-	    		var sort = 'WOPR'
-	    	}
-	    	if (category == 'WOPR/G'){
-	    		var sort = 'WOPRG'
-	    	}
+	    	
+	    	var sort = $(this).text().replace('/', '');
 	    	$http.get('/api/v1/' + api + '/' + pos + '/' + sort).then(function(data){
 	    		$scope.df = data;
 				var df = data.data;

@@ -143,7 +143,7 @@ function call_nhl_fp(req, res){
 };
 
 function call_nfl_fp(req, res){
-    
+    /*
     var pos = req.params.pos;
     var sort = req.params.sort;
     var spawn = require("child_process").spawn;
@@ -153,7 +153,28 @@ function call_nfl_fp(req, res){
         res.send(data.toString());
         //res.end();
     });
-    
+    */
+    var pos = req.params.pos;
+    if (pos.toUpperCase() == 'FLEX'){
+        pos_array = ['RB', 'WR', 'TE'];
+    }
+    else{
+        pos_array = [pos];
+    }
+    var sort = req.params.sort;
+    //console.log(ObjectId(sort));
+    const client = new MongoClient(uri, { useNewUrlParser: true });
+    client.connect(err => {
+        var dbo = client.db("WOPR");
+        dbo.collection('fp').find({ Pos : { $in: pos_array }}).sort({ [sort] : -1 }).toArray(function(err, result){
+            if (err) {
+                console.log(err);
+            }
+            res.send(result);
+        });
+        
+    });
+    client.close();
 
 };
 
