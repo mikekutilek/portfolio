@@ -112,7 +112,7 @@ def build_fp_table(players, fps, fps_g):
 	df = pd.DataFrame()
 	df['Player'] = players
 	df['FP'] = fps.apply(lambda x: '{0:.2f}'.format(x)).astype('float64')
-	df['FP/G'] = fps_g.apply(lambda x: '{0:.2f}'.format(x)).astype('float64')
+	df['FPG'] = fps_g.apply(lambda x: '{0:.2f}'.format(x)).astype('float64')
 	return df
 
 def main():

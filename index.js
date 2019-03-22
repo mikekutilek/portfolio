@@ -179,6 +179,7 @@ function call_nfl_fp(req, res){
 };
 
 function call_mlb_fp(req, res){
+    /*
     var ptype = req.params.ptype;
     var sort = req.params.sort;
     var spawn = require("child_process").spawn;
@@ -188,6 +189,22 @@ function call_mlb_fp(req, res){
         res.send(data.toString());
         //res.end();
     });
+    */
+    var table = req.params.table;
+    var sort = req.params.sort;
+    //console.log(ObjectId(sort));
+    const client = new MongoClient(uri, { useNewUrlParser: true });
+    client.connect(err => {
+        var dbo = client.db("SABR");
+        dbo.collection(table).find().sort({ [sort] : -1 }).toArray(function(err, result){
+            if (err) {
+                console.log(err);
+            }
+            res.send(result);
+        });
+        
+    });
+    client.close();
 };
 
 app.get('/api/v1/sabr/opener/teams', (req, res) => {
@@ -213,4 +230,4 @@ app.get('/api/v1/corsica/:table/:sort', call_nhl_fp);
 
 app.get('/api/v1/wopr/fp/:pos/:sort', call_nfl_fp);
 
-app.get('/api/v1/sabr/fp/:ptype/:sort', call_mlb_fp);
+app.get('/api/v1/sabr/:table/:sort', call_mlb_fp);

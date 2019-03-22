@@ -28,7 +28,7 @@
 			//console.log(angular.element("#fpTable")[0].offsetHeight);
 			$timeout(function () {
 		      $scope.hgt = $('#fpTable').height();
-		      console.log($scope.hgt);
+		      //console.log($scope.hgt);
 		    }); 
 		});
 
@@ -49,13 +49,13 @@
 			$scope.players = df.slice(start, end);
 			$timeout(function () {
 		      $scope.hgt = $('#fpTable').height();
-		      console.log($scope.hgt);
+		      //console.log($scope.hgt);
 		    }); 
 		};
 
 		$scope.gotoNext = function(pages, data){
 			//var pageNum = parseInt($event.target.text);
-			console.log(pages);
+			//console.log(pages);
 			var pageArr = pages.filter(function(page){
 				return page.isActive == true;
 			});
@@ -72,7 +72,7 @@
 				$scope.players = df.slice(start, end);
 				$timeout(function () {
 			      $scope.hgt = $('#fpTable').height();
-			      console.log($scope.hgt);
+			      //console.log($scope.hgt);
 			    }); 
 			}
 		};
@@ -96,7 +96,7 @@
 				$scope.players = df.slice(start, end);
 				$timeout(function () {
 			      $scope.hgt = $('#fpTable').height();
-			      console.log($scope.hgt);
+			      //console.log($scope.hgt);
 			    }); 
 			}
 			
@@ -168,7 +168,7 @@
 		    	$scope.loading = false;
 		    	$timeout(function () {
 			      $scope.hgt = $('#fpTable').height();
-			      console.log($scope.hgt);
+			      //console.log($scope.hgt);
 			    }); 
 			});
 
@@ -211,7 +211,7 @@
 				$scope.loading = false;
 				$timeout(function () {
 			      $scope.hgt = $('#fpTable').height();
-			      console.log($scope.hgt);
+			      //console.log($scope.hgt);
 			    }); 
 			});
 	    });
@@ -223,12 +223,12 @@
 	    	var batter = $('.batter').attr('class');
     		var battersplit = batter.split(" ");
     		if (battersplit.pop() == 'active'){
-    			var pos = 'batter';
+    			var pos = 'batter_fp';
     		}
     		else{
-    			var pos = 'pitcher';
+    			var pos = 'pitcher_fp';
     		}
-	    	$http.get('/api/v1/sabr/fp/' + pos + '/FPG').then(function(data){
+	    	$http.get('/api/v1/sabr/' + pos + '/FPG').then(function(data){
 	    		$scope.df = data;
 	    		var df = data.data;
 				var pages = $scope.getPages(data);
@@ -253,7 +253,7 @@
 				$scope.loading = false;
 				$timeout(function () {
 			      $scope.hgt = $('#fpTable').height();
-			      console.log($scope.hgt);
+			      //console.log($scope.hgt);
 			    }); 
 			});
 	    });
@@ -276,7 +276,7 @@
 	    		$('#fpgnhl').addClass('sorted');
 	    		$timeout(function () {
 			      $scope.hgt = $('#fpTable').height();
-			      console.log($scope.hgt);
+			      //console.log($scope.hgt);
 			    }); 
 			});
    		});
@@ -299,7 +299,7 @@
 	    		$('#fpgnhl').addClass('sorted');
 	    		$timeout(function () {
 			      $scope.hgt = $('#fpTable').height();
-			      console.log($scope.hgt);
+			      //console.log($scope.hgt);
 			    }); 
 			});
 	    });
@@ -324,7 +324,7 @@
 	    		$('#fpgnfl').addClass('sorted');
 	    		$timeout(function () {
 			      $scope.hgt = $('#fpTable').height();
-			      console.log($scope.hgt);
+			      //console.log($scope.hgt);
 			    }); 
 			});
 	    });
@@ -350,7 +350,7 @@
 	    		$('#wog').addClass('sorted');
 	    		$timeout(function () {
 			      $scope.hgt = $('#fpTable').height();
-			      console.log($scope.hgt);
+			      //console.log($scope.hgt);
 			    }); 
 			});
 	    });
@@ -375,7 +375,7 @@
 	    		$('#woprg').addClass('sorted');
 	    		$timeout(function () {
 			      $scope.hgt = $('#fpTable').height();
-			      console.log($scope.hgt);
+			      //console.log($scope.hgt);
 			    }); 
 			});
 	    });
@@ -400,7 +400,7 @@
 	    		$('#woprg').addClass('sorted');
 	    		$timeout(function () {
 			      $scope.hgt = $('#fpTable').height();
-			      console.log($scope.hgt);
+			      //console.log($scope.hgt);
 			    }); 
 			});
 	    });
@@ -426,7 +426,7 @@
 	    		$('#wog').addClass('sorted');
 	    		$timeout(function () {
 			      $scope.hgt = $('#fpTable').height();
-			      console.log($scope.hgt);
+			      //console.log($scope.hgt);
 			    }); 
 			});
 	    });
@@ -434,7 +434,7 @@
 			$scope.loading = true;
 			$('.pitcher').removeClass('active');
     		$('.batter').addClass('active');
-			$http.get('/api/v1/SABR/fp/batter/FPG').then(function(data){
+			$http.get('/api/v1/SABR/batter_fp/FPG').then(function(data){
 				//console.log(data.data);
 				$scope.df = data;
 				var df = data.data;
@@ -448,7 +448,7 @@
 	    		$('#fpgmlb').addClass('sorted');
 	    		$timeout(function () {
 			      $scope.hgt = $('#fpTable').height();
-			      console.log($scope.hgt);
+			      //console.log($scope.hgt);
 			    }); 
 			});
    		});
@@ -456,7 +456,7 @@
 	    	$scope.loading = true;
 	    	$('.batter').removeClass('active');
     		$('.pitcher').addClass('active');
-	    	$http.get('/api/v1/SABR/fp/pitcher/FPG').then(function(data){
+	    	$http.get('/api/v1/SABR/pitcher_fp/FPG').then(function(data){
 				//console.log(data.data);
 				$scope.df = data;
 				var df = data.data;
@@ -471,7 +471,7 @@
 	    		$('#fpgmlb').addClass('sorted');
 	    		$timeout(function () {
 			      $scope.hgt = $('#fpTable').height();
-			      console.log($scope.hgt);
+			      //console.log($scope.hgt);
 			    }); 
 			});
 	    });
@@ -480,9 +480,9 @@
 	    	$scope.loading = true;
 	    	var newcol = $(this);
 	    	var sport = $('ul#sport-filters > li.active').text().toLowerCase();
-	    	console.log(sport);
+	    	//console.log(sport);
 	    	var pos_base = $('div.showx > ul#filters > li.active').text().toLowerCase();
-	    	console.log(pos_base);
+	    	//console.log(pos_base);
 	    	var pos = '';
 	    	if (sport == 'nhl'){
 	    		api = 'corsica';
@@ -494,9 +494,9 @@
 	    	}
 	    	if (sport == 'mlb'){
 	    		api = 'sabr';
-	    		pos = pos_base;
+	    		pos = pos_base + '_fp';
 	    	}
-	    	console.log(sport);
+	    	//console.log(sport);
 	    	var sort = $(this).text().replace('/', '');
 	    	$http.get('/api/v1/' + api + '/' + pos + '/' + sort).then(function(data){
 	    		$scope.df = data;
@@ -512,7 +512,7 @@
 	    		newcol.addClass('sorted');
 	    		$timeout(function () {
 			      $scope.hgt = $('#fpTable').height();
-			      console.log($scope.hgt);
+			      //console.log($scope.hgt);
 			    }); 
 			});
 			
