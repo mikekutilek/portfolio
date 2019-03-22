@@ -481,7 +481,7 @@
 	    	var newcol = $(this);
 	    	var sport = $('ul#sport-filters > li.active').text().toLowerCase();
 	    	console.log(sport);
-	    	var pos_base = $('div.showx > ul#filters > li.active').text().toLowerCase()
+	    	var pos_base = $('div.showx > ul#filters > li.active').text().toLowerCase();
 	    	console.log(pos_base);
 	    	var pos = '';
 	    	if (sport == 'nhl'){
