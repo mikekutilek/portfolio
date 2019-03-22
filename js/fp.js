@@ -480,8 +480,9 @@
 	    	$scope.loading = true;
 	    	var newcol = $(this);
 	    	var sport = $('ul#sport-filters > li.active').text().toLowerCase();
-	    	//console.log(sport);
+	    	console.log(sport);
 	    	var pos_base = $('div.showx > ul#filters > li.active').text().toLowerCase()
+	    	console.log(pos_base);
 	    	var pos = '';
 	    	if (sport == 'nhl'){
 	    		api = 'corsica';
@@ -495,7 +496,7 @@
 	    		api = 'sabr';
 	    		pos = pos_base;
 	    	}
-	    	
+	    	console.log(sport);
 	    	var sort = $(this).text().replace('/', '');
 	    	$http.get('/api/v1/' + api + '/' + pos + '/' + sort).then(function(data){
 	    		$scope.df = data;
