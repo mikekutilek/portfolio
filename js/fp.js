@@ -104,6 +104,9 @@
 
 	    $('.nfl').on('click', function() {
 	    	$scope.loading = true;
+	    	$('.nhl').removeClass('active');
+	    	$('.mlb').removeClass('active');
+	    	$('.nfl').addClass('active');
 	    	var qb = $('.qb').attr('class');
 	    	var rb = $('.rb').attr('class');
 	    	var wr = $('.wr').attr('class');
@@ -172,6 +175,9 @@
 	    });
 	    $('.nhl').on('click', function() {
 	    	$scope.loading = true;
+	    	$('.nfl').removeClass('active');
+	    	$('.mlb').removeClass('active');
+	    	$('.nhl').addClass('active');
 	    	var skater = $('.skater').attr('class');
     		var skatersplit = skater.split(" ");
     		if (skatersplit.pop() == 'active'){
@@ -211,6 +217,9 @@
 	    });
 	    $('.mlb').on('click', function() {
 	    	$scope.loading = true;
+	    	$('.nhl').removeClass('active');
+	    	$('.nfl').removeClass('active');
+	    	$('.mlb').addClass('active');
 	    	var batter = $('.batter').attr('class');
     		var battersplit = batter.split(" ");
     		if (battersplit.pop() == 'active'){
