@@ -94,6 +94,14 @@ def get_table(page):
 		cells = row.find_all(['th', 'td'])
 		cells = [cell.text.replace('%', '').strip() for cell in cells]
 		data.append([cell for cell in cells])
-
 	df = pd.DataFrame(data=data, columns=headings)
+	for heading in headings:
+		if heading in ['Player', 'Tm', 'Pos']: #Strings
+			continue
+		elif heading in ['Rk', 'Age']: #Ints
+			df[heading] = df[heading].replace('', 0).astype(int)
+		else:
+			#print(heading)
+			df[heading] = df[heading].replace('', 0).astype('float64')
+	
 	return df.sort_values(by=['RA/G'])

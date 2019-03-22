@@ -15,13 +15,14 @@
         var phrases = ['Hanging curveballs', 'Not bunting', 'Hitting dingers'];
 
         $scope.get_candidate_data = function(data){
-        	var p_data = data.data['candidates']
+        	var p_data = data.data
+        	//console.log(p_data[0]);
     		var pitchers = [];
     		if (p_data.length == 0){
     			pitchers.push({"name": "N/A", "wOBA": "N/A"});
     		}
     		for (var i = 0; i < p_data.length; i++){
-    			var player = JSON.parse(p_data[i]);
+    			var player = p_data[i];
     			pitchers.push({"name": player['Player'], "wOBA": player['wOBA']});
     		}
     		return pitchers;
@@ -36,7 +37,7 @@
 	    	$http.get('/api/v1/sabr/opener/' + team_abbr).then(function(data){
 	    		
 	        	$scope.teamName = selection
-	    		var chunkData = data.data['chunk']
+	    		var chunkData = data.data//['chunk']
 	    		$scope.chunk = chunkData;
 	            $scope.tbl = true;
 	            if (team_abbr == 'ANY'){

@@ -60,7 +60,8 @@ def get_page(batter_stands='', position='', hfInn='', min_results='', group_by='
 
 def get_table(page):
 	table = page.find('table',{'id':'search_results'})
-	ths = table.find_all('th')
+	thead = table.find('thead')
+	ths = thead.find_all('th')
 	headings = []
 	for th in ths:
 		headings.append(th.text.strip())

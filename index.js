@@ -93,16 +93,60 @@ function call_candidates(req, res){
     var team = req.params.team;
     var pos = req.params.pos;
     var hand = req.params.hand;
-    var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./projects/SABR/opener.py", team, pos, hand]);
 
-    process.stdout.on('data', function (data){
-        res.send(data.toString());
-        res.end();
-    })
+    const client = new MongoClient(uri, { useNewUrlParser: true });
+    client.connect(err => {
+        var dbo = client.db("SABR");
+        dbo.collection('opener_candidates').find( { $and: [ { Pos : pos }, { Team : team }, { Hand : hand } ] } ).sort({ wOBA : -1 }).toArray(function(err, result){
+            if (err) {
+                console.log(err);
+            }
+            res.send(result);
+        });
+        
+    });
+    client.close();
 };
 
 function call_chunk(req, res){
+    var team = req.params.team;
+    const client = new MongoClient(uri, { useNewUrlParser: true });
+    client.connect(err => {
+        var dbo = client.db("SABR");
+        dbo.collection('bref_team_sp').find({Tm : {'$ne':'LgAvg'}}).sort({ ['RA/G'] : 1 }).toArray(function(err, result){
+            if (err) {
+                console.log(err);
+            }
+            var elite = result.slice(0, 6);
+            var good = result.slice(6, 12);
+            var average = result.slice(12, 18);
+            var bad = result.slice(18, 24);
+            var terrible = result.slice(24, 30);
+            var chunk = "";
+            if (elite.some(e => e.Tm === team)){
+                chunk = " have a starting rotation in the upper echelon of MLB in RA/G. They probably don't need an opener, but you can still take a look at potential options.";
+            }
+            else if (good.some(e => e.Tm === team)){
+                chunk = " have a starting rotation in one of the higher tiers of MLB in RA/G. They may or may not need an opener to fill a void, but you can still take a look at potential options.";
+            }
+            else if (average.some(e => e.Tm === team)){
+                chunk = " have a starting rotation in the middle of MLB in RA/G. They might need an opener to fill a void. Check out their options below!";
+            }
+            else if (bad.some(e => e.Tm === team)){
+                chunk = " have a starting rotation in one of the lower tiers of MLB in RA/G. They could probably use an opener to fill a void. See options below!";
+            }
+            else if (terrible.some(e => e.Tm === team)){
+                chunk = " have a starting rotation at the very bottom of MLB in RA/G. They definitely have a rotation spot that could be better utilized. See options below!";
+            }
+            else {
+                chunk = " team was not found";
+            }
+            res.send(chunk);
+        });
+        
+    });
+    client.close();
+    /*
     var team = req.params.team;
     var spawn = require("child_process").spawn;
     var process = spawn('python', ["./projects/SABR/opener_chunk.py", team]);
@@ -111,6 +155,7 @@ function call_chunk(req, res){
         res.send(data.toString());
         res.end();
     })
+    */
 };
 
 function call_nhl_fp(req, res){

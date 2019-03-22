@@ -11,7 +11,7 @@ import argparse
 
 def get_rps_wOBA_vs(batter_stands):
 	#pd.options.display.float_format = '${:,.3f}'.format
-	page = sa.get_page(batter_stands=batter_stands, position='RP', min_results='75', sort_col='woba')
+	page = sa.get_page(batter_stands=batter_stands, position='RP', min_results='30', sort_col='woba')
 	data = sa.get_table(page)
 	new_data = pd.DataFrame()
 	new_data['Player'] = data['Player']
@@ -34,6 +34,8 @@ def get_all_candidates(batter_stands, position):
 	else:
 		data = get_sps_wOBA_vs(batter_stands)
 	data['Team'] = ''
+	data['Pos'] = position
+	data['Hand'] = batter_stands
 	for index, row in data.iterrows():
 		playername = row['Player'].replace(' ', '').strip().lower()
 		if not df.loc[df['fullname'] == playername].empty:
@@ -59,12 +61,12 @@ def main():
 	args = parser.parse_args()
 
 	df = get_team_candidates(args.team, args.hand, args.pos)
-	opener_data = {"candidates": []}
+	#opener_data = {"candidates": []}
 
-	for index, r in df.iterrows():
-		opener_data['candidates'].append(r.to_json())
-
-	print(json.dumps(opener_data))
+	#for index, r in df.iterrows():
+	#	opener_data['candidates'].append(r.to_json())
+	print(df.to_json(orient='records'))
+	#print(json.dumps(df))
 	sys.stdout.flush()
 
 if __name__ == '__main__':
