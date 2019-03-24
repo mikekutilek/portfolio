@@ -91,13 +91,19 @@ function call_pitchers(req, res){
 
 function call_candidates(req, res){
     var team = req.params.team;
+    if (team == "ANY"){
+        var team_array = ['ARI', 'ATL', 'BAL', 'BOS', 'CHC', 'CIN', 'CLE', 'COL', 'CWS', 'DET', 'HOU', 'KC', 'LAA', 'LAD', 'MIA', 'MIL', 'MIN', 'NYM', 'NYY', 'OAK', 'PHI', 'PIT', 'SD', 'SEA', 'SF', 'STL', 'TB', 'TEX', 'TOR', 'WSH'];
+    }
+    else {
+        var team_array = [team];
+    }
     var pos = req.params.pos;
     var hand = req.params.hand;
 
     const client = new MongoClient(uri, { useNewUrlParser: true });
     client.connect(err => {
         var dbo = client.db("SABR");
-        dbo.collection('opener_candidates').find( { $and: [ { Pos : pos }, { Team : team }, { Hand : hand } ] } ).sort({ wOBA : -1 }).toArray(function(err, result){
+        dbo.collection('opener_candidates').find( { $and: [ { Pos : pos }, { Team : {$in : team_array} }, { Hand : hand } ] } ).sort({ wOBA : -1 }).toArray(function(err, result){
             if (err) {
                 console.log(err);
             }
@@ -146,33 +152,11 @@ function call_chunk(req, res){
         
     });
     client.close();
-    /*
-    var team = req.params.team;
-    var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./projects/SABR/opener_chunk.py", team]);
-
-    process.stdout.on('data', function (data){
-        res.send(data.toString());
-        res.end();
-    })
-    */
 };
 
 function call_nhl_fp(req, res){
-    /*
-    var ptype = req.params.ptype;
-    var sort = req.params.sort;
-    var spawn = require("child_process").spawn;
-    var process = spawn('python3', ["./projects/Corsica/fp.py", ptype, sort]);
-
-    process.stdout.on('data', function (data){
-        res.send(data.toString());
-        //res.end();
-    });
-    */
     var table = req.params.table;
     var sort = req.params.sort;
-    //console.log(ObjectId(sort));
     const client = new MongoClient(uri, { useNewUrlParser: true });
     client.connect(err => {
         var dbo = client.db("Corsica");
@@ -188,17 +172,6 @@ function call_nhl_fp(req, res){
 };
 
 function call_nfl_fp(req, res){
-    /*
-    var pos = req.params.pos;
-    var sort = req.params.sort;
-    var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./projects/WOPR/fp.py", pos, sort]);
-
-    process.stdout.on('data', function (data){
-        res.send(data.toString());
-        //res.end();
-    });
-    */
     var pos = req.params.pos;
     if (pos.toUpperCase() == 'FLEX'){
         pos_array = ['RB', 'WR', 'TE'];
@@ -207,7 +180,6 @@ function call_nfl_fp(req, res){
         pos_array = [pos];
     }
     var sort = req.params.sort;
-    //console.log(ObjectId(sort));
     const client = new MongoClient(uri, { useNewUrlParser: true });
     client.connect(err => {
         var dbo = client.db("WOPR");
@@ -224,20 +196,8 @@ function call_nfl_fp(req, res){
 };
 
 function call_mlb_fp(req, res){
-    /*
-    var ptype = req.params.ptype;
-    var sort = req.params.sort;
-    var spawn = require("child_process").spawn;
-    var process = spawn('python', ["./projects/SABR/fp.py", ptype, sort]);
-
-    process.stdout.on('data', function (data){
-        res.send(data.toString());
-        //res.end();
-    });
-    */
     var table = req.params.table;
     var sort = req.params.sort;
-    //console.log(ObjectId(sort));
     const client = new MongoClient(uri, { useNewUrlParser: true });
     client.connect(err => {
         var dbo = client.db("SABR");
@@ -252,16 +212,22 @@ function call_mlb_fp(req, res){
     client.close();
 };
 
-app.get('/api/v1/sabr/opener/teams', (req, res) => {
-    data = {'null': 'ANY', 'Orioles': 'BAL', 'Red Sox': 'BOS', 'Yankees': 'NYY', 'Rays': 'TB', 'Blue Jays': 'TOR', 
-'Indians': 'CLE', 'White Sox': 'CWS', 'Tigers': 'DET', 'Royals': 'KC', 'Twins': 'MIN',
-'Astros': 'HOU', 'Angels': 'LAA', 'Athletics': 'OAK', 'Mariners': 'SEA', 'Rangers': 'TEX',
-'Braves': 'ATL', 'Marlins': 'MIA', 'Mets': 'NYM', 'Phillies': 'PHI', 'Nationals': 'WSH', 
-'Cubs': 'CHC', 'Reds': 'CIN', 'Brewers': 'MIL', 'Pirates': 'PIT', 'Cardinals': 'STL', 
-'Diamondbacks': 'ARI', 'Rockies': 'COL', 'Dodgers': 'LAD', 'Padres': 'SD', 'Giants': 'SF'};
+function get_mlb_teams(req, res){
+    const client = new MongoClient(uri, { useNewUrlParser: true });
+    client.connect(err => {
+        var dbo = client.db("SABR");
+        dbo.collection('teams').find().toArray(function(err, result){
+            if (err) {
+                console.log(err);
+            }
+            res.send(result);
+        });
+        
+    });
+    client.close();
+};
 
-    res.send(data);
-});
+app.get('/api/v1/sabr/teams', get_mlb_teams);
 
 app.get('/api/v1/sabr/opener/:team/:pos/:hand', call_candidates);
 

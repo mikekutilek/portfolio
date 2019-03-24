@@ -4,6 +4,12 @@ from bs4 import BeautifulSoup, Comment
 import requests
 import re
 
+def get_team_standings_page():
+	url = "https://www.baseball-reference.com/leagues/MLB-standings.shtml"
+	r = requests.get(url)
+	html = r.text.replace('<!--', '').replace('-->', '')
+	return BeautifulSoup(html, "lxml")
+
 def get_team_sp_page(season='2018'):
 	url = "https://www.baseball-reference.com/leagues/MLB/{}-starter-pitching.shtml".format(season)
 	r = requests.get(url)
@@ -105,3 +111,31 @@ def get_table(page):
 			df[heading] = df[heading].replace('', 0).astype('float64')
 	
 	return df.sort_values(by=['RA/G'])
+
+def get_table_by_id(page, table_id):
+	print(type(table_id))
+	print(table_id)
+	table = page.find('table', id=table_id)
+	thead = table.find('thead')
+	#trs = thead.find_all('tr')[1]
+	ths = thead.find_all('th')
+	headings = []
+	for th in ths:
+		headings.append(th.text.strip())
+	tbody = table.find('tbody')
+	rows = tbody.find_all('tr')
+	data = []
+	for row in rows:
+		if row.get('class') == ['partial_table'] or row.get('class') == ['thead']:
+			continue
+		cells = row.find_all(['th', 'td'])
+		cells = [cell.text.replace('%', '').strip() for cell in cells]
+		data.append([cell for cell in cells])
+	df = pd.DataFrame(data=data, columns=headings)
+	return df
+
+def get_teams():
+	page = get_team_standings_page()
+	table = get_table_by_id(page, 'expanded_standings_overall')
+	df = table['Tm']
+	return df

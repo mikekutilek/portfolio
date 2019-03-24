@@ -1,0 +1,322 @@
+[
+	{
+		"team": "Diamondbacks",
+		"master_abbr": "ARI",
+		"abbrs": [
+			{
+				"sa": "ARI",
+				"bref": "ARI"
+			}
+		]
+	},
+	{
+		"team": "Braves",
+		"master_abbr": "ATL",
+		"abbrs": [
+			{
+				"sa": "ATL",
+				"bref": "ATL"
+			}
+		]
+	},
+	{
+		"team": "Orioles",
+		"master_abbr": "BAL",
+		"abbrs": [
+			{
+				"sa": "BAL",
+				"bref": "BAL"
+			}
+		]
+	},
+	{
+		"team": "Red Sox",
+		"master_abbr": "BOS",
+		"abbrs": [
+			{
+				"sa": "BOS",
+				"bref": "BOS"
+			}
+		]
+	},
+	{
+		"team": "Cubs",
+		"master_abbr": "CHC",
+		"abbrs": [
+			{
+				"sa": "CHC",
+				"bref": "CHC"
+			}
+		]
+	},
+	{
+		"team": "Reds",
+		"master_abbr": "CIN",
+		"abbrs": [
+			{
+				"sa": "CIN",
+				"bref": "CIN"
+			}
+		]
+	},
+	{
+		"team": "Indians",
+		"master_abbr": "CLE",
+		"abbrs": [
+			{
+				"sa": "CLE",
+				"bref": "CLE"
+			}
+		]
+	},
+	{
+		"team": "Rockies",
+		"master_abbr": "COL",
+		"abbrs": [
+			{
+				"sa": "COL",
+				"bref": "COL"
+			}
+		]
+	},
+	{
+		"team": "White Sox",
+		"master_abbr": "CWS",
+		"abbrs": [
+			{
+				"sa": "CWS",
+				"bref": "CHW"
+			}
+		]
+	},
+	{
+		"team": "Tigers",
+		"master_abbr": "DET",
+		"abbrs": [
+			{
+				"sa": "DET",
+				"bref": "DET"
+			}
+		]
+	},
+	{
+		"team": "Astros",
+		"master_abbr": "HOU",
+		"abbrs": [
+			{
+				"sa": "HOU",
+				"bref": "HOU"
+			}
+		]
+	},
+	{
+		"team": "Royals",
+		"master_abbr": "KC",
+		"abbrs": [
+			{
+				"sa": "KC",
+				"bref": "KCR"
+			}
+		]
+	},
+	{
+		"team": "Orioles",
+		"master_abbr": "BAL",
+		"abbrs": [
+			{
+				"sa": "BAL",
+				"bref": "BAL"
+			}
+		]
+	},
+	{
+		"team": "Angels",
+		"master_abbr": "LAA",
+		"abbrs": [
+			{
+				"sa": "LAA",
+				"bref": "LAA"
+			}
+		]
+	},
+	{
+		"team": "Dodgers",
+		"master_abbr": "LAD",
+		"abbrs": [
+			{
+				"sa": "LAD",
+				"bref": "LAD"
+			}
+		]
+	},
+	{
+		"team": "Marlins",
+		"master_abbr": "MIA",
+		"abbrs": [
+			{
+				"sa": "MIA",
+				"bref": "MIA"
+			}
+		]
+	},
+	{
+		"team": "Brewers",
+		"master_abbr": "MIL",
+		"abbrs": [
+			{
+				"sa": "MIL",
+				"bref": "MIL"
+			}
+		]
+	},
+	{
+		"team": "Twins",
+		"master_abbr": "MIN",
+		"abbrs": [
+			{
+				"sa": "MIN",
+				"bref": "MIN"
+			}
+		]
+	},
+	{
+		"team": "Mets",
+		"master_abbr": "NYM",
+		"abbrs": [
+			{
+				"sa": "NYM",
+				"bref": "NYM"
+			}
+		]
+	},
+	{
+		"team": "Yankees",
+		"master_abbr": "NYY",
+		"abbrs": [
+			{
+				"sa": "NYY",
+				"bref": "NYY"
+			}
+		]
+	},
+	{
+		"team": "Athletics",
+		"master_abbr": "OAK",
+		"abbrs": [
+			{
+				"sa": "OAK",
+				"bref": "OAK"
+			}
+		]
+	},
+	{
+		"team": "Phillies",
+		"master_abbr": "PHI",
+		"abbrs": [
+			{
+				"sa": "PHI",
+				"bref": "PHI"
+			}
+		]
+	},
+	{
+		"team": "Pirates",
+		"master_abbr": "PIT",
+		"abbrs": [
+			{
+				"sa": "PIT",
+				"bref": "PIT"
+			}
+		]
+	},
+	{
+		"team": "Padres",
+		"master_abbr": "SD",
+		"abbrs": [
+			{
+				"sa": "SD",
+				"bref": "SDP"
+			}
+		]
+	},
+	{
+		"team": "Mariners",
+		"master_abbr": "SEA",
+		"abbrs": [
+			{
+				"sa": "SEA",
+				"bref": "SEA"
+			}
+		]
+	},
+	{
+		"team": "Giants",
+		"master_abbr": "SF",
+		"abbrs": [
+			{
+				"sa": "SF",
+				"bref": "SFG"
+			}
+		]
+	},
+	{
+		"team": "Cardinals",
+		"master_abbr": "STL",
+		"abbrs": [
+			{
+				"sa": "STL",
+				"bref": "STL"
+			}
+		]
+	},
+	{
+		"team": "Rays",
+		"master_abbr": "TB",
+		"abbrs": [
+			{
+				"sa": "TB",
+				"bref": "TBR"
+			}
+		]
+	},
+	{
+		"team": "Rangers",
+		"master_abbr": "TEX",
+		"abbrs": [
+			{
+				"sa": "TEX",
+				"bref": "TEX"
+			}
+		]
+	},
+	{
+		"team": "Blue Jays",
+		"master_abbr": "TOR",
+		"abbrs": [
+			{
+				"sa": "TOR",
+				"bref": "TOR"
+			}
+		]
+	},
+	{
+		"team": "Nationals",
+		"master_abbr": "WSH",
+		"abbrs": [
+			{
+				"sa": "WSH",
+				"bref": "WSN"
+			}
+		]
+	},
+	{
+		"team": null,
+		"master_abbr": "ANY",
+		"abbrs": [
+			{
+				"sa": "ANY",
+				"bref": "ANY"
+			}
+		]
+	}
+]

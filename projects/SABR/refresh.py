@@ -1,9 +1,11 @@
 import numpy as np
 import pandas as pd
 import baseballref as bref
+import savant as sa
+import fangraphs as fg
 import fp
 import opener as op
-import sys, json, argparse
+import json
 import pymongo #pymongo-3.7.2
 
 def conn():
@@ -23,6 +25,14 @@ def insert_to_table(table_name, df):
 	db = client['SABR']
 	table = db[table_name]
 	table.insert(json.loads(data_json))
+
+def load_teams():
+	df = json.load(open("data/teams.json"))
+	client = conn()
+	db = client['SABR']
+	table = db['teams']
+	table.drop()
+	table.insert(df)
 
 def load_bref_team_sp():
 	page = bref.get_team_sp_page()
@@ -52,6 +62,7 @@ def main():
 	load_batter_fp()
 	load_pitcher_fp()
 	load_opener_candidates()
+	print(load_teams())
 
 if __name__ == '__main__':
 	main()

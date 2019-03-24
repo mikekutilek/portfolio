@@ -4,19 +4,13 @@
 	app.controller('opener-ctrl', ['$http', '$scope', function($http, $scope){
 		$scope.tbl = false;
 		
-		$http.get('/api/v1/sabr/opener/teams').then(function(data){
+		$http.get('/api/v1/sabr/teams').then(function(data){
 			$scope.teamData = data.data;
-            $scope.teams = Object.keys(data.data).slice(1);
-            //console.log($scope.teams.slice(1));
+			$scope.teams = data.data.map(function (el) { return el.team; });
         });
-
-        $scope.hands = ['R', 'L'];
-
-        var phrases = ['Hanging curveballs', 'Not bunting', 'Hitting dingers'];
 
         $scope.get_candidate_data = function(data){
         	var p_data = data.data
-        	//console.log(p_data[0]);
     		var pitchers = [];
     		if (p_data.length == 0){
     			pitchers.push({"name": "N/A", "wOBA": "N/A"});
@@ -30,37 +24,42 @@
 
 	    $scope.getCandidates = function(selection){
 	    	data = $scope.teamData;
-	    	console.log(selection);
-	    	team_abbr = data[selection];
+	    	//console.log(selection);
 	    	$scope.loading = true;
-	    	
-	    	$http.get('/api/v1/sabr/opener/' + team_abbr).then(function(data){
-	    		
-	        	$scope.teamName = selection
-	    		var chunkData = data.data//['chunk']
-	    		$scope.chunk = chunkData;
-	            $scope.tbl = true;
-	            if (team_abbr == 'ANY'){
-		        	$scope.desc = false;
-		        }
-		        else{
-		        	$scope.desc = true;
-		        }
-		        $http.get('/api/v1/sabr/opener/' + team_abbr + '/RP/R').then(function(data){
-		    		$scope.rrps = $scope.get_candidate_data(data);
-	    			$http.get('/api/v1/sabr/opener/' + team_abbr + '/SP/R').then(function(data){
-			    		$scope.rsps = $scope.get_candidate_data(data);
-			    		$http.get('/api/v1/sabr/opener/' + team_abbr + '/RP/L').then(function(data){
-				    		$scope.lrps = $scope.get_candidate_data(data);
-				    		$http.get('/api/v1/sabr/opener/' + team_abbr + '/SP/L').then(function(data){
-					    		$scope.lsps = $scope.get_candidate_data(data);
-					    		$scope.loading = false;
-	    					});
-	    				});
-	    			});
-	    		});
-	    	});
 
+		    $http.get('/api/v1/sabr/teams').then(function(data){
+		    	for (var i = 0; i < data.data.length; i++){
+		    		if (data.data[i].team == selection){
+		    			var sa_abbr = data.data[i].abbrs[0].sa;
+		    			var bref_abbr = data.data[i].abbrs[0].bref;
+		    			$http.get('/api/v1/sabr/opener/' + bref_abbr).then(function(data){
+				        	$scope.teamName = selection
+				    		var chunkData = data.data
+				    		$scope.chunk = chunkData;
+				            $scope.tbl = true;
+				            if (sa_abbr == 'ANY'){
+					        	$scope.desc = false;
+					        }
+					        else{
+					        	$scope.desc = true;
+					        }
+					        $http.get('/api/v1/sabr/opener/' + sa_abbr + '/RP/R').then(function(data){
+					    		$scope.rrps = $scope.get_candidate_data(data);
+				    			$http.get('/api/v1/sabr/opener/' + sa_abbr + '/SP/R').then(function(data){
+						    		$scope.rsps = $scope.get_candidate_data(data);
+						    		$http.get('/api/v1/sabr/opener/' + sa_abbr + '/RP/L').then(function(data){
+							    		$scope.lrps = $scope.get_candidate_data(data);
+							    		$http.get('/api/v1/sabr/opener/' + sa_abbr + '/SP/L').then(function(data){
+								    		$scope.lsps = $scope.get_candidate_data(data);
+								    		$scope.loading = false;
+				    					});
+				    				});
+				    			});
+				    		});
+				    	});
+		    		}
+		    	}
+		    });
 	    }
 	}]);
 
