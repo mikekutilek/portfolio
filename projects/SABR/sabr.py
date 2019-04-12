@@ -8,7 +8,7 @@ def get_all_pitchers():
 	This method takes the full active pitcher list from fangraphs
 	"""
 	#p1 = fg.get_all_pitchers_page()
-	p2 = fg.get_all_active_pitchers_page()
+	p2 = fg.get_player_stats_page(active='1')
 	#df = fg.get_table(p1)
 	df = fg.get_table(p2)
 	active_df = pd.DataFrame()
@@ -17,6 +17,7 @@ def get_all_pitchers():
 	#print(active_df)
 	active_df['fullname'] = ''
 	for index, row in active_df.iterrows():
+		continue;
 		#print(row)
 		"""
 		if row['Team'] != '- - -':
@@ -28,7 +29,9 @@ def get_all_pitchers():
 			row['Team'] = sa.get_team('NA')
 		print(row['Name'], row['Team'])
 		"""
-		active_df.loc[index, 'fullname'] = row['Name'].replace(' ', '').strip().lower()
-		row['Team'] = sa.get_team(row['Team'])
+		#active_df.loc[index, 'fullname'] = row['Name'].replace(' ', '').strip().lower()
+		#row['Team'] = sa.get_team(row['Team'])
 		#print(row['Team'])
 	return active_df
+
+print(get_all_pitchers())

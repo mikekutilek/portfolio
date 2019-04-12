@@ -9,6 +9,7 @@ import argparse
 gamelog_categories = {'dashboard': 0, 'standard': 1, 'advanced': 2, 'batted-ball': 3, 'more-batted-ball': 4, 'win-probability': 5, 'pitch-type': 6, 'pitch-value': 7, 'plate-discipline': 8}
 split_categories = {'handedness': 0, 'home-away': 1, 'monthly': 2, 'leverage': 3, 'situational': 4, 'through-count': 5, 'sp-rp': 6, 'shifts': 7, 'tto': 8}
 
+CUR_YEAR = '2018'
 
 def get_category(cat):
 	return gamelog_categories[cat]
@@ -16,42 +17,34 @@ def get_category(cat):
 def get_split(split):
 	return split_categories[split]
 
-def get_all_pitchers_page(season='2018'):
-	url = "https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=0&type=8&season={}&month=0&season1={}&ind=0&team=&rost=&age=&filter=&players=&page=1_1000".format(season, season)
+def get_sabersim_page(pos, ptype):
+	url = "https://www.fangraphs.com/dailyprojections.aspx?pos={}&stats={}&type=sabersim&team=0&lg=all&players=0&page=1_1000".format(pos, ptype)
 	r = requests.get(url)
-	return BeautifulSoup(r.content, "html.parser")
+	html = r.text.replace('<!--', '').replace('-->', '')
+	return BeautifulSoup(html, "lxml")
 
-def get_all_active_pitchers_page(season='2018'):
-	url = "https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=0&type=8&season={}&month=0&season1={}&ind=0&team=0&rost=1&age=0&filter=&players=0&page=1_1000".format(season, season)
+def get_player_stats_page(ptype='pit', cat='8', season=CUR_YEAR, active='0'):
+	url = '''
+	https://www.fangraphs.com/leaders.aspx?
+	pos=all&
+	stats={}&
+	lg=all&
+	qual=0&
+	type={}&
+	season={}&
+	month=0&
+	season1={}&
+	ind=0&
+	team=&
+	rost={}&
+	age=&
+	filter=&
+	players=&
+	page=1_1500
+	'''.replace('\t', '').replace('\n', '').strip().format(ptype, cat, season, season, active)
 	r = requests.get(url)
-	return BeautifulSoup(r.content, "html.parser")
-
-def get_pitch_type_page():
-	url = "https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=0&type=4&season=2018&month=0&season1=2018&ind=0&team=0&rost=0&age=0&filter=&players=0&page=1_1000"
-	r = requests.get(url)
-	return BeautifulSoup(r.content, "html.parser")
-
-def get_pitch_value_page():
-	url = "https://www.fangraphs.com/leaders.aspx?pos=all&stats=bat&lg=all&qual=0&type=7&season=2018&month=0&season1=2018&ind=0&team=0&rost=0&age=0&filter=&players=0&page=1_1500"
-	r = requests.get(url)
-	return BeautifulSoup(r.content, "html.parser")
-
-def get_table(page):
-	table = page.find('table',{'class':'rgMasterTable'})
-	ths = table.find_all('th')
-	headings = []
-	for th in ths:
-		headings.append(th.text.strip())
-	tbody = table.find('tbody')
-	rows = tbody.find_all('tr')
-	data = []
-	for row in rows:
-		cells = row.find_all('td')
-		cells = [cell.text.replace('%', '').strip() for cell in cells]
-		data.append([cell for cell in cells])
-
-	df = pd.DataFrame(data=data, columns=headings)
-	return df
+	html = r.text.replace('<!--', '').replace('-->', '')
+	return BeautifulSoup(html, "lxml")
 
 def get_gamelog_page(pid, cat='dashboard', start='2018-04-01', end=None):
 	if end is None:
@@ -59,19 +52,22 @@ def get_gamelog_page(pid, cat='dashboard', start='2018-04-01', end=None):
 	t_num = get_category(cat)
 	url = "https://www.fangraphs.com/statsd.aspx?playerid={}&position=P&type={}&gds={}&gde={}".format(pid, t_num, start, end)
 	r = requests.get(url)
-	return BeautifulSoup(r.content, "html.parser")
+	html = r.text.replace('<!--', '').replace('-->', '')
+	return BeautifulSoup(html, "lxml")
 
-def get_splits_page(pid, season='2018'):
+def get_splits_page(pid, season=CUR_YEAR):
 	url = "https://www.fangraphs.com/statsplits.aspx?playerid={}&position=P&season={}".format(pid, season)
 	r = requests.get(url)
-	return BeautifulSoup(r.content, "html.parser")
+	html = r.text.replace('<!--', '').replace('-->', '')
+	return BeautifulSoup(html, "lxml")
 
-def get_splits_leaderboard(season='2018'):
-	url = "https://www.fangraphs.com/leaderssplits.aspx?splitArr=43,5&strgroup=season&statgroup=1&startDate=2018-3-1&endDate=2018-11-1&filter=IP%7Cgt%7C20&position=P&statType=player&autoPt=true&players=&pg=0&pageItems=30&sort=19,-1"
+def get_splits_leaderboard(season=CUR_YEAR):
+	url = "https://www.fangraphs.com/leaderssplits.aspx?splitArr=43,5&strgroup=season&statgroup=1&startDate={}-3-1&endDate={}-11-1&filter=IP%7Cgt%7C20&position=P&statType=player&autoPt=true&players=&pg=0&pageItems=30&sort=19,-1".format(season, season)
 	r = requests.get(url)
-	return BeautifulSoup(r.content, "html.parser")
+	html = r.text.replace('<!--', '').replace('-->', '')
+	return BeautifulSoup(html, "lxml")
 
-def get_gamelog_data(page):
+def get_table(page, offset=0):
 	table = page.find('table',{'class':'rgMasterTable'})
 	ths = table.find_all('th')
 	headings = []
@@ -80,7 +76,7 @@ def get_gamelog_data(page):
 	tbody = table.find('tbody')
 	rows = tbody.find_all('tr')
 	data = []
-	for row in rows[2:]:
+	for row in rows[offset:]:
 		cells = row.find_all('td')
 		cells = [cell.text.replace('%', '').strip() for cell in cells]
 		data.append([cell for cell in cells])
@@ -148,7 +144,7 @@ def main():
 			page = get_gamelog_page(args.pid, end=args.end)
 		else:
 			page = get_gamelog_page(args.pid)
-		df = get_gamelog_data(page)
+		df = get_table(page, offset=2)
 		print(df)
 
 if __name__ == '__main__':

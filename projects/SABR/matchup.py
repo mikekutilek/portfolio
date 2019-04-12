@@ -6,15 +6,13 @@ import fangraphs as fg
 import savant as sa
 
 def get_pitchtypes():
-	page = fg.get_pitch_type_page()
-	df = fg.get_table(page)
-	df = df.replace('', 0.0)
+	page = fg.get_player_stats_page(cat='4')
+	df = fg.get_table(page).replace('', 0.0)
 	return df
 
 def get_pitchvalues():
-	page = fg.get_pitch_value_page()
-	df = fg.get_table(page)
-	df = df.replace('', 0.0)
+	page = fg.get_player_stats_page(ptype='bat', cat='7')
+	df = fg.get_table(page).replace('', 0.0)
 	return df
 
 def get_pitch_score(batter, pitcher):
@@ -22,7 +20,8 @@ def get_pitch_score(batter, pitcher):
 	pv_data = get_pitchvalues()
 	pitcher_data = pt_data.loc[pt_data['Name'] == pitcher]
 	batter_data = pv_data.loc[pv_data['Name'] == batter]
-
+	print(pitcher_data)
+	print(batter_data)
 	binx = batter_data.index[0]
 	pinx = pitcher_data.index[0]
 

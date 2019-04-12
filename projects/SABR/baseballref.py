@@ -10,48 +10,48 @@ def get_team_standings_page():
 	html = r.text.replace('<!--', '').replace('-->', '')
 	return BeautifulSoup(html, "lxml")
 
-def get_team_sp_page(season='2018'):
+def get_team_sp_page(season='2019'):
 	url = "https://www.baseball-reference.com/leagues/MLB/{}-starter-pitching.shtml".format(season)
 	r = requests.get(url)
 	return BeautifulSoup(r.content, "html.parser")
 
-def get_standard_pitching_page(season='2018'):
+def get_standard_pitching_page(season='2019'):
 	url = "https://www.baseball-reference.com/leagues/MLB/{}-standard-pitching.shtml".format(season)
 	r = requests.get(url)
 	html = r.text.replace('<!--', '').replace('-->', '')
 	return BeautifulSoup(html, 'lxml')
 
-def get_relief_page(season='2018'):
+def get_relief_page(season='2019'):
 	url = "https://www.baseball-reference.com/leagues/MLB/{}-reliever-pitching.shtml".format(season)
 	r = requests.get(url)
 	html = r.text.replace('<!--', '').replace('-->', '')
 	return BeautifulSoup(html, 'lxml')
 
-def get_starting_page(season='2018'):
+def get_starting_page(season='2019'):
 	url = "https://www.baseball-reference.com/leagues/MLB/{}-starter-pitching.shtml".format(season)
 	r = requests.get(url)
 	html = r.text.replace('<!--', '').replace('-->', '')
 	return BeautifulSoup(html, 'lxml')
 
-def get_sb_pitching_page(season='2018'):
+def get_sb_pitching_page(season='2019'):
 	url = "https://www.baseball-reference.com/leagues/MLB/{}-basesituation-pitching.shtml".format(season)
 	r = requests.get(url)
 	html = r.text.replace('<!--', '').replace('-->', '')
 	return BeautifulSoup(html, 'lxml')
 
-def get_std_batting_page(season='2018'):
+def get_std_batting_page(season='2019'):
 	url = "https://www.baseball-reference.com/leagues/MLB/{}-standard-batting.shtml".format(season)
 	r = requests.get(url)
 	html = r.text.replace('<!--', '').replace('-->', '')
 	return BeautifulSoup(html, 'lxml')
 
-def get_std_fielding_page(season='2018'):
+def get_std_fielding_page(season='2019'):
 	url = "https://www.baseball-reference.com/leagues/MLB/{}-standard-fielding.shtml".format(season)
 	r = requests.get(url)
 	html = r.text.replace('<!--', '').replace('-->', '')
 	return BeautifulSoup(html, 'lxml')
 
-def get_of_fielding_page(season='2018'):
+def get_of_fielding_page(season='2019'):
 	url = "https://www.baseball-reference.com/leagues/MLB/{}-specialpos_of-fielding.shtml".format(season)
 	r = requests.get(url)
 	html = r.text.replace('<!--', '').replace('-->', '')
