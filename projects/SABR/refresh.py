@@ -8,6 +8,12 @@ import opener as op
 import json
 import pymongo #pymongo-3.7.2
 
+chrome_options = Options()
+chrome_options.binary_location = GOOGLE_CHROME_BIN
+chrome_options.add_argument('--disable-gpu')
+chrome_options.add_argument('--no-sandbox')
+driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
+
 def conn():
 	return pymongo.MongoClient("mongodb+srv://admin:pdometer@mongo-uwij2.mongodb.net/test?retryWrites=true")
 
@@ -57,12 +63,15 @@ def load_opener_candidates():
 	insert_to_table('opener_candidates', rsp_df)
 	insert_to_table('opener_candidates', lsp_df)
 
+def load_expected_stats():
+	url = sa.get_exp_stats()
+
 def main():
 	load_bref_team_sp()
 	load_batter_fp()
 	load_pitcher_fp()
 	load_opener_candidates()
-	print(load_teams())
+	load_teams()
 
 if __name__ == '__main__':
 	main()

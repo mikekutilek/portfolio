@@ -6,14 +6,14 @@
 		"img": "DICloudSunrise.jpg"
 	},
 	{
-		"gallery": "North Shore",
-		"id": "p643775603",
+		"gallery": "Cityscapes",
+		"id": "p588776459",
 		"category": "pittsburgh",
 		"img": "DawnNS.jpg"
 	},
 	{
-		"gallery": "Downtown",
-		"id": "p870135465",
+		"gallery": "Sunset",
+		"id": "p876945251",
 		"category": "pittsburgh",
 		"img": "Downtown - From PNC Park (3 of 3).jpg"
 	},
@@ -31,26 +31,26 @@
 	},
 	{
 		"gallery": "Spring",
-		"id": "p42031841",
+		"id": "p87428120",
 		"category": "pittsburgh",
 		"img": "Cathedral Spring.jpg"
 	},
 	{
-		"gallery": "Disney",
-		"id": "f210088368",
-		"category": "disney",
+		"gallery": "Bryce Canyon",
+		"id": "p708302377",
+		"category": "bryce",
 		"img": "Disney.jpg"
 	},
 	{
-		"gallery": "Block Island",
-		"id": "p108897104",
-		"category": "bi",
+		"gallery": "Hawaii",
+		"id": "p701656170",
+		"category": "hawaii",
 		"img": "BIHouse.jpg"
 	},
 	{
-		"gallery": "Fog",
-		"id": "p961389380",
-		"category": "pittsburgh",
+		"gallery": "Zion",
+		"id": "p600574251",
+		"category": "zion",
 		"img": "Fog2.jpg"
 	}
 ]

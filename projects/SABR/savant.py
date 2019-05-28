@@ -2,7 +2,12 @@ import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
 import requests
-import sys, json, re
+import sys, json, re, time
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 def get_page(batter_stands='', position='', hfInn='', min_results='', group_by='name', sort_col=''):
 	url = '''
@@ -57,9 +62,10 @@ def get_exp_stats(ptype='', year='', position='', team='', min_results='25'):
 	team={}&
 	min={}
 	'''.replace('\t', '').replace('\n', '').strip().format(ptype, year, position, team, min_results)
-	r = requests.get(url)
+	return url
+	#r = requests.get(url)
 	#html = r.text.replace('<!--', '').replace('-->', '')
-	return BeautifulSoup(r.content, "html.parser")
+	#return BeautifulSoup(r.content, "html.parser")
 
 def get_table(page):
 	table = page.find('table',{'id':'search_results'})
@@ -79,29 +85,22 @@ def get_table(page):
 	df = pd.DataFrame(data=data, columns=headings[:-3])
 	return df
 
-def get_leaderboard_table(page, div_id):
-	#table_wrap = page.find('div', {'id':div_id})
-	#print(table_wrap)
-	table = page.select('div#expected_stats')
+def get_leaderboard_table(url):
+	driver = webdriver.Chrome()
+	driver.implicitly_wait(10)
+	driver.get(url)
+	#csvbtn = driver.find_element_by_id('btnCSV')
+	#csvbtn.click()
+	time.sleep(5)
+	table = driver.find_element_by_css_selector("div#expected_stats > table")
 	print(table)
-	thead = table.find('thead')
-	thead_rows = thead.find_all('tr')
-	ths = thead_rows[1].find_all('th')
-	headings = []
-	for th in ths:
-		headings.append(th.text.strip())
-	tbody = table.find('tbody')
-	rows = tbody.find_all('tr')
-	data = []
-	for row in rows:
-		cells = row.find_all('td')
-		#cells = [cell.text.replace('%', '').strip() for cell in cells]
-		data.append([cell.text.strip() for cell in cells])
+	time.sleep(5)
+	#print(csvbtn.text)
+	driver.quit()
 
-	df = pd.DataFrame(data=data, columns=headings)
-	return df
-"""
 page = get_exp_stats()
+get_leaderboard_table(page)
+"""
 #print(page.prettify().encode("utf-8"))
 table = page.find_all('script')
 data_string = table[9].string#text[16:-2]
