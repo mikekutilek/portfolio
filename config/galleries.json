@@ -3,19 +3,19 @@
 		"gallery": "Sunrise",
 		"id": "p42031841",
 		"category": "pittsburgh",
-		"img": "DICloudSunrise.jpg"
+		"img": "VibrantSunrise.jpg"
 	},
 	{
 		"gallery": "Cityscapes",
 		"id": "p588776459",
 		"category": "pittsburgh",
-		"img": "DawnNS.jpg"
+		"img": "DICloudSunrise.jpg"
 	},
 	{
 		"gallery": "Sunset",
 		"id": "p876945251",
 		"category": "pittsburgh",
-		"img": "Downtown - From PNC Park (3 of 3).jpg"
+		"img": "PointSunset.jpg"
 	},
 	{
 		"gallery": "Fall",
@@ -27,7 +27,7 @@
 		"gallery": "Winter",
 		"id": "p1021149870",
 		"category": "pittsburgh",
-		"img": "NSSnow.jpg"
+		"img": "InclineSnow.jpg"
 	},
 	{
 		"gallery": "Spring",
@@ -39,18 +39,18 @@
 		"gallery": "Bryce Canyon",
 		"id": "p708302377",
 		"category": "bryce",
-		"img": "Disney.jpg"
+		"img": "bryce.jpg"
 	},
 	{
 		"gallery": "Hawaii",
 		"id": "p701656170",
 		"category": "hawaii",
-		"img": "BIHouse.jpg"
+		"img": "hawaii.jpg"
 	},
 	{
 		"gallery": "Zion",
 		"id": "p600574251",
 		"category": "zion",
-		"img": "Fog2.jpg"
+		"img": "zion.jpg"
 	}
 ]
