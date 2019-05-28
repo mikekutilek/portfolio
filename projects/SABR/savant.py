@@ -98,8 +98,8 @@ def get_leaderboard_table(url):
 	#print(csvbtn.text)
 	driver.quit()
 
-page = get_exp_stats()
-get_leaderboard_table(page)
+#page = get_exp_stats()
+#get_leaderboard_table(page)
 """
 #print(page.prettify().encode("utf-8"))
 table = page.find_all('script')

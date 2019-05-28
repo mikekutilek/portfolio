@@ -7,12 +7,14 @@ import fp
 import opener as op
 import json
 import pymongo #pymongo-3.7.2
+import os
 
-chrome_options = Options()
-chrome_options.binary_location = GOOGLE_CHROME_BIN
-chrome_options.add_argument('--disable-gpu')
-chrome_options.add_argument('--no-sandbox')
-driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
+if 'DYNO' in os.environ:
+	chrome_options = Options()
+	chrome_options.binary_location = GOOGLE_CHROME_BIN
+	chrome_options.add_argument('--disable-gpu')
+	chrome_options.add_argument('--no-sandbox')
+	driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
 
 def conn():
 	return pymongo.MongoClient("mongodb+srv://admin:pdometer@mongo-uwij2.mongodb.net/test?retryWrites=true")
