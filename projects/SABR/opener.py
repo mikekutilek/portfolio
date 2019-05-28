@@ -61,6 +61,7 @@ def main():
 	args = parser.parse_args()
 
 	df = get_team_candidates(args.team, args.hand, args.pos)
+	#df = get_team_candidates(args.team, args.hand, args.pos)
 	#opener_data = {"candidates": []}
 
 	#for index, r in df.iterrows():

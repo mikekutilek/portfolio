@@ -6,7 +6,9 @@
 		
 		$http.get('/api/v1/sabr/teams').then(function(data){
 			$scope.teamData = data.data;
-			$scope.teams = data.data.map(function (el) { return el.team; });
+			$scope.teams = data.data.map(function (el) { 
+				return el.master_abbr; 
+			});
         });
 
         $scope.get_candidate_data = function(data){
@@ -29,12 +31,12 @@
 
 		    $http.get('/api/v1/sabr/teams').then(function(data){
 		    	for (var i = 0; i < data.data.length; i++){
-		    		if (data.data[i].team == selection){
+		    		if (data.data[i].master_abbr == selection || data.data[i].team == selection){
 		    			var sa_abbr = data.data[i].abbrs[0].sa;
 		    			var bref_abbr = data.data[i].abbrs[0].bref;
+		    			$scope.teamName = data.data[i].team;
 		    			$http.get('/api/v1/sabr/opener/' + bref_abbr).then(function(data){
-				        	$scope.teamName = selection
-				    		var chunkData = data.data
+				    		var chunkData = data.data;
 				    		$scope.chunk = chunkData;
 				            $scope.tbl = true;
 				            if (sa_abbr == 'ANY'){
