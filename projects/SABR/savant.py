@@ -3,11 +3,6 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import requests
 import sys, json, re, time
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 def get_page(batter_stands='', position='', hfInn='', min_results='', group_by='name', sort_col=''):
 	url = '''
@@ -84,30 +79,3 @@ def get_table(page):
 
 	df = pd.DataFrame(data=data, columns=headings[:-3])
 	return df
-
-def get_leaderboard_table(url):
-	driver = webdriver.Chrome()
-	driver.implicitly_wait(10)
-	driver.get(url)
-	#csvbtn = driver.find_element_by_id('btnCSV')
-	#csvbtn.click()
-	time.sleep(5)
-	table = driver.find_element_by_css_selector("div#expected_stats > table")
-	print(table)
-	time.sleep(5)
-	#print(csvbtn.text)
-	driver.quit()
-
-#page = get_exp_stats()
-#get_leaderboard_table(page)
-"""
-#print(page.prettify().encode("utf-8"))
-table = page.find_all('script')
-data_string = table[9].string#text[16:-2]
-p = re.compile("var data = (.*?);")
-print(p)
-m = p.match(data_string)
-players = json.loads(m.groups()[0])
-print(players)
-#expected_stats > table
-"""
