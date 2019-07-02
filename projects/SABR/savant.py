@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import requests
 import sys, json, re, time
 
-def get_page(batter_stands='', position='', hfInn='', min_results='', group_by='name', sort_col=''):
+def get_page(hfGT='R', hfSea='2019', player_type='pitcher', batter_stands='', position='', hfInn='', min_results='', group_by='name', sort_col=''):
 	url = '''
 	https://baseballsavant.mlb.com/statcast_search?
 	hfPT=&
@@ -15,11 +15,11 @@ def get_page(batter_stands='', position='', hfInn='', min_results='', group_by='
 	stadium=&
 	hfBBL=&
 	hfNewZones=&
-	hfGT=R%7C&
+	hfGT={}%7C&
 	hfC=&
-	hfSea=2019%7C&
+	hfSea={}%7C&
 	hfSit=&
-	player_type=pitcher&
+	player_type={}&
 	hfOuts=&
 	opponent=&
 	pitcher_throws=&
@@ -44,7 +44,7 @@ def get_page(batter_stands='', position='', hfInn='', min_results='', group_by='
 	player_event_sort=h_launch_speed&
 	sort_order=desc&
 	min_pas=0#results
-	'''.replace('\t', '').replace('\n', '').strip().format(batter_stands, position, hfInn, min_results, group_by, sort_col)
+	'''.replace('\t', '').replace('\n', '').strip().format(hfGT, hfSea, player_type, batter_stands, position, hfInn, min_results, group_by, sort_col)
 	r = requests.get(url)
 	return BeautifulSoup(r.content, "html.parser")
 
