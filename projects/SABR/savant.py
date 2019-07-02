@@ -17,7 +17,7 @@ def get_page(batter_stands='', position='', hfInn='', min_results='', group_by='
 	hfNewZones=&
 	hfGT=R%7C&
 	hfC=&
-	hfSea=2018%7C&
+	hfSea=2019%7C&
 	hfSit=&
 	player_type=pitcher&
 	hfOuts=&

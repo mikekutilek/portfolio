@@ -42,4 +42,4 @@ def get_all_pitchers():
 		#print(row['Team'])
 	return active_df
 
-print(get_all_pitchers())
+#print(get_all_pitchers())
