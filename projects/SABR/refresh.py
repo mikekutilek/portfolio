@@ -74,8 +74,8 @@ def main():
 	load_bref_team_sp()
 	load_batter_fp()
 	load_pitcher_fp()
-	#load_opener_candidates()
-	#load_teams()
+	load_opener_candidates()
+	load_teams()
 
 if __name__ == '__main__':
 	main()
