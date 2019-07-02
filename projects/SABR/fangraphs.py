@@ -5,11 +5,15 @@ import requests
 import sys
 import datetime as dt
 import argparse
+import pymongo #pymongo-3.7.2
 
 gamelog_categories = {'dashboard': 0, 'standard': 1, 'advanced': 2, 'batted-ball': 3, 'more-batted-ball': 4, 'win-probability': 5, 'pitch-type': 6, 'pitch-value': 7, 'plate-discipline': 8}
 split_categories = {'handedness': 0, 'home-away': 1, 'monthly': 2, 'leverage': 3, 'situational': 4, 'through-count': 5, 'sp-rp': 6, 'shifts': 7, 'tto': 8}
 
-CUR_YEAR = '2018'
+CUR_YEAR = '2019'
+
+def conn():
+	return pymongo.MongoClient("mongodb+srv://admin:pdometer@mongo-uwij2.mongodb.net/test?retryWrites=true")
 
 def get_category(cat):
 	return gamelog_categories[cat]
@@ -46,7 +50,7 @@ def get_player_stats_page(ptype='pit', cat='8', season=CUR_YEAR, active='0'):
 	html = r.text.replace('<!--', '').replace('-->', '')
 	return BeautifulSoup(html, "lxml")
 
-def get_gamelog_page(pid, cat='dashboard', start='2018-04-01', end=None):
+def get_gamelog_page(pid, cat='dashboard', start='2019-04-01', end=None):
 	if end is None:
 		end = str(dt.datetime.now()).split(' ')[0]
 	t_num = get_category(cat)
@@ -111,6 +115,25 @@ def get_split_data(page, split='handedness'):
 		data.append([cell.text for cell in cells])
 	df = pd.DataFrame(data=data, columns=headings)
 	return df
+
+def get_all_pitchers():
+	client = conn()
+	db = client['SABR']
+	table = db['teams']
+	"""
+	This method takes the full active pitcher list from fangraphs and matches the team against Savant Team Abbreviations stored in MongoDB
+	"""
+	p2 = get_player_stats_page(active='1')
+	df = get_table(p2)
+	active_df = pd.DataFrame()
+	active_df['Name'] = df['Name']
+	active_df['Team'] = df['Team']
+	active_df['fullname'] = ''
+	for index, row in active_df.iterrows():
+		team_abbr = table.find({ "team" : row['Team'] })
+		active_df.loc[index, 'fullname'] = row['Name'].replace(' ', '').strip().lower()
+		row['Team'] = team_abbr[0]['abbrs'][0]['sa']
+	return active_df
 
 def main():
 	parser = argparse.ArgumentParser()

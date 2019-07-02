@@ -2,9 +2,9 @@ import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
 import requests
-import sys, json, re, time
+import sys, json, re, time, io
 
-def get_page(hfGT='R', hfSea='2019', player_type='pitcher', batter_stands='', position='', hfInn='', min_results='', group_by='name', sort_col=''):
+def get_search_page(hfGT='R', hfSea='2019', player_type='pitcher', batter_stands='', position='', hfInn='', min_results='', group_by='name', sort_col=''):
 	url = '''
 	https://baseballsavant.mlb.com/statcast_search?
 	hfPT=&
@@ -48,34 +48,97 @@ def get_page(hfGT='R', hfSea='2019', player_type='pitcher', batter_stands='', po
 	r = requests.get(url)
 	return BeautifulSoup(r.content, "html.parser")
 
-def get_exp_stats(ptype='', year='', position='', team='', min_results='25'):
+def get_player_page(firstName='', lastName='', playerId='', category='career', szn_split='r', statType='', league='mlb', season='2019'):
 	url = '''
-	https://baseballsavant.mlb.com/expected_statistics?
-	type={}&
-	year={}&
-	position={}&
-	team={}&
-	min={}
-	'''.replace('\t', '').replace('\n', '').strip().format(ptype, year, position, team, min_results)
-	return url
-	#r = requests.get(url)
-	#html = r.text.replace('<!--', '').replace('-->', '')
-	#return BeautifulSoup(r.content, "html.parser")
+	https://baseballsavant.mlb.com/savant-player/
+	{}-{}-{}?
+	stats={}-{}-{}-{}&
+	season={}
+	'''.replace('\t', '').replace('\n', '').strip().format(firstName, lastName, playerId, category, szn_split, statType, league, season)
+	r = requests.get(url)
+	html = r.text.replace('<!--', '').replace('-->', '')
+	return BeautifulSoup(html, 'lxml')
 
-def get_table(page):
+def get_pitcher_page(firstName='', lastName='', playerId=''):
+	return get_player_page(firstName, lastName, playerId, statType='pitching')
+
+def get_batter_page(firstName='', lastName='', playerId=''):
+	return get_player_page(firstName, lastName, playerId, statType='hitting')
+
+def get_leaderboard_page():
+	r = requests.get("https://baseballsavant.mlb.com/expected_statistics?csv=true").content
+	return r
+
+def get_zones_page(playerId='', playerType='', season='2019', hand=''):
+	url = '''
+	https://baseballsavant.mlb.com/player-services/zones?
+	playerIds={}&
+	playerType={}&
+	season={}&
+	hand={}
+	'''.replace('\t', '').replace('\n', '').strip().format(playerId, playerType, season, hand)
+	r = requests.get(url)
+	html = r.text.replace('<!--', '').replace('-->', '')
+	return BeautifulSoup(html, 'lxml')
+
+def get_pitch_type_breakdown_page():
+	url = '''
+	https://baseballsavant.mlb.com/player-services/statcast-pitches-breakdown?
+	playerId=605397&
+	position=1&
+	hand=&
+	pitchBreakdown=pitches&
+	timeFrame=game&
+	season=&
+	pitchType=&
+	updatePitches=false
+	'''.replace('\t', '').replace('\n', '').strip()
+	r = requests.get(url)
+	return BeautifulSoup(r.content, "html.parser")
+
+def get_search_result_table(page):
 	table = page.find('table',{'id':'search_results'})
 	thead = table.find('thead')
 	ths = thead.find_all('th')
 	headings = []
 	for th in ths:
 		headings.append(th.text.strip())
+	headings = headings[:-3]
+	headings.append("Player ID")
 	tbody = table.find('tbody')
 	rows = tbody.find_all('tr')
 	data = []
 	for row in rows[::2]:
+		player_id = row.attrs['id'][12:18]
 		cells = row.find_all('td')
-		#cells = [cell.text.replace('%', '').strip() for cell in cells]
-		data.append([cell.text.strip() for cell in cells])
-
-	df = pd.DataFrame(data=data, columns=headings[:-3])
+		row_data = []
+		for cell in cells:
+			row_data.append(cell.text.strip())
+		row_data.append(player_id)
+		data.append(row_data)
+	df = pd.DataFrame(data=data, columns=headings)
 	return df
+
+def get_df_from_table(table):
+	ths = table.find_all('th')
+	headings = []
+	for th in ths:
+		headings.append(th.text.strip())
+	tbody = table.find('tbody')
+	rows = tbody.find_all('tr')
+	data = []
+	for row in rows:
+		cells = row.find_all('td')
+		data.append([cell.text.strip() for cell in cells])
+	df = pd.DataFrame(data=data, columns=headings)
+	return df
+
+def get_leaderboard_table(page):
+	df = pd.read_csv(io.StringIO(page.decode('utf-8')))
+	return df
+
+def get_zone_data(page):
+	arr = eval('[' + page.text[1:-1] + ']')
+	return pd.DataFrame(arr)
+
+#print(get_zone_data(get_zones_page(playerId='605397', playerType='pitching', hand='L')))

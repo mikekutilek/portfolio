@@ -71,11 +71,11 @@ def load_expected_stats():
 	url = sa.get_exp_stats()
 
 def main():
+	load_teams()
 	load_bref_team_sp()
 	load_batter_fp()
 	load_pitcher_fp()
 	load_opener_candidates()
-	load_teams()
 
 if __name__ == '__main__':
 	main()
