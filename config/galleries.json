@@ -3,54 +3,54 @@
 		"gallery": "Sunrise",
 		"id": "p42031841",
 		"category": "pittsburgh",
-		"img": "VibrantSunrise.jpg"
+		"img": "Sunrise.jpg"
 	},
 	{
 		"gallery": "Cityscapes",
 		"id": "p588776459",
 		"category": "pittsburgh",
-		"img": "DICloudSunrise.jpg"
+		"img": "Cityscape.jpg"
 	},
 	{
 		"gallery": "Sunset",
 		"id": "p876945251",
 		"category": "pittsburgh",
-		"img": "PointSunset.jpg"
+		"img": "Sunset.jpg"
 	},
 	{
 		"gallery": "Fall",
 		"id": "p1006289073",
 		"category": "pittsburgh",
-		"img": "MIFall.jpg"
+		"img": "Fall.jpg"
 	},
 	{
 		"gallery": "Winter",
 		"id": "p1021149870",
 		"category": "pittsburgh",
-		"img": "InclineSnow.jpg"
+		"img": "Winter.jpg"
 	},
 	{
 		"gallery": "Spring",
 		"id": "p87428120",
 		"category": "pittsburgh",
-		"img": "Cathedral Spring.jpg"
+		"img": "Spring.jpg"
 	},
 	{
 		"gallery": "Bryce Canyon",
 		"id": "p708302377",
 		"category": "bryce",
-		"img": "bryce.jpg"
+		"img": "Bryce.jpg"
 	},
 	{
 		"gallery": "Hawaii",
 		"id": "p701656170",
 		"category": "hawaii",
-		"img": "hawaii.jpg"
+		"img": "Hawaii.jpg"
 	},
 	{
 		"gallery": "Zion",
 		"id": "p600574251",
 		"category": "zion",
-		"img": "zion.jpg"
+		"img": "Zion.jpg"
 	}
 ]
