@@ -38,19 +38,19 @@
 	{
 		"gallery": "Bryce Canyon",
 		"id": "p708302377",
-		"category": "bryce",
+		"category": "travel",
 		"img": "Bryce.jpg"
 	},
 	{
 		"gallery": "Hawaii",
 		"id": "p701656170",
-		"category": "hawaii",
+		"category": "travel",
 		"img": "Hawaii.jpg"
 	},
 	{
 		"gallery": "Zion",
 		"id": "p600574251",
-		"category": "zion",
+		"category": "travel",
 		"img": "Zion.jpg"
 	}
 ]
