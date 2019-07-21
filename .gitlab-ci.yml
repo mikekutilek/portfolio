@@ -1,0 +1,12 @@
+stages:
+  - mlb_refresh
+  - nhl_refresh
+  - nfl_refresh
+
+sabr:
+  stage: mlb_refresh
+  tags:
+    - sabr
+  script:
+    - pip install -r requirements.txt
+    - python projects/SABR/refresh.py
