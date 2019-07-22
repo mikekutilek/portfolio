@@ -6,7 +6,21 @@ stages:
 sabr:
   stage: mlb_refresh
   tags:
-    - sabr
+    - gitlab-org
   script:
     - pip install -r requirements.txt
     - python projects/SABR/refresh.py
+
+corsica:
+  stage: nhl_refresh
+  tags:
+    - gitlab-org
+  script:
+    - python projects/Corsica/refresh.py
+
+wopr:
+  stage: nfl_refresh
+  tags:
+    - gitlab-org
+  script:
+    - python projects/WOPR/refresh.py
