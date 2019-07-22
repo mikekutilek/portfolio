@@ -22,6 +22,7 @@ corsica:
   tags:
     - gitlab-org
   script:
+    - pip install -r requirements.txt
     - cd projects/Corsica
     - python refresh.py
 
@@ -30,5 +31,6 @@ wopr:
   tags:
     - gitlab-org
   script:
+    - pip install -r requirements.txt
     - cd projects/WOPR
     - python refresh.py
