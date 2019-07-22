@@ -1,8 +1,5 @@
 image: "python:3.5"
 
-services:
-  - mongo:latest
-
 before_script:
   - python --version
 
@@ -25,7 +22,7 @@ corsica:
   tags:
     - gitlab-org
   script:
-    - cd ../../projects/Corsica
+    - cd projects/Corsica
     - python refresh.py
 
 wopr:
@@ -33,5 +30,5 @@ wopr:
   tags:
     - gitlab-org
   script:
-    - cd ../../projects/WOPR
+    - cd projects/WOPR
     - python refresh.py
