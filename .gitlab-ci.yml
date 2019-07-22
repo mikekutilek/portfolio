@@ -1,3 +1,11 @@
+image: "python:3.5"
+
+services:
+  - mongo:latest
+
+before_script:
+  - python --version
+
 stages:
   - mlb_refresh
   - nhl_refresh
@@ -8,7 +16,6 @@ sabr:
   tags:
     - gitlab-org
   script:
-    - apk add --update py-pip
     - pip install -r requirements.txt
     - python projects/SABR/refresh.py
 
