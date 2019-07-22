@@ -10,6 +10,8 @@ stages:
 
 sabr:
   stage: mlb_refresh
+  only:
+    - schedules
   tags:
     - gitlab-org
   script:
@@ -19,6 +21,8 @@ sabr:
 
 corsica:
   stage: nhl_refresh
+  only:
+    - schedules
   tags:
     - gitlab-org
   script:
@@ -28,6 +32,8 @@ corsica:
 
 wopr:
   stage: nfl_refresh
+  only:
+    - schedules
   tags:
     - gitlab-org
   script:
