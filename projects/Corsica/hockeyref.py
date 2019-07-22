@@ -55,6 +55,7 @@ def get_table(page):
 		elif heading in ['Rk', 'Age']: #Ints
 			df[heading] = df[heading].replace('', 0).astype(int)
 		elif heading in ['ATOI', 'TOI/60', 'TOI(EV)']:
+			df[heading] = df[heading].replace('', '00:00')
 			df[heading] = '00:' + df[heading]
 			df[heading] = pd.to_timedelta(df[heading], unit='h')
 		else:
