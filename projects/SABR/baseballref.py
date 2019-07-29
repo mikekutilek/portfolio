@@ -113,9 +113,8 @@ def get_table(page):
 	return df.sort_values(by=['RA/G'])
 
 def get_table_by_id(page, table_id):
-	print(type(table_id))
-	print(table_id)
 	table = page.find('table', id=table_id)
+	#print(table.encode('utf-8'))
 	thead = table.find('thead')
 	#trs = thead.find_all('tr')[1]
 	ths = thead.find_all('th')
@@ -139,3 +138,10 @@ def get_teams():
 	table = get_table_by_id(page, 'expanded_standings_overall')
 	df = table['Tm']
 	return df
+
+"""
+page = get_team_standings_page()
+table = get_table_by_id(page, 'expanded_standings_overall')
+#df = table['Tm']
+print(table['Tm'])
+"""
