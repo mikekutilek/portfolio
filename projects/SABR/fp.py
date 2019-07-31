@@ -20,9 +20,9 @@ def get_all_batter_fps():
 	of_page = br.get_of_fielding_page()
 	ofs = br.get_player_table(of_page)
 	
-	df2 = pd.merge(batters, ofs[['A', 'Name']], on=['Name'], how='left').fillna(0)
+	df2 = pd.merge(batters, ofs[['A', 'Name', 'Tm']], on=['Name', 'Tm'], how='left').fillna(0)
 	df2.rename(columns={'A':'OFA'}, inplace=True)
-	df3 = pd.merge(df2, fielders[['A', 'E', 'Name']], on=['Name'], how='left').fillna(0)
+	df3 = pd.merge(df2, fielders[['A', 'E', 'Name', 'Tm']], on=['Name', 'Tm'], how='left').fillna(0)
 
 	#batting and fielding data
 	players = df3['Name'].astype('str')
@@ -65,9 +65,9 @@ def get_all_pitcher_fps():
 	sb_page = br.get_sb_pitching_page()
 	sb_table = br.get_player_table(sb_page)
 
-	df2 = pd.merge(pitchers, relievers[['Hold', 'BSv', 'Name']], on=['Name'], how='left').fillna(0)
-	df3 = pd.merge(df2, qs_table[['QS', 'Name']], on=['Name'], how='left').fillna(0)
-	df4 = pd.merge(df3, sb_table[['SB', 'Name']], on=['Name'], how='left').fillna(0)
+	df2 = pd.merge(pitchers, relievers[['Hold', 'BSv', 'Name', 'Tm']], on=['Name', 'Tm'], how='left').fillna(0)
+	df3 = pd.merge(df2, qs_table[['QS', 'Name', 'Tm']], on=['Name', 'Tm'], how='left').fillna(0)
+	df4 = pd.merge(df3, sb_table[['SB', 'Name', 'Tm']], on=['Name', 'Tm'], how='left').fillna(0)
 	#print(list(df3))
 
 	players = df3['Name'].astype('str')
