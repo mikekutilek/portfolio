@@ -61,9 +61,6 @@ def load_opener_candidates():
 	insert_to_table('opener_candidates', rsp_df)
 	insert_to_table('opener_candidates', lsp_df)
 
-def load_expected_stats():
-	url = sa.get_exp_stats()
-
 def main():
 	load_teams()
 	load_bref_team_sp()

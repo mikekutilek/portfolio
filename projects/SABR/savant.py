@@ -48,6 +48,29 @@ def get_search_page(hfGT='R', hfSea='2019', player_type='pitcher', batter_stands
 	r = requests.get(url)
 	return BeautifulSoup(r.content, "html.parser")
 
+def get_search_result_table(page):
+	table = page.find('table',{'id':'search_results'})
+	thead = table.find('thead')
+	ths = thead.find_all('th')
+	headings = []
+	for th in ths:
+		headings.append(th.text.strip())
+	headings = headings[:-3]
+	headings.append("Player ID")
+	tbody = table.find('tbody')
+	rows = tbody.find_all('tr')
+	data = []
+	for row in rows[::2]:
+		player_id = row.attrs['id'][12:18]
+		cells = row.find_all('td')
+		row_data = []
+		for cell in cells:
+			row_data.append(cell.text.strip())
+		row_data.append(player_id)
+		data.append(row_data)
+	df = pd.DataFrame(data=data, columns=headings)
+	return df
+
 def get_player_page(firstName='', lastName='', playerId='', category='career', szn_split='r', statType='', league='mlb', season='2019'):
 	url = '''
 	https://baseballsavant.mlb.com/savant-player/
@@ -65,6 +88,24 @@ def get_pitcher_page(firstName='', lastName='', playerId=''):
 def get_batter_page(firstName='', lastName='', playerId=''):
 	return get_player_page(firstName, lastName, playerId, statType='hitting')
 
+def get_table_from_css(page, css):
+	return page.select_one(css)
+
+def build_df(table):
+	ths = table.find_all('th')
+	headings = []
+	for th in ths:
+		headings.append(th.text.strip())
+	tbody = table.find('tbody')
+	rows = tbody.find_all('tr')
+	data = []
+	for row in rows:
+		cells = row.find_all('td')
+		data.append([cell.text.strip() for cell in cells])
+	df = pd.DataFrame(data=data, columns=headings)
+	return df
+
+#UNUSED - SAVE for FUTURE DEV
 def get_leaderboard_page():
 	r = requests.get("https://baseballsavant.mlb.com/expected_statistics?csv=true").content
 	return r
@@ -95,43 +136,6 @@ def get_pitch_type_breakdown_page():
 	'''.replace('\t', '').replace('\n', '').strip()
 	r = requests.get(url)
 	return BeautifulSoup(r.content, "html.parser")
-
-def get_search_result_table(page):
-	table = page.find('table',{'id':'search_results'})
-	thead = table.find('thead')
-	ths = thead.find_all('th')
-	headings = []
-	for th in ths:
-		headings.append(th.text.strip())
-	headings = headings[:-3]
-	headings.append("Player ID")
-	tbody = table.find('tbody')
-	rows = tbody.find_all('tr')
-	data = []
-	for row in rows[::2]:
-		player_id = row.attrs['id'][12:18]
-		cells = row.find_all('td')
-		row_data = []
-		for cell in cells:
-			row_data.append(cell.text.strip())
-		row_data.append(player_id)
-		data.append(row_data)
-	df = pd.DataFrame(data=data, columns=headings)
-	return df
-
-def get_df_from_table(table):
-	ths = table.find_all('th')
-	headings = []
-	for th in ths:
-		headings.append(th.text.strip())
-	tbody = table.find('tbody')
-	rows = tbody.find_all('tr')
-	data = []
-	for row in rows:
-		cells = row.find_all('td')
-		data.append([cell.text.strip() for cell in cells])
-	df = pd.DataFrame(data=data, columns=headings)
-	return df
 
 def get_leaderboard_table(page):
 	df = pd.read_csv(io.StringIO(page.decode('utf-8')))

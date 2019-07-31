@@ -47,8 +47,8 @@ def get_all_candidates(batter_stands, position):
 				#html = r.text.replace('<!--', '').replace('-->', '')
 				#soup = BeautifulSoup(html, 'lxml')
 				page = sa.get_pitcher_page(firstname, lastname, row['Player ID'])
-				table = page.select_one("#pitchingStandard > table")
-				t = sa.get_df_from_table(table).iloc[[-2]]['Tm'].item()
+				table = sa.get_table_from_css("#pitchingStandard > table")
+				t = sa.build_df(table).iloc[[-2]]['Tm'].item()
 				data.loc[index, 'Team'] = t
 			else:
 				t = df.loc[df['fullname'] == playername].Team.item()
