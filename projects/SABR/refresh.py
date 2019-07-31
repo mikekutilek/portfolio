@@ -9,14 +9,7 @@ import json
 import pymongo #pymongo-3.7.2
 import os
 
-"""
-if 'DYNO' in os.environ:
-	chrome_options = Options()
-	chrome_options.binary_location = GOOGLE_CHROME_BIN
-	chrome_options.add_argument('--disable-gpu')
-	chrome_options.add_argument('--no-sandbox')
-	driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
-"""
+CUR_SEASON = "2019"
 
 def conn():
 	return pymongo.MongoClient("mongodb+srv://admin:pdometer@mongo-uwij2.mongodb.net/test?retryWrites=true")
@@ -45,8 +38,9 @@ def load_teams():
 	table.insert(df)
 
 def load_bref_team_sp():
-	page = bref.get_team_sp_page()
-	df = bref.get_table(page)
+	url = "https://www.baseball-reference.com/leagues/MLB/{}-starter-pitching.shtml".format(CUR_SEASON)
+	page = bref.get_page(url)
+	df = bref.build_df(bref.get_table_by_class(page, 'stats_table'), 0, ['Tm'], ['']).sort_values(by=['RA/G'])
 	refresh_table('bref_team_sp', df)
 
 def load_batter_fp():

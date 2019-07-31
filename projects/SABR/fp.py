@@ -8,17 +8,20 @@ import baseballref as br
 import argparse
 
 pd.options.mode.chained_assignment = None
+CUR_SEASON = "2019"
 
 def get_all_batter_fps():
+	url = "https://www.baseball-reference.com/leagues/MLB/{}-standard-batting.shtml".format(CUR_SEASON)
+	page = br.get_page(url)
+	batters = br.build_df(br.get_table_by_class(page, 'stats_table'), 1, ['Name', 'Tm', 'Lg', 'Pos\xa0Summary'], ['Rk', 'Age'])
 	
-	page = br.get_std_batting_page()
-	batters = br.get_player_table(page)
-	
-	field_page = br.get_std_fielding_page()
-	fielders = br.get_player_table(field_page)
+	url = "https://www.baseball-reference.com/leagues/MLB/{}-standard-fielding.shtml".format(CUR_SEASON)
+	field_page = br.get_page(url)
+	fielders = br.build_df(br.get_table_by_class(field_page, 'stats_table'), 1, ['Name', 'Tm', 'Lg', 'Pos\xa0Summary'], ['Rk', 'Age'])
 
-	of_page = br.get_of_fielding_page()
-	ofs = br.get_player_table(of_page)
+	url = "https://www.baseball-reference.com/leagues/MLB/{}-specialpos_of-fielding.shtml".format(CUR_SEASON)
+	of_page = br.get_page(url)
+	ofs = br.build_df(br.get_table_by_class(of_page, 'stats_table'), 1, ['Name', 'Tm', 'Lg'], ['Rk', 'Age'])
 	
 	df2 = pd.merge(batters, ofs[['A', 'Name', 'Tm']], on=['Name', 'Tm'], how='left').fillna(0)
 	df2.rename(columns={'A':'OFA'}, inplace=True)
@@ -53,17 +56,21 @@ def get_all_batter_fps():
 	return df
 
 def get_all_pitcher_fps():
-	page = br.get_standard_pitching_page()
-	pitchers = br.get_player_table(page)
+	url = "https://www.baseball-reference.com/leagues/MLB/{}-standard-pitching.shtml".format(CUR_SEASON)
+	page = br.get_page(url)
+	pitchers = br.build_df(br.get_table_by_class(page, 'stats_table'), 1, ['Name', 'Tm', 'Lg'], ['Rk', 'Age'])
 
-	relief_page = br.get_relief_page()
-	relievers = br.get_player_table(relief_page)
+	url = "https://www.baseball-reference.com/leagues/MLB/{}-reliever-pitching.shtml".format(CUR_SEASON)
+	relief_page = br.get_page(url)
+	relievers = br.build_df(br.get_table_by_class(relief_page, 'stats_table'), 1, ['Name', 'Tm'], ['Rk', 'Age'])
 
-	qs_page = br.get_starting_page()
-	qs_table = br.get_player_table(qs_page)
+	url = "https://www.baseball-reference.com/leagues/MLB/{}-starter-pitching.shtml".format(CUR_SEASON)
+	qs_page = br.get_page(url)
+	qs_table = br.build_df(br.get_table_by_class(qs_page, 'stats_table'), 1, ['Name', 'Tm'], ['Rk', 'Age'])
 
-	sb_page = br.get_sb_pitching_page()
-	sb_table = br.get_player_table(sb_page)
+	url = "https://www.baseball-reference.com/leagues/MLB/{}-basesituation-pitching.shtml".format(CUR_SEASON)
+	sb_page = br.get_page(url)
+	sb_table = br.build_df(br.get_table_by_class(sb_page, 'stats_table'), 1, ['Name', 'Tm'], ['Rk', 'Age'])
 
 	df2 = pd.merge(pitchers, relievers[['Hold', 'BSv', 'Name', 'Tm']], on=['Name', 'Tm'], how='left').fillna(0)
 	df3 = pd.merge(df2, qs_table[['QS', 'Name', 'Tm']], on=['Name', 'Tm'], how='left').fillna(0)
