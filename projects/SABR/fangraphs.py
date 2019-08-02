@@ -10,24 +10,12 @@ import pymongo #pymongo-3.7.2
 gamelog_categories = {'dashboard': 0, 'standard': 1, 'advanced': 2, 'batted-ball': 3, 'more-batted-ball': 4, 'win-probability': 5, 'pitch-type': 6, 'pitch-value': 7, 'plate-discipline': 8}
 split_categories = {'handedness': 0, 'home-away': 1, 'monthly': 2, 'leverage': 3, 'situational': 4, 'through-count': 5, 'sp-rp': 6, 'shifts': 7, 'tto': 8}
 
-CUR_YEAR = '2019'
+CUR_SEASON = '2019'
 
 def conn():
 	return pymongo.MongoClient("mongodb+srv://admin:pdometer@mongo-uwij2.mongodb.net/test?retryWrites=true")
 
-def get_category(cat):
-	return gamelog_categories[cat]
-
-def get_split(split):
-	return split_categories[split]
-
-def get_sabersim_page(pos, ptype):
-	url = "https://www.fangraphs.com/dailyprojections.aspx?pos={}&stats={}&type=sabersim&team=0&lg=all&players=0&page=1_1000".format(pos, ptype)
-	r = requests.get(url)
-	html = r.text.replace('<!--', '').replace('-->', '')
-	return BeautifulSoup(html, "lxml")
-
-def get_player_stats_page(ptype='pit', cat='8', season=CUR_YEAR, active='0'):
+def get_player_stats_page(ptype='pit', cat='8', season=CUR_SEASON, active='0'):
 	url = '''
 	https://www.fangraphs.com/leaders.aspx?
 	pos=all&
@@ -50,29 +38,10 @@ def get_player_stats_page(ptype='pit', cat='8', season=CUR_YEAR, active='0'):
 	html = r.text.replace('<!--', '').replace('-->', '')
 	return BeautifulSoup(html, "lxml")
 
-def get_gamelog_page(pid, cat='dashboard', start='2019-04-01', end=None):
-	if end is None:
-		end = str(dt.datetime.now()).split(' ')[0]
-	t_num = get_category(cat)
-	url = "https://www.fangraphs.com/statsd.aspx?playerid={}&position=P&type={}&gds={}&gde={}".format(pid, t_num, start, end)
-	r = requests.get(url)
-	html = r.text.replace('<!--', '').replace('-->', '')
-	return BeautifulSoup(html, "lxml")
+def get_table_by_class(page, _class):
+	return page.find('table',{'class':_class})
 
-def get_splits_page(pid, season=CUR_YEAR):
-	url = "https://www.fangraphs.com/statsplits.aspx?playerid={}&position=P&season={}".format(pid, season)
-	r = requests.get(url)
-	html = r.text.replace('<!--', '').replace('-->', '')
-	return BeautifulSoup(html, "lxml")
-
-def get_splits_leaderboard(season=CUR_YEAR):
-	url = "https://www.fangraphs.com/leaderssplits.aspx?splitArr=43,5&strgroup=season&statgroup=1&startDate={}-3-1&endDate={}-11-1&filter=IP%7Cgt%7C20&position=P&statType=player&autoPt=true&players=&pg=0&pageItems=30&sort=19,-1".format(season, season)
-	r = requests.get(url)
-	html = r.text.replace('<!--', '').replace('-->', '')
-	return BeautifulSoup(html, "lxml")
-
-def get_table(page, offset=0):
-	table = page.find('table',{'class':'rgMasterTable'})
+def build_df(table, offset=0):
 	ths = table.find_all('th')
 	headings = []
 	for th in ths:
@@ -87,6 +56,66 @@ def get_table(page, offset=0):
 
 	df = pd.DataFrame(data=data, columns=headings)
 	return df
+
+def teamname_to_abbr(df, abbr_type):
+	"""
+	This method takes a dataframe of players and matches each player's team name against a given Team Abbreviation Type stored in MongoDB
+	"""
+	client = conn()
+	db = client['SABR']
+	table = db['teams']
+	abbr_df = pd.DataFrame()
+	abbr_df['Name'] = df['Name']
+	abbr_df['Team'] = df['Team']
+	abbr_df['fullname'] = ''
+	for index, row in abbr_df.iterrows():
+		team_abbr = table.find({ "team" : row['Team'] })
+		abbr_df.loc[index, 'fullname'] = row['Name'].replace(' ', '').strip().lower()
+		row['Team'] = team_abbr[0]['abbrs'][0][abbr_type]
+	return abbr_df
+
+def get_all_pitchers():
+	"""
+	This method takes the full active pitcher list from fangraphs
+	"""
+	page = get_player_stats_page(active='1')
+	table = get_table_by_class(page, 'rgMasterTable')
+	df = build_df(table)
+	return df
+
+#UNUSED - SAVE for FUTURE DEV
+def get_category(cat):
+	return gamelog_categories[cat]
+
+def get_split(split):
+	return split_categories[split]
+
+def get_sabersim_page(pos, ptype):
+	url = "https://www.fangraphs.com/dailyprojections.aspx?pos={}&stats={}&type=sabersim&team=0&lg=all&players=0&page=1_1000".format(pos, ptype)
+	r = requests.get(url)
+	html = r.text.replace('<!--', '').replace('-->', '')
+	return BeautifulSoup(html, "lxml")
+
+def get_gamelog_page(pid, cat='dashboard', start='2019-04-01', end=None):
+	if end is None:
+		end = str(dt.datetime.now()).split(' ')[0]
+	t_num = get_category(cat)
+	url = "https://www.fangraphs.com/statsd.aspx?playerid={}&position=P&type={}&gds={}&gde={}".format(pid, t_num, start, end)
+	r = requests.get(url)
+	html = r.text.replace('<!--', '').replace('-->', '')
+	return BeautifulSoup(html, "lxml")
+
+def get_splits_page(pid, season=CUR_SEASON):
+	url = "https://www.fangraphs.com/statsplits.aspx?playerid={}&position=P&season={}".format(pid, season)
+	r = requests.get(url)
+	html = r.text.replace('<!--', '').replace('-->', '')
+	return BeautifulSoup(html, "lxml")
+
+def get_splits_leaderboard(season=CUR_SEASON):
+	url = "https://www.fangraphs.com/leaderssplits.aspx?splitArr=43,5&strgroup=season&statgroup=1&startDate={}-3-1&endDate={}-11-1&filter=IP%7Cgt%7C20&position=P&statType=player&autoPt=true&players=&pg=0&pageItems=30&sort=19,-1".format(season, season)
+	r = requests.get(url)
+	html = r.text.replace('<!--', '').replace('-->', '')
+	return BeautifulSoup(html, "lxml")
 
 def get_split_data(page, split='handedness'):
 	headings = []
@@ -115,25 +144,6 @@ def get_split_data(page, split='handedness'):
 		data.append([cell.text for cell in cells])
 	df = pd.DataFrame(data=data, columns=headings)
 	return df
-
-def get_all_pitchers():
-	client = conn()
-	db = client['SABR']
-	table = db['teams']
-	"""
-	This method takes the full active pitcher list from fangraphs and matches the team against Savant Team Abbreviations stored in MongoDB
-	"""
-	p2 = get_player_stats_page(active='1')
-	df = get_table(p2)
-	active_df = pd.DataFrame()
-	active_df['Name'] = df['Name']
-	active_df['Team'] = df['Team']
-	active_df['fullname'] = ''
-	for index, row in active_df.iterrows():
-		team_abbr = table.find({ "team" : row['Team'] })
-		active_df.loc[index, 'fullname'] = row['Name'].replace(' ', '').strip().lower()
-		row['Team'] = team_abbr[0]['abbrs'][0]['sa']
-	return active_df
 
 def main():
 	parser = argparse.ArgumentParser()

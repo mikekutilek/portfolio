@@ -4,7 +4,9 @@ from bs4 import BeautifulSoup
 import requests
 import sys, json, re, time, io
 
-def get_search_page(hfGT='R', hfSea='2019', player_type='pitcher', batter_stands='', position='', hfInn='', min_results='', group_by='name', sort_col=''):
+CUR_SEASON = '2019'
+
+def get_search_page(hfGT='R', hfSea=CUR_SEASON, player_type='pitcher', batter_stands='', position='', hfInn='', min_results='', group_by='name', sort_col=''):
 	url = '''
 	https://baseballsavant.mlb.com/statcast_search?
 	hfPT=&
@@ -71,7 +73,7 @@ def get_search_result_table(page):
 	df = pd.DataFrame(data=data, columns=headings)
 	return df
 
-def get_player_page(firstName='', lastName='', playerId='', category='career', szn_split='r', statType='', league='mlb', season='2019'):
+def get_player_page(firstName='', lastName='', playerId='', category='career', szn_split='r', statType='', league='mlb', season=CUR_SEASON):
 	url = '''
 	https://baseballsavant.mlb.com/savant-player/
 	{}-{}-{}?
@@ -110,7 +112,7 @@ def get_leaderboard_page():
 	r = requests.get("https://baseballsavant.mlb.com/expected_statistics?csv=true").content
 	return r
 
-def get_zones_page(playerId='', playerType='', season='2019', hand=''):
+def get_zones_page(playerId='', playerType='', season=CUR_SEASON, hand=''):
 	url = '''
 	https://baseballsavant.mlb.com/player-services/zones?
 	playerIds={}&

@@ -28,6 +28,7 @@ def get_sps_wOBA_vs(batter_stands):
 
 def get_all_candidates(batter_stands, position):
 	df = fg.get_all_pitchers()
+	abbr_df = fg.teamname_to_abbr(df, 'sa')
 	if position == 'RP':
 		data = get_rps_wOBA_vs(batter_stands)
 	else:
@@ -41,17 +42,14 @@ def get_all_candidates(batter_stands, position):
 		lastname = row['Player'].split(' ')[1:]
 		urlname = row['Player'].replace(' ', '-').strip().lower()
 		uri = urlname + '-' + row['Player ID']
-		if not df.loc[df['fullname'] == playername].empty:
-			if (len(df.loc[df['fullname'] == playername]) != 1):
-				#r = requests.get("https://baseballsavant.mlb.com/savant-player/" + uri)
-				#html = r.text.replace('<!--', '').replace('-->', '')
-				#soup = BeautifulSoup(html, 'lxml')
+		if not abbr_df.loc[abbr_df['fullname'] == playername].empty:
+			if (len(abbr_df.loc[abbr_df['fullname'] == playername]) != 1):
 				page = sa.get_pitcher_page(firstname, lastname, row['Player ID'])
 				table = sa.get_table_from_css("#pitchingStandard > table")
 				t = sa.build_df(table).iloc[[-2]]['Tm'].item()
 				data.loc[index, 'Team'] = t
 			else:
-				t = df.loc[df['fullname'] == playername].Team.item()
+				t = abbr_df.loc[abbr_df['fullname'] == playername].Team.item()
 				data.loc[index, 'Team'] = t
 	return data
 
