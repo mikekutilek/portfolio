@@ -38,10 +38,33 @@ def get_player_stats_page(ptype='pit', cat='8', season=CUR_SEASON, active='0'):
 	html = r.text.replace('<!--', '').replace('-->', '')
 	return BeautifulSoup(html, "lxml")
 
+#"https://www.fangraphs.com/leaders.aspx?pos=all&stats=bat&lg=all&qual=0&type=8&season=1990&month=0&season1=1990&ind=0&team=0,ts&rost=0&age=0&filter=&players=0"
+def get_team_stats_page(ptype='bat', cat='8', season=CUR_SEASON, active='0'):
+	url = '''
+	https://www.fangraphs.com/leaders.aspx?
+	pos=all&
+	stats={}&
+	lg=all&
+	qual=0&
+	type={}&
+	season={}&
+	month=0&
+	season1={}&
+	ind=0&
+	team=0,ts&
+	rost={}&
+	age=0&
+	filter=&
+	players=0
+	'''.replace('\t', '').replace('\n', '').strip().format(ptype, cat, season, season, active)
+	r = requests.get(url)
+	html = r.text.replace('<!--', '').replace('-->', '')
+	return BeautifulSoup(html, "lxml")
+
 def get_table_by_class(page, _class):
 	return page.find('table',{'class':_class})
 
-def build_df(table, offset=0):
+def build_df(table, offset=0, strings=[], ints=[]):
 	ths = table.find_all('th')
 	headings = []
 	for th in ths:
@@ -55,6 +78,13 @@ def build_df(table, offset=0):
 		data.append([cell for cell in cells])
 
 	df = pd.DataFrame(data=data, columns=headings)
+	for heading in headings:
+		if heading in strings: #Strings
+			continue
+		elif heading in ints: #Ints
+			df[heading] = df[heading].replace('', 0).astype(int)
+		else:
+			df[heading] = df[heading].replace('', 0).astype('float64')
 	return df
 
 def teamname_to_abbr(df, abbr_type):
@@ -80,7 +110,7 @@ def get_all_pitchers():
 	"""
 	page = get_player_stats_page(active='1')
 	table = get_table_by_class(page, 'rgMasterTable')
-	df = build_df(table)
+	df = build_df(table, strings=['Name', 'Team'], ints=['#'])
 	return df
 
 #UNUSED - SAVE for FUTURE DEV

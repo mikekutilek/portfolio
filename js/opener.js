@@ -34,7 +34,7 @@
 		    		if (data.data[i].master_abbr == selection || data.data[i].team == selection){
 		    			var sa_abbr = data.data[i].abbrs[0].sa;
 		    			var bref_abbr = data.data[i].abbrs[0].bref;
-		    			$scope.teamName = data.data[i].team;
+		    			$scope.teamName = data.data[i].full_name[0];
 		    			$http.get('/api/v1/sabr/opener/' + bref_abbr).then(function(data){
 				    		var chunkData = data.data;
 				    		$scope.chunk = chunkData;
