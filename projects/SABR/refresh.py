@@ -42,7 +42,7 @@ def load_teams():
 
 def load_team_historical():
 	for season in HIST_SEASON_RANGE:
-		df = wm.get_finished_df(season)
+		df = hist.get_finished_df(season)
 		refresh_table('MLB_TEAM_HISTORICAL', 'fg_dashboard_'+str(season), df)
 
 def load_bref_team_sp():
