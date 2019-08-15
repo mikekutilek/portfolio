@@ -55,6 +55,10 @@ app.get('/war-model', (req, res) => {
     res.sendFile("html/war-model.html", {root: __dirname });
 });
 
+app.get('/war-ranks-hist', (req, res) => {
+    res.sendFile("projects/SABR/graphs/war_ranks_hist.html", {root: __dirname });
+});
+
 app.get('/opener', (req, res) => {
     res.sendFile("html/opener.html", {root: __dirname });
 });
