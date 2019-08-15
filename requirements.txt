@@ -4,3 +4,4 @@ pandas==0.22.0
 requests==2.12.1
 lxml==4.2.5
 pymongo[tls,srv]==3.7.2
+mpld3==0.3
