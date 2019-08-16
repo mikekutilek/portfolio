@@ -220,7 +220,7 @@ function get_mlb_teams(req, res){
     const client = new MongoClient(uri, { useNewUrlParser: true });
     client.connect(err => {
         var dbo = client.db("SABR");
-        dbo.collection('teams').find().toArray(function(err, result){
+        dbo.collection('teams').find().sort({ ['master_abbr'] : 1 }).toArray(function(err, result){
             if (err) {
                 console.log(err);
             }

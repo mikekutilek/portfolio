@@ -632,7 +632,7 @@ h2.menu-item:after{
   background-color: #ffffff;
   color: #428bca;
   font-size: 1.2em;
-  background-size: 85%;
+  background-size: 73%;
   background-repeat: no-repeat;
   background-position: center bottom 3px;
 }
@@ -665,6 +665,10 @@ h2.menu-item:after{
 
 .fp:hover {
   background-image: url('/img/icons/coins.svg')
+}
+
+iframe{
+    overflow:hidden;
 }
 
 .loading {
