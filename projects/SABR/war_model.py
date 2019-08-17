@@ -76,4 +76,3 @@ def plot_yoy(df):
 	ax.plot(df['YEAR'], bwar_ranks, 'go')
 	ax.plot(df['YEAR'], pwar_ranks, 'ro')
 	mpld3.save_html(fig, 'graphs/war_ranks_line.html')
-

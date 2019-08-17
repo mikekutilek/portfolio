@@ -6,7 +6,8 @@
 		"abbrs": [
 			{
 				"sa": "ARI",
-				"bref": "ARI"
+				"bref": "ARI",
+				"bp": ["ARI"]
 			}
 		]
 	},
@@ -17,7 +18,8 @@
 		"abbrs": [
 			{
 				"sa": "ATL",
-				"bref": "ATL"
+				"bref": "ATL", 
+				"bp": ["ATL", "MLN", "BSN", "BSN", null, null, null]
 			}
 		]
 	},
@@ -28,7 +30,8 @@
 		"abbrs": [
 			{
 				"sa": "BAL",
-				"bref": "BAL"
+				"bref": "BAL",
+				"bp": ["BAL", "SLA"]
 			}
 		]
 	},
@@ -39,7 +42,8 @@
 		"abbrs": [
 			{
 				"sa": "BOS",
-				"bref": "BOS"
+				"bref": "BOS",
+				"bp": ["BOS", null]
 			}
 		]
 	},
@@ -50,7 +54,8 @@
 		"abbrs": [
 			{
 				"sa": "CHC",
-				"bref": "CHC"
+				"bref": "CHC",
+				"bp": ["CHN"]
 			}
 		]
 	},
@@ -61,7 +66,8 @@
 		"abbrs": [
 			{
 				"sa": "CIN",
-				"bref": "CIN"
+				"bref": "CIN",
+				"bp": ["CIN", "CIN"]
 			}
 		]
 	},
@@ -72,7 +78,8 @@
 		"abbrs": [
 			{
 				"sa": "CLE",
-				"bref": "CLE"
+				"bref": "CLE",
+				"bp": ["CLE", null]
 			}
 		]
 	},
@@ -83,7 +90,8 @@
 		"abbrs": [
 			{
 				"sa": "COL",
-				"bref": "COL"
+				"bref": "COL",
+				"bp": ["COL"]
 			}
 		]
 	},
@@ -94,7 +102,8 @@
 		"abbrs": [
 			{
 				"sa": "CWS",
-				"bref": "CHW"
+				"bref": "CHW",
+				"bp": ["CHA"]
 			}
 		]
 	},
@@ -105,7 +114,8 @@
 		"abbrs": [
 			{
 				"sa": "DET",
-				"bref": "DET"
+				"bref": "DET",
+				"bp": ["DET"]
 			}
 		]
 	},
@@ -116,7 +126,8 @@
 		"abbrs": [
 			{
 				"sa": "HOU",
-				"bref": "HOU"
+				"bref": "HOU",
+				"bp": ["HOU", "HOU"]
 			}
 		]
 	},
@@ -127,7 +138,8 @@
 		"abbrs": [
 			{
 				"sa": "KC",
-				"bref": "KCR"
+				"bref": "KCR",
+				"bp": ["KCA"]
 			}
 		]
 	},
@@ -138,7 +150,8 @@
 		"abbrs": [
 			{
 				"sa": "LAA",
-				"bref": "LAA"
+				"bref": "LAA",
+				"bp": ["ANA", "ANA", "CAL"]
 			}
 		]
 	},
@@ -149,7 +162,8 @@
 		"abbrs": [
 			{
 				"sa": "LAD",
-				"bref": "LAD"
+				"bref": "LAD",
+				"bp": ["LAN", "BRO", "BRO", null]
 			}
 		]
 	},
@@ -160,7 +174,8 @@
 		"abbrs": [
 			{
 				"sa": "MIA",
-				"bref": "MIA"
+				"bref": "MIA",
+				"bp": ["MIA", "FLO"]
 			}
 		]
 	},
@@ -171,7 +186,8 @@
 		"abbrs": [
 			{
 				"sa": "MIL",
-				"bref": "MIL"
+				"bref": "MIL",
+				"bp": ["MIL", "SE1"]
 			}
 		]
 	},
@@ -182,7 +198,8 @@
 		"abbrs": [
 			{
 				"sa": "MIN",
-				"bref": "MIN"
+				"bref": "MIN",
+				"bp": ["MIN", "WS1"]
 			}
 		]
 	},
@@ -193,7 +210,8 @@
 		"abbrs": [
 			{
 				"sa": "NYM",
-				"bref": "NYM"
+				"bref": "NYM",
+				"bp": ["NYN"]
 			}
 		]
 	},
@@ -204,7 +222,8 @@
 		"abbrs": [
 			{
 				"sa": "NYY",
-				"bref": "NYY"
+				"bref": "NYY",
+				"bp": ["NYA", null]
 			}
 		]
 	},
@@ -215,7 +234,8 @@
 		"abbrs": [
 			{
 				"sa": "OAK",
-				"bref": "OAK"
+				"bref": "OAK",
+				"bp": ["OAK", "KC1", "PHA"]
 			}
 		]
 	},
@@ -226,7 +246,8 @@
 		"abbrs": [
 			{
 				"sa": "PHI",
-				"bref": "PHI"
+				"bref": "PHI",
+				"bp": ["PHI"]
 			}
 		]
 	},
@@ -237,7 +258,8 @@
 		"abbrs": [
 			{
 				"sa": "PIT",
-				"bref": "PIT"
+				"bref": "PIT",
+				"bp": ["PIT"]
 			}
 		]
 	},
@@ -248,7 +270,8 @@
 		"abbrs": [
 			{
 				"sa": "SD",
-				"bref": "SDP"
+				"bref": "SDP",
+				"bp": ["SDN"]
 			}
 		]
 	},
@@ -259,7 +282,8 @@
 		"abbrs": [
 			{
 				"sa": "SEA",
-				"bref": "SEA"
+				"bref": "SEA",
+				"bp": ["SEA"]
 			}
 		]
 	},
@@ -270,7 +294,8 @@
 		"abbrs": [
 			{
 				"sa": "SF",
-				"bref": "SFG"
+				"bref": "SFG",
+				"bp": ["SFN", "NY1"]
 			}
 		]
 	},
@@ -281,7 +306,8 @@
 		"abbrs": [
 			{
 				"sa": "STL",
-				"bref": "STL"
+				"bref": "STL",
+				"bp": ["SLN"]
 			}
 		]
 	},
@@ -292,7 +318,8 @@
 		"abbrs": [
 			{
 				"sa": "TB",
-				"bref": "TBR"
+				"bref": "TBR",
+				"bp": ["TBA", "TBA"]
 			}
 		]
 	},
@@ -303,7 +330,8 @@
 		"abbrs": [
 			{
 				"sa": "TEX",
-				"bref": "TEX"
+				"bref": "TEX",
+				"bp": ["TEX", "WS2"]
 			}
 		]
 	},
@@ -314,7 +342,8 @@
 		"abbrs": [
 			{
 				"sa": "TOR",
-				"bref": "TOR"
+				"bref": "TOR",
+				"bp": ["TOR"]
 			}
 		]
 	},
@@ -325,7 +354,8 @@
 		"abbrs": [
 			{
 				"sa": "WSH",
-				"bref": "WSN"
+				"bref": "WSN",
+				"bp": ["WAS", "MON"]
 			}
 		]
 	},

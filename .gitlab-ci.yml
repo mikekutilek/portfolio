@@ -17,7 +17,7 @@ sabr:
   script:
     - pip install -r requirements.txt
     - cd projects/SABR
-    - python refresh.py
+    - python refresh.py --daily
 
 corsica:
   stage: nhl_refresh
