@@ -137,7 +137,7 @@ def plot_drc_vs_dra(df):
 	fig = plt.figure(figsize=(8, 8))
 	ax = fig.add_subplot(1, 1, 1)
 	ax.invert_yaxis()
-	ax.set_title('DRC+ vs. DRA-')
+	ax.set_title(CUR_SEASON + ' DRC+ vs. DRA-')
 	ax.set_xlabel('DRC+')
 	ax.set_ylabel('DRA-')
 	ax.plot(df['DRC+'], df['DRA-'], 'wo')

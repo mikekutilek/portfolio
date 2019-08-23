@@ -51,6 +51,10 @@ app.get('/projects', (req, res) => {
 	res.sendFile("html/projects.html", {root: __dirname });
 });
 
+app.get('/mlb-graphs', (req, res) => {
+    res.sendFile("html/mlb-team-graphs.html", {root: __dirname });
+});
+
 app.get('/war-model', (req, res) => {
     res.sendFile("html/war-model.html", {root: __dirname });
 });

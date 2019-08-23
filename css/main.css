@@ -643,6 +643,14 @@ h2.menu-item:after{
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+.gr {
+  background-image: url('/img/icons/graph_bw.svg');
+}
+
+.gr:hover {
+  background-image: url('/img/icons/graph.svg');
+}
+
 .wm {
   background-image: url('/img/icons/pitcher_bw.svg');
 }
