@@ -6,6 +6,8 @@ import fangraphs as fg
 import fp
 import opener as op
 import historical as hist
+import extract as ext
+import war_model as wm
 import json
 import pymongo #pymongo-3.7.2
 import os
@@ -45,9 +47,14 @@ def load_team_historical(source, season_range):
 		if source == 'fg':
 			df = hist.get_finished_df(season, 'fg')
 			refresh_table('MLB_TEAM_HISTORICAL', 'fg_dashboard_'+str(season), df)
-		elif source == 'bp':
+		elif source == 'bp' and season >= 1921:
 			df = hist.get_finished_df(season, 'bp')
 			refresh_table('MLB_TEAM_HISTORICAL', 'bp_team_warp_'+str(season), df)
+
+def load_active_pitchers():
+	active_df = fg.get_all_pitchers()
+	df = hist.teamname_to_abbr(active_df)
+	refresh_table('SABR', 'fg_pitchers_active', df)
 
 def load_bref_team_sp():
 	url = "https://www.baseball-reference.com/leagues/MLB/{}-starter-pitching.shtml".format(CUR_SEASON)
@@ -72,6 +79,10 @@ def load_opener_candidates():
 	insert_to_table('SABR', 'opener_candidates', lrp_df)
 	insert_to_table('SABR', 'opener_candidates', rsp_df)
 	insert_to_table('SABR', 'opener_candidates', lsp_df)
+
+def load_daily_graphs():
+	df = ext.load_table('MLB_TEAM_HISTORICAL', 'bp_team_warp_'+CUR_SEASON)
+	wm.plot_drc_vs_dra(df)
 
 def main(args):
 	if args.hist:
@@ -101,10 +112,12 @@ def main(args):
 			print("### HISTORICAL LOAD COMPLETES ###")
 	if args.daily:
 		print("### RUNNING DAILY LOAD ###")
+		load_active_pitchers()
 		load_bref_team_sp()
 		load_batter_fp()
 		load_pitcher_fp()
 		load_opener_candidates()
+		load_daily_graphs()
 		print("### DAILY LOAD COMPLETES ###")
 
 if __name__ == '__main__':
@@ -117,3 +130,4 @@ if __name__ == '__main__':
 	parser.add_argument('--end_year', help="Specify an end year for historical refresh")
 	args = parser.parse_args()
 	main(args)
+	#load_teams()

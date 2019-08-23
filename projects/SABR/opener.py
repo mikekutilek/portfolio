@@ -6,7 +6,9 @@ import sys
 import json
 import argparse
 import fangraphs as fg
+import historical as hist
 import savant as sa
+import extract as ext
 
 def get_rps_wOBA_vs(batter_stands):
 	page = sa.get_search_page(batter_stands=batter_stands, position='RP', min_results='30', sort_col='woba')
@@ -27,8 +29,10 @@ def get_sps_wOBA_vs(batter_stands):
 	return new_data.loc[new_data['wOBA'].astype('float64') > 0.350]
 
 def get_all_candidates(batter_stands, position):
-	df = fg.get_all_pitchers()
-	abbr_df = fg.teamname_to_abbr(df, 'sa')
+	#fg_df = fg.get_all_pitchers()
+	#df = hist.teamname_to_abbr(fg_df)
+	df = ext.load_table('SABR', 'fg_pitchers_active')
+	#print(abbr_df)
 	if position == 'RP':
 		data = get_rps_wOBA_vs(batter_stands)
 	else:
@@ -42,14 +46,14 @@ def get_all_candidates(batter_stands, position):
 		lastname = row['Player'].split(' ')[1:]
 		urlname = row['Player'].replace(' ', '-').strip().lower()
 		uri = urlname + '-' + row['Player ID']
-		if not abbr_df.loc[abbr_df['fullname'] == playername].empty:
-			if (len(abbr_df.loc[abbr_df['fullname'] == playername]) != 1):
+		if not df.loc[df['fullname'] == playername].empty:
+			if (len(df.loc[df['fullname'] == playername]) != 1):
 				page = sa.get_pitcher_page(firstname, lastname, row['Player ID'])
 				table = sa.get_table_from_css("#pitchingStandard > table")
 				t = sa.build_df(table).iloc[[-2]]['Tm'].item()
 				data.loc[index, 'Team'] = t
 			else:
-				t = abbr_df.loc[abbr_df['fullname'] == playername].Team.item()
+				t = df.loc[df['fullname'] == playername]['Master Team'].item()
 				data.loc[index, 'Team'] = t
 	return data
 

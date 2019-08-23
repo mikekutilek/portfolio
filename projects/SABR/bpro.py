@@ -2,6 +2,10 @@ import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
 import requests
+import pymongo
+
+def conn():
+	return pymongo.MongoClient("mongodb+srv://admin:pdometer@mongo-uwij2.mongodb.net/test?retryWrites=true")
 
 def get_team_stats_page(cat, season):
 	if cat == 'batting':
@@ -55,4 +59,27 @@ def build_df(table, strings, ints):
 			df[heading] = df[heading].astype(int)
 		else:
 			df[heading] = df[heading].replace('', 0).astype('float64')
+	return df
+
+def abbr_to_master(df):
+	client = conn()
+	db = client['SABR']
+	table = db['teams']
+	abbr_df = pd.DataFrame()
+	abbr_df['Team'] = df['TEAM']
+	#print(abbr_df)
+	team_abbrs = []
+	for index, row in abbr_df.iterrows():
+		bp_abbr = row['Team'].title().strip().upper()
+		#print(bp_abbr)
+		if bp_abbr == 'AVG':
+			continue
+		abbr = table.find( { 'abbrs.bp' : bp_abbr } )
+		#for doc in abbr:
+		#	print(doc)
+		team_abbr = abbr[0]['master_abbr']
+		#print(team_abbr)
+		team_abbrs.append(team_abbr)
+	for i in range(len(team_abbrs)):
+		df.loc[i, 'Master Team'] = team_abbrs[i]
 	return df

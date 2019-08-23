@@ -87,23 +87,6 @@ def build_df(table, offset=0, strings=[], ints=[]):
 			df[heading] = df[heading].replace('', 0).astype('float64')
 	return df
 
-def teamname_to_abbr(df, abbr_type):
-	"""
-	This method takes a dataframe of players and matches each player's team name against a given Team Abbreviation Type stored in MongoDB
-	"""
-	client = conn()
-	db = client['SABR']
-	table = db['teams']
-	abbr_df = pd.DataFrame()
-	abbr_df['Name'] = df['Name']
-	abbr_df['Team'] = df['Team']
-	abbr_df['fullname'] = ''
-	for index, row in abbr_df.iterrows():
-		team_abbr = table.find({ "team" : row['Team'] })
-		abbr_df.loc[index, 'fullname'] = row['Name'].replace(' ', '').strip().lower()
-		row['Team'] = team_abbr[0]['abbrs'][0][abbr_type]
-	return abbr_df
-
 def get_all_pitchers():
 	"""
 	This method takes the full active pitcher list from fangraphs
@@ -111,6 +94,9 @@ def get_all_pitchers():
 	page = get_player_stats_page(active='1')
 	table = get_table_by_class(page, 'rgMasterTable')
 	df = build_df(table, strings=['Name', 'Team'], ints=['#'])
+	df['fullname'] = ''
+	for index, row in df.iterrows():
+		df.loc[index, 'fullname'] = row['Name'].replace(' ', '').strip().lower()
 	return df
 
 #UNUSED - SAVE for FUTURE DEV

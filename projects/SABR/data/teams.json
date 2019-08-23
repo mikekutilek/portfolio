@@ -2,11 +2,12 @@
 	{
 		"team": ["Diamondbacks"],
 		"full_name": ["Arizona Diamondbacks"],
+		"font_letter": "a",
 		"master_abbr": "ARI",
 		"abbrs": [
 			{
 				"sa": "ARI",
-				"bref": "ARI",
+				"bref": ["ARI"],
 				"bp": ["ARI"]
 			}
 		]
@@ -14,11 +15,12 @@
 	{
 		"team": ["Braves", "Bees", "Rustlers", "Doves", "Beaneaters"],
 		"full_name": ["Atlanta Braves", "Milwaukee Braves", "Boston Braves", "Boston Bees", "Boston Rustlers", "Boston Doves", "Boston Beaneaters"],
+		"font_letter": "P",
 		"master_abbr": "ATL",
 		"abbrs": [
 			{
 				"sa": "ATL",
-				"bref": "ATL", 
+				"bref": ["ATL", "MLN", "BSN", "BSN", "BSN", "BSN", "BSN"], 
 				"bp": ["ATL", "MLN", "BSN", "BSN", null, null, null]
 			}
 		]
@@ -26,11 +28,12 @@
 	{
 		"team": ["Orioles", "Browns"],
 		"full_name": ["Baltimore Orioles", "St. Louis Browns"],
+		"font_letter": "D",
 		"master_abbr": "BAL",
 		"abbrs": [
 			{
 				"sa": "BAL",
-				"bref": "BAL",
+				"bref": ["BAL", "SLB"],
 				"bp": ["BAL", "SLA"]
 			}
 		]
@@ -38,11 +41,12 @@
 	{
 		"team": ["Red Sox", "Americans"],
 		"full_name": ["Boston Red Sox", "Boston Americans"],
+		"font_letter": "e",
 		"master_abbr": "BOS",
 		"abbrs": [
 			{
 				"sa": "BOS",
-				"bref": "BOS",
+				"bref": ["BOS", "BOS"],
 				"bp": ["BOS", null]
 			}
 		]
@@ -50,11 +54,12 @@
 	{
 		"team": ["Cubs"],
 		"full_name": ["Chicago Cubs"],
+		"font_letter": "X",
 		"master_abbr": "CHC",
 		"abbrs": [
 			{
 				"sa": "CHC",
-				"bref": "CHC",
+				"bref": ["CHC"],
 				"bp": ["CHN"]
 			}
 		]
@@ -62,11 +67,12 @@
 	{
 		"team": ["Reds", "Redlegs"],
 		"full_name": ["Cincinnati Reds", "Cincinnati Redlegs"],
+		"font_letter": "W",
 		"master_abbr": "CIN",
 		"abbrs": [
 			{
 				"sa": "CIN",
-				"bref": "CIN",
+				"bref": ["CIN", "CIN"],
 				"bp": ["CIN", "CIN"]
 			}
 		]
@@ -74,11 +80,12 @@
 	{
 		"team": ["Indians", "Naps"],
 		"full_name": ["Cleveland Indians", "Cleveland Naps"],
+		"font_letter": "G",
 		"master_abbr": "CLE",
 		"abbrs": [
 			{
 				"sa": "CLE",
-				"bref": "CLE",
+				"bref": ["CLE", "CLE"],
 				"bp": ["CLE", null]
 			}
 		]
@@ -86,11 +93,12 @@
 	{
 		"team": ["Rockies"],
 		"full_name": ["Colorado Rockies"],
+		"font_letter": "b",
 		"master_abbr": "COL",
 		"abbrs": [
 			{
 				"sa": "COL",
-				"bref": "COL",
+				"bref": ["COL"],
 				"bp": ["COL"]
 			}
 		]
@@ -98,11 +106,12 @@
 	{
 		"team": ["White Sox"],
 		"full_name": ["Chicago White Sox"],
+		"font_letter": "J",
 		"master_abbr": "CWS",
 		"abbrs": [
 			{
 				"sa": "CWS",
-				"bref": "CHW",
+				"bref": ["CHW"],
 				"bp": ["CHA"]
 			}
 		]
@@ -110,11 +119,12 @@
 	{
 		"team": ["Tigers"],
 		"full_name": ["Detroit Tigers"],
+		"font_letter": "F",
 		"master_abbr": "DET",
 		"abbrs": [
 			{
 				"sa": "DET",
-				"bref": "DET",
+				"bref": ["DET"],
 				"bp": ["DET"]
 			}
 		]
@@ -122,11 +132,12 @@
 	{
 		"team": ["Astros", "Colt .45S"],
 		"full_name": ["Houston Astros", "Houston Colt .45s"],
+		"font_letter": "O",
 		"master_abbr": "HOU",
 		"abbrs": [
 			{
 				"sa": "HOU",
-				"bref": "HOU",
+				"bref": ["HOU", "HOU"],
 				"bp": ["HOU", "HOU"]
 			}
 		]
@@ -134,11 +145,12 @@
 	{
 		"team": ["Royals"],
 		"full_name": ["Kansas City Royals"],
+		"font_letter": "H",
 		"master_abbr": "KC",
 		"abbrs": [
 			{
 				"sa": "KC",
-				"bref": "KCR",
+				"bref": ["KCR"],
 				"bp": ["KCA"]
 			}
 		]
@@ -146,23 +158,25 @@
 	{
 		"team": ["Angels"],
 		"full_name": ["Los Angeles Angels", "Anaheim Angels", "California Angels"],
+		"font_letter": "M",
 		"master_abbr": "LAA",
 		"abbrs": [
 			{
 				"sa": "LAA",
-				"bref": "LAA",
-				"bp": ["ANA", "ANA", "CAL"]
+				"bref": ["LAA", "ANA", "CAL"],
+				"bp": ["LAA", "ANA", "ANA", "CAL"]
 			}
 		]
 	},
 	{
 		"team": ["Dodgers", "Robins", "Superbas"],
 		"full_name": ["Los Angeles Dodgers", "Brooklyn Dodgers", "Brooklyn Robins", "Brooklyn Superbas"],
+		"font_letter": "Z",
 		"master_abbr": "LAD",
 		"abbrs": [
 			{
 				"sa": "LAD",
-				"bref": "LAD",
+				"bref": ["LAD", "BRO", "BRO", "BRO"],
 				"bp": ["LAN", "BRO", "BRO", null]
 			}
 		]
@@ -170,11 +184,12 @@
 	{
 		"team": ["Marlins"],
 		"full_name": ["Miami Marlins", "Florida Marlins"],
+		"font_letter": "T",
 		"master_abbr": "MIA",
 		"abbrs": [
 			{
 				"sa": "MIA",
-				"bref": "MIA",
+				"bref": ["MIA", "FLA"],
 				"bp": ["MIA", "FLO"]
 			}
 		]
@@ -182,11 +197,12 @@
 	{
 		"team": ["Brewers", "Pilots"],
 		"full_name": ["Milwaukee Brewers", "Seattle Pilots"],
+		"font_letter": "Y",
 		"master_abbr": "MIL",
 		"abbrs": [
 			{
 				"sa": "MIL",
-				"bref": "MIL",
+				"bref": ["MIL", "SEP"],
 				"bp": ["MIL", "SE1"]
 			}
 		]
@@ -194,11 +210,12 @@
 	{
 		"team": ["Twins", "Senators"],
 		"full_name": ["Minnesota Twins", "Washington Senators"],
+		"font_letter": "I",
 		"master_abbr": "MIN",
 		"abbrs": [
 			{
 				"sa": "MIN",
-				"bref": "MIN",
+				"bref": ["MIN", "WSH"],
 				"bp": ["MIN", "WS1"]
 			}
 		]
@@ -206,11 +223,12 @@
 	{
 		"team": ["Mets"],
 		"full_name": ["New York Mets"],
+		"font_letter": "S",
 		"master_abbr": "NYM",
 		"abbrs": [
 			{
 				"sa": "NYM",
-				"bref": "NYM",
+				"bref": ["NYM"],
 				"bp": ["NYN"]
 			}
 		]
@@ -218,11 +236,12 @@
 	{
 		"team": ["Yankees", "Highlanders"],
 		"full_name": ["New York Yankees", "New York Highlanders"],
+		"font_letter": "B",
 		"master_abbr": "NYY",
 		"abbrs": [
 			{
 				"sa": "NYY",
-				"bref": "NYY",
+				"bref": ["NYY", "NYY"],
 				"bp": ["NYA", null]
 			}
 		]
@@ -230,11 +249,12 @@
 	{
 		"team": ["Athletics"],
 		"full_name": ["Oakland Athletics", "Kansas City Athletics", "Philadelphia Athletics"],
+		"font_letter": "K",
 		"master_abbr": "OAK",
 		"abbrs": [
 			{
 				"sa": "OAK",
-				"bref": "OAK",
+				"bref": ["OAK", "KCA", "PHA"],
 				"bp": ["OAK", "KC1", "PHA"]
 			}
 		]
@@ -242,11 +262,12 @@
 	{
 		"team": ["Phillies"],
 		"full_name": ["Philadelphia Phillies"],
+		"font_letter": "R",
 		"master_abbr": "PHI",
 		"abbrs": [
 			{
 				"sa": "PHI",
-				"bref": "PHI",
+				"bref": ["PHI"],
 				"bp": ["PHI"]
 			}
 		]
@@ -254,11 +275,12 @@
 	{
 		"team": ["Pirates"],
 		"full_name": ["Pittsburgh Pirates"],
+		"font_letter": "U",
 		"master_abbr": "PIT",
 		"abbrs": [
 			{
 				"sa": "PIT",
-				"bref": "PIT",
+				"bref": ["PIT"],
 				"bp": ["PIT"]
 			}
 		]
@@ -266,11 +288,12 @@
 	{
 		"team": ["Padres"],
 		"full_name": ["San Diego Padres"],
+		"font_letter": "d",
 		"master_abbr": "SD",
 		"abbrs": [
 			{
 				"sa": "SD",
-				"bref": "SDP",
+				"bref": ["SDP"],
 				"bp": ["SDN"]
 			}
 		]
@@ -278,11 +301,12 @@
 	{
 		"team": ["Mariners"],
 		"full_name": ["Seattle Mariners"],
+		"font_letter": "N",
 		"master_abbr": "SEA",
 		"abbrs": [
 			{
 				"sa": "SEA",
-				"bref": "SEA",
+				"bref": ["SEA"],
 				"bp": ["SEA"]
 			}
 		]
@@ -290,11 +314,12 @@
 	{
 		"team": ["Giants"],
 		"full_name": ["San Francisco Giants", "New York Giants"],
+		"font_letter": "c",
 		"master_abbr": "SF",
 		"abbrs": [
 			{
 				"sa": "SF",
-				"bref": "SFG",
+				"bref": ["SFG", "NYG"],
 				"bp": ["SFN", "NY1"]
 			}
 		]
@@ -302,11 +327,12 @@
 	{
 		"team": ["Cardinals"],
 		"full_name": ["St. Louis Cardinals"],
+		"font_letter": "V",
 		"master_abbr": "STL",
 		"abbrs": [
 			{
 				"sa": "STL",
-				"bref": "STL",
+				"bref": ["STL"],
 				"bp": ["SLN"]
 			}
 		]
@@ -314,11 +340,12 @@
 	{
 		"team": ["Rays", "Devil Rays"],
 		"full_name": ["Tampa Bay Rays", "Tampa Bay Devil Rays"],
+		"font_letter": "C",
 		"master_abbr": "TB",
 		"abbrs": [
 			{
 				"sa": "TB",
-				"bref": "TBR",
+				"bref": ["TBR", "TBD"],
 				"bp": ["TBA", "TBA"]
 			}
 		]
@@ -326,11 +353,12 @@
 	{
 		"team": ["Rangers", "Senators"],
 		"full_name": ["Texas Rangers", "Washington Senators"],
+		"font_letter": "L",
 		"master_abbr": "TEX",
 		"abbrs": [
 			{
 				"sa": "TEX",
-				"bref": "TEX",
+				"bref": ["TEX", "WSA"],
 				"bp": ["TEX", "WS2"]
 			}
 		]
@@ -338,11 +366,12 @@
 	{
 		"team": ["Blue Jays"],
 		"full_name": ["Toronto Blue Jays"],
+		"font_letter": "E",
 		"master_abbr": "TOR",
 		"abbrs": [
 			{
 				"sa": "TOR",
-				"bref": "TOR",
+				"bref": ["TOR"],
 				"bp": ["TOR"]
 			}
 		]
@@ -350,11 +379,12 @@
 	{
 		"team": ["Nationals", "Expos"],
 		"full_name": ["Washington Nationals", "Montreal Expos"],
+		"font_letter": "Q",
 		"master_abbr": "WSH",
 		"abbrs": [
 			{
 				"sa": "WSH",
-				"bref": "WSN",
+				"bref": ["WSN", "MON"],
 				"bp": ["WAS", "MON"]
 			}
 		]
