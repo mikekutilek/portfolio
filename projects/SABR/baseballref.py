@@ -60,7 +60,7 @@ def abbr_to_master(df, season):
 	abbr_df['Lg'] = df['Lg']
 	team_abbrs = []
 	for index, row in abbr_df.iterrows():
-		bref_abbr = row['Team'].title().strip().upper()
+		bref_abbr = row['Team'].title().strip().upper()[-3:]
 		lg = row['Lg'].title().strip().upper()
 		if bref_abbr == 'AVG':
 			continue
