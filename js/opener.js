@@ -35,10 +35,11 @@
 		    			console.log(data.data[i]);
 		    			var sa_abbr = data.data[i].abbrs[0].sa;
 		    			var bref_abbr = data.data[i].abbrs[0].bref;
+		    			var master_abbr = data.data[i].master_abbr;
 		    			$scope.teamName = data.data[i].full_name[0];
 		    			console.log(sa_abbr);
 		    			console.log(bref_abbr);
-		    			$http.get('/api/v1/sabr/opener/' + bref_abbr).then(function(data){
+		    			$http.get('/api/v1/sabr/opener/' + master_abbr).then(function(data){
 				    		var chunkData = data.data;
 				    		$scope.chunk = chunkData;
 				            $scope.tbl = true;
