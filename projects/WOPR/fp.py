@@ -40,7 +40,11 @@ def get_fp(position):
 	twoptmd = df3['2PM'].astype('float64')
 	twoptcp = df3['2PP'].astype('float64')
 	fumbles = df3['Fmb_y'].astype('float64')
-	games = df3['G'].astype('float64')
+
+	if position == 'QB':
+		games = df3['GS'].astype('float64')
+	else:
+		games = df3['G'].astype('float64')
 
 	fp = (passyds / 30.0) + (passtds * 4.0) - (ints * 2.0) + (rushyds / 10.0) + (receptions * 0.5) + (recyds / 10.0) + (tds * 6.0) + (twoptmd * 2.0) + (twoptcp * 2.0) - (fumbles * 2.0)
 

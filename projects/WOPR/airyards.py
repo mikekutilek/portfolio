@@ -3,6 +3,8 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import requests
 
+CUR_SEASON = "2019"
+
 def get_ay_data():
 	url = "http://airyards.com/2018/weeks"
 	r = requests.get(url)
@@ -10,17 +12,17 @@ def get_ay_data():
 	return df
 
 def get_pfr_rushing():
-	url = "https://www.pro-football-reference.com/years/2018/rushing.htm"
+	url = "https://www.pro-football-reference.com/years/{}/rushing.htm".format(CUR_SEASON)
 	r = requests.get(url)
 	return BeautifulSoup(r.content, "html.parser")
 
 def get_pfr_fantasy():
-	url = "https://www.pro-football-reference.com/years/2018/fantasy.htm"
+	url = "https://www.pro-football-reference.com/years/{}/fantasy.htm".format(CUR_SEASON)
 	r = requests.get(url)
 	return BeautifulSoup(r.content, "html.parser")
 
 def get_pfr_scoring():
-	url = "https://www.pro-football-reference.com/years/2018/scoring.htm"
+	url = "https://www.pro-football-reference.com/years/{}/scoring.htm".format(CUR_SEASON)
 	r = requests.get(url)
 	return BeautifulSoup(r.content, "html.parser")
 
