@@ -6,7 +6,7 @@ import requests
 CUR_SEASON = "2019"
 
 def get_ay_data():
-	url = "http://airyards.com/2018/weeks"
+	url = "http://airyards.com/{}/weeks".format(CUR_SEASON)
 	r = requests.get(url)
 	df = pd.DataFrame(r.json())
 	return df
