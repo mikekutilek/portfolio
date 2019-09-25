@@ -1380,7 +1380,7 @@ iframe{
         background: #FFF;
         transition: all 0.5s ease;
     }
-    .social {
+    .social, .social-photo {
         position: relative;
         margin: 50px 0;
     }
@@ -1497,7 +1497,7 @@ iframe{
     .menu-block:hover {
         background: rgba(0, 0, 0, 0);
     }
-    .social {
+    .social, .social-photo {
         position: relative;
         margin: 50px 0;
     }
@@ -1617,7 +1617,7 @@ iframe{
     h2.menu-item:after {
         display: none;
     }
-    .social {
+    .social, .social-photo {
         display: none;
     }
     .project {
