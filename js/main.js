@@ -5,6 +5,7 @@
 	$('.menu-block, .menu-item').on('click', function() {
 	    $('.name').addClass('reverse');
 	    $('.name-container').addClass('reverse');
+	    $('.photo-container').addClass('reverse');
 	    $('.menu-blocks').addClass('hidex');
 	    $('.inline-nav-container').addClass('showx');
 	    $('.inline-nav-container.style2').addClass('dark');
@@ -61,6 +62,7 @@
 	$('#close').on('click', function() {
 	    $('.name').removeClass('reverse');
 	    $('.name-container').removeClass('reverse');
+	    $('.photo-container').removeClass('reverse');
 	    $('.content-blocks').removeClass('showx');
 	    $('.menu-blocks').removeClass('hidex');
 	    $('.inline-nav-container').removeClass('showx');

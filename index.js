@@ -35,6 +35,10 @@ app.get('/', (req, res) => {
 	res.sendFile("index.html", {root: __dirname });
 });
 
+app.get('/photo', (req, res) => {
+    res.sendFile("html/photo.html", {root: __dirname });
+});
+
 app.get('/photography', (req, res) => {
 	res.sendFile("html/photography.html", {root: __dirname });
 });
@@ -69,6 +73,26 @@ app.get('/fp', (req, res) => {
 
 app.get('/galleries', (req, res) => {
 	res.sendFile("config/galleries.json", {root: __dirname });
+});
+
+app.get('/timelapse', (req, res) => {
+    res.sendFile("html/time-lapse.html", {root: __dirname });
+});
+
+app.get('/shop', (req, res) => {
+    res.sendFile("html/shop.html", {root: __dirname });
+});
+
+app.get('/events', (req, res) => {
+    res.sendFile("html/events.html", {root: __dirname });
+});
+
+app.get('/offers', (req, res) => {
+    res.sendFile("html/offers.html", {root: __dirname });
+});
+
+app.get('/contact', (req, res) => {
+    res.sendFile("html/contact.html", {root: __dirname });
 });
 
 function call_pitchtype(req, res){

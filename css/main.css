@@ -1,10 +1,22 @@
-body{
+body.main{
   margin: 0;
   height: 100%;
   font-family: Noto Sans;
   overflow-x: hidden;
   overflow-y: hidden;
   background-image: url('/img/me/me.jpg'); 
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  background-attachment: fixed
+}
+
+body.photo{
+  margin: 0;
+  height: 100%;
+  font-family: Noto Sans;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background-image: url('/img/pittsburgh/bg.jpg'); 
   background-repeat: no-repeat; 
   background-size: cover; 
   background-attachment: fixed
@@ -182,7 +194,59 @@ ul {
   margin-bottom: 0;
 }
 
+.photo-container {
+  transform: rotate(34deg);
+  padding-left: 240px;
+  font: 400 14px 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  display: table-cell;
+  height: 100%;
+  /*padding: 0px 60px;*/
+  vertical-align: middle;
+}
+
+.photo-container.reverse {
+  display: table-cell;
+  height: 100%;
+  vertical-align: middle;
+  transform: rotate(0deg);
+  padding: 0 30px;
+}
+
+.photo-container h1 span {
+  font-size: 26px;
+  font-weight: 300;
+  display: block;
+  text-transform: capitalize;
+}
+
+.photo-container h1 {
+  text-transform: capitalize;
+  font-weight: 700;
+  color: #FFF;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.photo-container h2 {
+  text-transform: capitalize;
+  font-weight: 700;
+  color: #FFF;
+  text-transform: uppercase;
+  font-size: 22px;
+  line-height: 26px;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
 .name-container .btn-download:hover {
+  color: #FFF;
+  background-color: #333;
+  border: none;
+  letter-spacing: 2px;
+}
+
+.photo-container .btn-etsy:hover {
   color: #FFF;
   background-color: #333;
   border: none;
@@ -193,6 +257,29 @@ ul {
   color: #FFF;
   text-transform: uppercase;
   margin: 20px 0;
+  border-radius: 0;
+  font-weight: 600;
+  transition: all .3s;
+  transition-property: all;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  transition-delay: 0s;
+  position: relative;
+  background-color: #333;
+  letter-spacing: 2px;
+  overflow: hidden;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  user-select: none;
+  line-height: 1.25;
+}
+
+.photo-container .btn {
+  color: #FFF;
+  text-transform: uppercase;
+  margin: 10px 0;
   border-radius: 0;
   font-weight: 600;
   transition: all .3s;
@@ -224,6 +311,13 @@ ul {
   font-size: 14px;
   padding: 16px 55px 16px 25px;
 }
+
+.photo-container .btn-etsy {
+  border: none;
+  font-size: 14px;
+  padding: 16px 55px 16px 25px;
+}
+
 .name-container .btn-download:before {
   position: absolute;
   content: '\f407';
@@ -231,6 +325,15 @@ ul {
   top: 12px;
   right: 16px;
   font-size: 24px;
+}
+
+.photo-container .btn-etsy:before {
+  position: absolute;
+  content: '\f39C';
+  font-family: 'Ionicons';
+  top: 10px;
+  right: 14px;
+  font-size: 20px;
 }
 
 .name-container .btn-download:after {
@@ -248,6 +351,23 @@ ul {
   transition-timing-function: ease;
   transition-delay: 0s;
 }
+
+.photo-container .btn-etsy:after {
+  content: "";
+  position: absolute;
+  background-color: rgba(0,0,0,0.2);
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  
+  transition: all .3s;
+  transition-property: all;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  transition-delay: 0s;
+}
+
 .name-container .btn-download:hover:before {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
@@ -261,7 +381,30 @@ ul {
   transform-origin: center bottom;
 }
 
+.photo-container .btn-etsy:hover:before {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: fadeOutDown;
+  animation-name: fadeOutDown;
+  -webkit-transform-origin: center bottom;
+  transform-origin: center bottom;
+}
+
 .name-container .btn-download:hover:after{
+  width: 50px;
+  height: 70px;
+  right: -5px;
+  top: -5px;
+  -ms-transform: rotate(15deg);
+  -webkit-transform: rotate(15deg);
+  transform: rotate(15deg);
+}
+
+.photo-container .btn-etsy:hover:after{
   width: 50px;
   height: 70px;
   right: -5px;
@@ -537,12 +680,12 @@ h2.menu-item:after{
   top: 0;
 }
 
-.social {
+.social, .social-photo {
   position: absolute;
   bottom: 15%;
 }
 
-.social li {
+.social li, .social-photo li {
   display: inline-block;
   margin-right: 2px;
   text-align: center;
@@ -562,7 +705,21 @@ h2.menu-item:after{
   font-size: 12px;
 }
 
-.social a:hover {
+.social-photo a{
+  border: 2px solid #FFF;
+  color: #FFF;
+  display: inline-block;
+  height: 45px;
+  width: 45px;
+  transition: all 0.5s;
+}
+
+.social-photo li i {
+  line-height: 40px;
+  font-size: 16px;
+}
+
+.social a:hover, .social-photo a:hover {
   background-color: rgba(255, 255, 255, 0.7);
   border: 2px solid transparent;
   color: #333;
@@ -1066,6 +1223,15 @@ iframe{
         font-size: 22px;
         min-height: 22px;
     }
+    .photo-container h1 {
+        font-size: 40px;
+        line-height: 1.1;
+    }
+    .photo-container h1 span,
+    .photo-container h2 {
+        font-size: 22px;
+        min-height: 22px;
+    }
     .menu2 .name {
         padding: 0 0 0 20px;
     }
@@ -1074,6 +1240,14 @@ iframe{
     }
     .menu2 .name-container h1 span,
     .menu2 .name-container h2 {
+        font-size: 26px;
+        min-height: 26px;
+    }
+    .menu2 .photo-container h1 {
+        font-size: 50px;
+    }
+    .menu2 .photo-container h1 span,
+    .menu2 .photo-container h2 {
         font-size: 26px;
         min-height: 26px;
     }
@@ -1181,6 +1355,7 @@ iframe{
         border-bottom: none;
     }
     .name-container,
+    .photo-container,
     .about-container,
     .projects-container,
     .photography-container,
@@ -1286,6 +1461,7 @@ iframe{
         border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     }
     .name-container,
+    .photo-container,
     .about-container,
     .projects-container,
     .photography-container,
@@ -1363,6 +1539,14 @@ iframe{
         font-size: 22px;
         min-height: 22px;
     }
+    .menu2 .photo-container h1 {
+        font-size: 40px;
+    }
+    .menu2 .photo-container h1 span,
+    .menu2 .photo-container h2 {
+        font-size: 22px;
+        min-height: 22px;
+    }
     .status {
         display: none;
     }
@@ -1402,6 +1586,16 @@ iframe{
         font-size: 36px;
     }
     .name-container h2 {
+        font-size: 22px;
+        min-height: 22px;
+    }
+    .photo-container h1 span {
+        font-size: 22px;
+    }
+    .photo-container h1 {
+        font-size: 36px;
+    }
+    .photo-container h2 {
         font-size: 22px;
         min-height: 22px;
     }
