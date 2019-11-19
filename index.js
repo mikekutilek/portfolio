@@ -1,6 +1,7 @@
 //index.js
 
 const express = require('express');
+const subdomain = require('express-subdomain');
 const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -24,15 +25,21 @@ const uri = "mongodb+srv://admin:pdometer@mongo-uwij2.mongodb.net/test?retryWrit
 
 //App
 const app = express();
+const router = express.Router();
+
+app.use(express.static(__dirname + '/'));
+app.use(subdomain('photo', router));
 
 app.listen(PORT, () => {
     console.log(`Running on ${PORT}`);
 });
 
-app.use(express.static(__dirname + '/'));
-
 app.get('/', (req, res) => {
 	res.sendFile("index.html", {root: __dirname });
+});
+
+router.get('/', (req, res) => {
+    res.sendFile("html/photo.html", {root: __dirname });
 });
 
 app.get('/photo', (req, res) => {
