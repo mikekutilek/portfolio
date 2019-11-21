@@ -19,7 +19,7 @@ body.photo{
   background-image: url('/img/pittsburgh/bg.jpg'); 
   background-repeat: no-repeat; 
   background-size: cover; 
-  background-attachment: fixed
+  background-attachment: fixed;
 }
 
 *, *:before, *:after {
@@ -1329,10 +1329,20 @@ iframe{
     }
 }
 
-@media (max-width:800px) and (orientation:landscape) {
+@media (max-width:800px) {
+  body.photo{
+    background: url(../img/pittsburgh/bg.jpg) #333 30% 30%;
+    overflow: scroll;
+  }
+}
+
+@media (max-width:800px) {
     .home {
-        background: url(../images/bg.jpg) #333 30% 30%;
+        
         overflow-y: scroll;
+    }
+    .name {
+      text-align: center;
     }
     .name,
     .about-block,
@@ -1524,6 +1534,7 @@ iframe{
     .inline-nav-container {
         width: 100%;
         left: 0;
+        top: -200px;
     }
 }
 
@@ -1644,7 +1655,7 @@ iframe{
 @media (max-width:576px) {
     .menu4 .inline-nav li {
         font-size: 14px;
-        padding: 0 7px;
+        padding: 7px 7px;
     }
     .single-post-title h1 {
         font-size: 40px;
