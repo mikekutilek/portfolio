@@ -682,7 +682,7 @@ h2.menu-item:after{
 
 .social, .social-photo {
   position: absolute;
-  bottom: 15%;
+  bottom: 10%;
 }
 
 .social li, .social-photo li {
@@ -1330,6 +1330,9 @@ iframe{
 }
 
 @media (max-width:800px) {
+  body.main {
+    overflow: scroll;
+  }
   body.photo{
     background: url(../img/pittsburgh/bg.jpg) #333 30% 30%;
     overflow: scroll;
@@ -1628,9 +1631,7 @@ iframe{
     h2.menu-item:after {
         display: none;
     }
-    .social, .social-photo {
-        display: none;
-    }
+    
     .project {
         width: 100%;
     }
