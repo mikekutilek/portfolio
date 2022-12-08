@@ -15,7 +15,7 @@
     "bootstrap": "^4.1.1",
     "bootstrap-select": "^1.13.1",
     "csvtojson": "^2.0.4",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "express-subdomain": "^1.0.5",
     "jquery": "^3.3.1",
     "mongodb": "^3.1.13",
